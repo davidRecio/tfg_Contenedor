@@ -129,15 +129,15 @@ namespace tfg_api.Controllers
         
 
                 InteracionBBDD interacionBBDD = new();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\TfGContenedor\\tfg_api\\SQL\\ScriptBBDD0.sql");
+                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD0.sql");
                 Task.Delay(1000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\TfGContenedor\\tfg_api\\SQL\\ScriptBBDD1.sql");
+                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD1.sql");
                 Task.Delay(1000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\TfGContenedor\\tfg_api\\SQL\\ScriptBBDD2.sql");
+                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD2.sql");
                 Task.Delay(1000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\TfGContenedor\\tfg_api\\SQL\\ScriptBBDD3.sql");
-                Task.Delay(1000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\TfGContenedor\\tfg_api\\SQL\\ScriptBBDD4.sql");
+                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD3.sql");
+                Task.Delay(5000).Wait();
+                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD4.sql");
                 return StatusCode(200);
             }
             catch (Exception ex)

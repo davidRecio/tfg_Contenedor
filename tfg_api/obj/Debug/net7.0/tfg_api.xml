@@ -89,6 +89,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:tfg_api.Controllers.FormularioController.GetRespuestasFoprmulario(System.Guid,System.String)">
+            <summary>
+            Obtiene todas las respuestas
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:tfg_api.Controllers.FormularioController.GetRespuestas(System.Guid)">
             <summary>
             Obtiene todas las respuestas

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.Xml;
 using tfg_api.DDBB;
@@ -13,7 +14,7 @@ namespace tfg_api.Controllers
     /// Controlador del formulario 
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api")]
     public class FormularioController : Controller
     {
         private readonly RespuestaFormularioBBDD respuestaFormularioBBDD;
@@ -33,10 +34,10 @@ namespace tfg_api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet, Authorize]
-        [Route("Pregunta")]
-        public async Task<IEnumerable<PreguntaFormulario>> GetPreguntas([FromHeader] string tipo)
+        [Route("[controller]/{idFormulario}/Pregunta")]
+        public async Task<IEnumerable<PreguntaFormulario>> GetPreguntas( string idFormulario)
         {
-            var preguntas = await preguntaFormularioBBDD.PreguntaFormularios.Where(p=>p.Tipo.Equals(tipo)).Select(
+            var preguntas = await preguntaFormularioBBDD.PreguntaFormularios.Where(p=>p.Tipo.Equals(idFormulario)).Select(
                 p => new PreguntaFormulario
                 {
                     IdPregunta = p.IdPregunta,
@@ -53,14 +54,50 @@ namespace tfg_api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet, Authorize]
-        [Route("Respuesta")]
-        public async Task<IEnumerable<RespuestaFormulario>> GetRespuestas([FromHeader] Guid IdUsuario)
+        [Route("Usuario/{idUsuario}/[controller]/{idFormulario}/Respuesta")]
+        public async Task<IEnumerable<RespuestaFormulario>> GetRespuestasFoprmulario( Guid IdUsuario, string idFormulario)
+        {
+            List<int> listaChaside = Enumerable.Range(1, 98).ToList();
+            List<int> listaToulouse = Enumerable.Range(99, 107).ToList();
+           
+            if (idFormulario.Equals('0')) {
+
+                var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(IdUsuario)).Where(r => !listaChaside.Any(lC => lC == r.IdPregunta)).Select(
+                   r => new RespuestaFormulario
+                   {
+                       IdPregunta = r.IdPregunta,
+                       Valor = r.Valor
+                   }).ToListAsync();
+                return respuestas;
+            }
+            else {
+                var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(IdUsuario)).Where(r => !listaToulouse.Any(lC => lC == r.IdPregunta)).Select(
+               r => new RespuestaFormulario
+               {
+                   IdPregunta = r.IdPregunta,
+                   Valor = r.Valor
+               }).ToListAsync();
+                return respuestas;
+            }
+           
+
+           
+
+
+        }
+        /// <summary>
+        /// Obtiene todas las respuestas
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Authorize]
+        [Route("Usuario/{idUsuario}/[controller]/Respuesta")]
+        public async Task<IEnumerable<RespuestaFormulario>> GetRespuestas(Guid IdUsuario)
         {
             var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(IdUsuario)).Select(
                 r => new RespuestaFormulario
                 {
                     IdPregunta = r.IdPregunta,
-                     Valor= r.Valor
+                    Valor = r.Valor
                 }).ToListAsync();
 
             return respuestas;
@@ -72,7 +109,7 @@ namespace tfg_api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost, Authorize]
-        [Route("Respuesta")]
+        [Route("Usuario/{idUsuario}/[controller]/Respuesta")]
         public async Task<ActionResult> CrearRespuestas([FromHeader] Guid IdUsuario, [FromBody]IEnumerable<RespuestaFormulario> RespuestaFormulariosBody)
         {
             try
@@ -100,14 +137,15 @@ namespace tfg_api.Controllers
         /// <param name="tipo"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("Respuesta")]
-        public async Task<ActionResult> DeleteRespuestas([FromHeader] Guid id, string tipo )
+        [Route("Usuario/{idUsuario}/[controller]/{idFormulario}/Respuesta")]
+        public async Task<ActionResult> DeleteRespuestas( Guid id, string idFormulario)
         {
-            if (tipo.Equals("C")) {
+            //revisar
+            if (idFormulario.Equals("0")) {
 
                 for (int i = 0; i <= 20; i++) {
 
-                    var respuesta = respuestaFormularioBBDD.RespuestaFormularios.FindAsync(id, tipo);
+                    var respuesta = respuestaFormularioBBDD.RespuestaFormularios.FindAsync(id, idFormulario);
                     if (await respuesta != null)
                     {
                         respuestaFormularioBBDD.Remove(respuesta);
@@ -124,7 +162,7 @@ namespace tfg_api.Controllers
                 for (int i = 20;  i <=30; i++)
                 {
 
-                    var respuesta = respuestaFormularioBBDD.RespuestaFormularios.FindAsync(id, tipo);
+                    var respuesta = respuestaFormularioBBDD.RespuestaFormularios.FindAsync(id, idFormulario);
                     if (await respuesta != null)
                     {
                         respuestaFormularioBBDD.Remove(respuesta);
@@ -144,12 +182,12 @@ namespace tfg_api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut, Authorize]
-        [Route("Respuesta")]
-        public ActionResult UpdateRespuestas([FromHeader] Guid IdUsuario, [FromHeader] string tipo, [FromBody] IEnumerable<RespuestaFormulario> RespuestaFormulariosBody)
+        [Route("Usuario/{idUsuario}/[controller]/{idFormulario}/Respuesta")]
+        public ActionResult UpdateRespuestas(Guid IdUsuario, string idFormulario, [FromBody] IEnumerable<RespuestaFormulario> RespuestaFormulariosBody)
         {
             try
             {
-                Task<ActionResult> task = DeleteRespuestas(IdUsuario, tipo);
+                Task<ActionResult> task = DeleteRespuestas(IdUsuario, idFormulario);
                 task = CrearRespuestas(IdUsuario, RespuestaFormulariosBody);
 
                 return Ok();

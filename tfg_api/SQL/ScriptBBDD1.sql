@@ -32,7 +32,7 @@
 --PreguntaFormularios
 	CREATE TABLE tfg.[dbo].[PreguntaFormularios](
 		[IdPregunta] [int] NOT NULL IDENTITY (1,1) ,
-		[Contenido] [nvarchar](50)  NULL,
+		[Contenido] [nvarchar](200)  NULL,
 		[Imagen_url] [nvarchar](200)  NULL,
 		[Tipo] [nvarchar](1) NOT NULL,
 	 CONSTRAINT [PK_preguntaFormularios] PRIMARY KEY CLUSTERED 

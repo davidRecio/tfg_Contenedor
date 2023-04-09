@@ -8487,11 +8487,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\david\\Documents\\GitHub\\TfGContenedor\\tfg_api\\tfg_api.csproj",
+      "projectUniqueName": "C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\tfg_api.csproj",
       "projectName": "tfg_api",
-      "projectPath": "C:\\Users\\david\\Documents\\GitHub\\TfGContenedor\\tfg_api\\tfg_api.csproj",
+      "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\tfg_api.csproj",
       "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\david\\Documents\\GitHub\\TfGContenedor\\tfg_api\\obj\\",
+      "outputPath": "C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
