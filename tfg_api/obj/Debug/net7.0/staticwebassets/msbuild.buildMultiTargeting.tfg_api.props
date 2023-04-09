@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\tfg_api.props" />
+</Project>

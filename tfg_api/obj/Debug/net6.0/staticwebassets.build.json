@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "+ZNw5Bd7rWlOHzaqPog8C8Dh34lP3jzLirhWmYmvZLk=",
+  "Source": "tfg_api",
+  "BasePath": "_content/tfg_api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
