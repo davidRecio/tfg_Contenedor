@@ -1,0 +1,797 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>tfg_api</name>
+    </assembly>
+    <members>
+        <member name="M:tfg_api.Controllers.AdminController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Constructor por defecto
+            </summary>
+        </member>
+        <member name="M:tfg_api.Controllers.AdminController.Ping">
+            <summary>
+            Servicio para probar el estado del API
+            </summary>
+            <returns>Ping del API</returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AdminController.APILogs(System.String,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            Servicio de obtención de los logs de llamada a los WS
+            </summary>
+            <param name="p1">Nombre del Servicio</param>
+            <param name="p2">User</param>
+            <param name="p3">Fecha (YYYY-MM-DD)</param>
+            <param name="p4">Incluir admin</param>
+            <param name="p5">Datos Identificativos</param>
+            <returns>Lista de Logs</returns>
+        </member>
+        <member name="T:tfg_api.Controllers.AsignaturaController">
+            <summary>
+            Controlador de la asignatura
+            </summary>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.#ctor(tfg_api.DDBB.AsignaturaBBDD)">
+            <summary>
+            Elemento que interactura como puente en base de datos y ruta
+            </summary>
+            <param name="asignaturaBBDD"></param>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.GetAsignaturas">
+            <summary>
+            Obtiene todos las asignaturas
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.GetAsignatura(System.Guid)">
+            <summary>
+             Función encargada de recibir una id de una asignatura y mostrar sus datos
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.AddAsignatura(tfg_api.Model.Asignatura.AddAsignaturaRequest)">
+            <summary>
+            Añade una asignatura
+            </summary>
+            <param name="addAsignaturaRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.UpdateAsignatura(System.Guid,tfg_api.Model.Asignatura.UpdateAsignaturaRequest)">
+            <summary>
+            Actualiza la asignatura
+            </summary>
+            <param name="id"></param>
+            <param name="updateAsignaturaRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.DeleteAsignatura(System.Guid)">
+            <summary>
+            Borra la asignatura
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:tfg_api.Controllers.FormularioController">
+            <summary>
+            Controlador del formulario 
+            </summary>
+        </member>
+        <member name="M:tfg_api.Controllers.FormularioController.#ctor(tfg_api.DDBB.RespuestaFormularioBBDD,tfg_api.DDBB.PreguntaFormularioBBDD)">
+            <summary>
+            Elemento que interactura como puente en base de datos y ruta
+            </summary>
+            <param name="respuestaFormularioBBDD"></param>
+        </member>
+        <member name="M:tfg_api.Controllers.FormularioController.GetPreguntas(System.String)">
+            <summary>
+            Obtiene todas las preguntas
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.FormularioController.GetRespuestas(System.Guid)">
+            <summary>
+            Obtiene todas las respuestas
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.FormularioController.CrearRespuestas(System.Guid,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+            <summary>
+            Crea todas las respuestas
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.FormularioController.DeleteRespuestas(System.Guid,System.String)">
+            <summary>
+            Borra  las respuestas
+            </summary>
+            <param name="id"></param>
+            <param name="tipo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.FormularioController.UpdateRespuestas(System.Guid,System.String,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+            <summary>
+            Actualiza las respuestas
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:tfg_api.Controllers.LoginController">
+            <summary>
+            Exposición del recurso Usuario
+            </summary>
+        </member>
+        <member name="M:tfg_api.Controllers.LoginController.Autenticar(tfg_api.Utils.LoginRequest)">
+            <summary>
+            Genera el token
+            </summary>
+            <param name="login"></param>
+            <returns></returns>
+        </member>
+        <member name="T:tfg_api.Controllers.UsuarioController">
+            <summary>
+            Exposición del recurso Usuario
+            </summary>
+        </member>
+        <member name="M:tfg_api.Controllers.UsuarioController.#ctor(tfg_api.DDBB.UsuarioBBDD)">
+            <summary>
+            Elemento que interactura como puente en base de datos y ruta
+            </summary>
+            <param name="usuarioBBDD"></param>
+        </member>
+        <member name="M:tfg_api.Controllers.UsuarioController.GetUsuarios">
+            <summary>
+            Obtiene todos los usuarios
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.UsuarioController.GetUsuario(System.Guid)">
+            <summary>
+             Función encargada de recibir una id de un usuario y mostrar sus datos
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.UsuarioController.AddUsuario(tfg_api.Model.UsuarioContenedor.AddUsuarioRequest)">
+            <summary>
+            Añade un usuario
+            </summary>
+            <param name="addUsuarioRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.UsuarioController.UpdateUsuario(System.Guid,tfg_api.Model.UsuarioContenedor.UpdateUsuarioRequest)">
+            <summary>
+            Actualiza al usuario
+            </summary>
+            <param name="id"></param>
+            <param name="updateUsuarioRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.UsuarioController.DeleteUsuario(System.Guid)">
+            <summary>
+            Borra al usuario
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:tfg_api.DDBB.AsignaturaBBDD">
+            <summary>
+            clase de conexion con BBDD
+            </summary>
+        </member>
+        <member name="M:tfg_api.DDBB.AsignaturaBBDD.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.AsignaturaBBDD})">
+            <summary>
+            constructor por defecto
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:tfg_api.DDBB.AsignaturaBBDD.Asignaturas">
+            <summary>
+            Interaccion con la BBDD
+            </summary>
+        </member>
+        <member name="T:tfg_api.DDBB.Asignatura_UsuarioBBDD">
+            <summary>
+            clase de conexion con BBDD
+            </summary>
+        </member>
+        <member name="M:tfg_api.DDBB.Asignatura_UsuarioBBDD.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.Asignatura_UsuarioBBDD})">
+            <summary>
+            constructor por defecto
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:tfg_api.DDBB.Asignatura_UsuarioBBDD.Asignatura_Usuarios">
+            <summary>
+            Interaccion con la BBDD
+            </summary>
+        </member>
+        <member name="T:tfg_api.DDBB.PreguntaFormularioBBDD">
+            <summary>
+            clase de conexion con BBDD
+            </summary>
+        </member>
+        <member name="M:tfg_api.DDBB.PreguntaFormularioBBDD.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.PreguntaFormularioBBDD})">
+            <summary>
+            constructor por defecto
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:tfg_api.DDBB.PreguntaFormularioBBDD.PreguntaFormularios">
+            <summary>
+            Interaccion con la BBDD
+            </summary>
+        </member>
+        <member name="T:tfg_api.DDBB.RespuestaFormularioBBDD">
+            <summary>
+            clase de conexion con BBDD
+            </summary>
+        </member>
+        <member name="M:tfg_api.DDBB.RespuestaFormularioBBDD.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.RespuestaFormularioBBDD})">
+            <summary>
+            constructor por defecto
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:tfg_api.DDBB.RespuestaFormularioBBDD.RespuestaFormularios">
+            <summary>
+            Interaccion con la BBDD
+            </summary>
+        </member>
+        <member name="T:tfg_api.DDBB.UsuarioBBDD">
+            <summary>
+            clase de conexion con BBDD
+            </summary>
+        </member>
+        <member name="M:tfg_api.DDBB.UsuarioBBDD.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.UsuarioBBDD})">
+            <summary>
+            constructor por defecto
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:tfg_api.DDBB.UsuarioBBDD.Usuarios">
+            <summary>
+            Interaccion con la BBDD
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura.AddAsignaturaRequest.Nombre">
+            <summary>
+            nombre de la asignatura
+            </summary>
+        </member>
+        <member name="T:tfg_api.Model.Asignatura.Asignatura_UsuarioBBDD">
+            <summary>
+            clase de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura.Asignatura_UsuarioBBDD.IdAsignatura">
+            <summary>
+            identificador de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura.Asignatura_UsuarioBBDD.Tipo">
+            <summary>
+            tipo de la asignatura( humanistica, cientifica...)
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura.Asignatura_UsuarioBBDD.Nombre">
+            <summary>
+            nombre de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura.UpdateAsignaturaRequest.Nombre">
+            <summary>
+            nombre de la asignatura
+            </summary>
+        </member>
+        <member name="T:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD">
+            <summary>
+            clase de la asignatura-Usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.IdAsignatura">
+            <summary>
+            identificador de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.IdUsuario">
+            <summary>
+            referencia al usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.Nota">
+            <summary>
+            Nota de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.Nombre">
+            <summary>
+            nombre de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.Riesgo">
+            <summary>
+            Riesgo en referente a la nota sacada
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.TiempoEstudio">
+            <summary>
+            horas de estudio
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.TiempoRecomendado">
+            <summary>
+            horas de estudio recomendado
+            </summary>
+        </member>
+        <member name="T:tfg_api.Model.Interna.InternalClass">
+            <summary>
+            Clase encargada de gestionar los procesos internos
+            </summary>
+        </member>
+        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularChasideAsync(tfg_api.Model.UsuarioContenedor.Usuario,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+            <summary>
+            calcula los resultados del formulario de CHASIDE
+            </summary>
+            <param name="usuario"></param>
+            <param name="formularioRespuestas"></param>
+        </member>
+        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularTolouseAsync(tfg_api.Model.UsuarioContenedor.Usuario,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+            <summary>
+            calcula CC, IGAP, ICI a través de el formulario de Tolouse
+            </summary>
+            <param name="usuario"></param>
+            <param name="formularioRespuestas"></param>
+        </member>
+        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularAptitudesAsignatura(tfg_api.Model.UsuarioContenedor.Usuario,tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD,System.String)">
+            <summary>
+            recalcula aptitudes segun notas
+            </summary>
+            <param name="usuario"></param>
+            <param name="asignatura"></param>
+            <param name="tipo"></param>
+        </member>
+        <member name="M:tfg_api.Model.Interna.InternalClass.Recomendaciones(tfg_api.Model.UsuarioContenedor.Usuario,tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD,System.String)">
+            <summary>
+            genera las recomendaciones
+            </summary>
+            <param name="usuario"></param>
+            <param name="asignatura"></param>
+            <param name="tipo"></param>
+        </member>
+        <member name="T:tfg_api.Model.PreguntaFormulario.PreguntaFormulario">
+            <summary>
+            clase de preguntas del formulario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.PreguntaFormulario.PreguntaFormulario.IdPregunta">
+            <summary>
+            identificador de la pregunta
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.PreguntaFormulario.PreguntaFormulario.Contenido">
+            <summary>
+            contenido de la pregunta
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.PreguntaFormulario.PreguntaFormulario.Imagen_url">
+            <summary>
+            url de la imagen asociada
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.PreguntaFormulario.PreguntaFormulario.Tipo">
+            <summary>
+            tipo del formulario Toulose o CHASIDE
+            </summary>
+        </member>
+        <member name="T:tfg_api.Model.RespuestaFormulario.RespuestaFormulario">
+            <summary>
+            clase de la respuesta del formulario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.RespuestaFormulario.RespuestaFormulario.IdUsuario">
+            <summary>
+            referencia al usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.RespuestaFormulario.RespuestaFormulario.IdPregunta">
+            <summary>
+            referencia a la pregunta
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.RespuestaFormulario.RespuestaFormulario.Valor">
+            <summary>
+            la respuesta
+            </summary>
+        </member>
+        <member name="T:tfg_api.Model.UsuarioContenedor.Usuario">
+            <summary>
+            Clase Usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.IdUsuario">
+            <summary>
+            identificador de usuario de tipo Guide
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Nombre">
+            <summary>
+            nombre del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Pass">
+            <summary>
+            contraseña del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Administrativas_Contables_Int">
+            <summary>
+            intereses del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Humanisticas_Sociales_Int">
+            <summary>
+            intereses del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Artisticas_Int">
+            <summary>
+            intereses del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Medicina_CsSalud_Int">
+            <summary>
+            intereses del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Ingenieria_Computacion_Int">
+            <summary>
+            intereses del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.DefensaSeguridad_Int">
+            <summary>
+            intereses del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.CienciasExactas_Agrarias_Int">
+            <summary>
+            intereses del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Administrativas_Contables_Apt">
+            <summary>
+            aptitudes del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Humanisticas_Sociales_Apt">
+            <summary>
+            aptitudes del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Artisticas_Apt">
+            <summary>
+            aptitudes del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Medicina_CsSalud_Apt">
+            <summary>
+            aptitudes del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.Ingenieria_Computacion_Apt">
+            <summary>
+            aptitudes del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.DefensaSeguridad_Apt">
+            <summary>
+            aptitudes del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.CienciasExactas_Agrarias_Apt">
+            <summary>
+            aptitudes del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.CC">
+            <summary>
+            CC del usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.IGAP">
+            <summary>
+            IGAPdel usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.UsuarioContenedor.Usuario.ICI">
+            <summary>
+            ICI del usuario
+            </summary>
+        </member>
+        <member name="T:tfg_api.Utils.Logs">
+            <summary>
+            Clase logs
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.Logger">
+            <summary>
+            Gestor de logs Nlog
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.TraceLog">
+            <summary>
+            Log Trace.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.DebugLog">
+            <summary>
+            Log Debug.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.InfoLog">
+            <summary>
+            Log Info.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.WarnLog">
+            <summary>
+            Log Warn.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.ErrorLog">
+            <summary>
+            Log Error.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.FatalLog">
+            <summary>
+            Log Fatal.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.Message">
+            <summary>
+            Mensaje de Log.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.Controller">
+            <summary>
+            Controlador desde el que se lanza el log.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.Action">
+            <summary>
+            Accsión desde la que se lanza el log.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.Logs.LoggedUserSessionVariable">
+            <summary>
+            Usuario que lanza el log.
+            </summary>
+        </member>
+        <member name="M:tfg_api.Utils.Logs.CheckFile">
+            <summary>
+            Función de comprobación de existencia del fichero de Logs.
+            </summary>
+        </member>
+        <member name="M:tfg_api.Utils.Logs.Trace(System.String,System.Object,System.Boolean)">
+            <summary>
+            Trace
+            </summary>
+            <param name="Log">Mensaje Log.</param>
+            <param name="FromBody">Json FromBody.</param>
+            <param name="inactive">Activa o desactiva el log (para delagados)</param>
+        </member>
+        <member name="M:tfg_api.Utils.Logs.Debug(System.String,System.Object,System.Boolean)">
+            <summary>
+            Debug
+            <param name="Log">Mensaje Log.</param>
+            <param name="FromBody">Json FromBody.</param>
+            <param name="inactive"></param>
+            </summary>
+        </member>
+        <member name="M:tfg_api.Utils.Logs.Info(System.String,System.Object,System.Boolean)">
+            <summary>
+            Info
+            </summary>
+            <param name="Log">Mensaje Log.</param>
+            <param name="FromBody">Json FromBody.</param>
+            <param name="inactive"></param>
+        </member>
+        <member name="M:tfg_api.Utils.Logs.Warn(System.String,System.Object,System.Boolean)">
+            <summary>
+            Warn
+            </summary>
+            <param name="Log">Mensaje Log.</param>
+            <param name="FromBody">Json FromBody.</param>
+            <param name="inactive"></param>
+        </member>
+        <member name="M:tfg_api.Utils.Logs.Error(System.String,System.Object,System.Boolean)">
+            <summary>
+            Error
+            </summary>
+            <param name="Log">Mensaje Log.</param>
+            <param name="FromBody">Json FromBody.</param>
+            <param name="inactive"></param>
+        </member>
+        <member name="M:tfg_api.Utils.Logs.Fatal(System.String,System.Object,System.Boolean)">
+            <summary>
+            Fatal
+            </summary>
+            <param name="Log">Mensaje Log.</param>
+            <param name="FromBody">Json FromBody.</param>
+            <param name="inactive"></param>
+        </member>
+        <member name="F:tfg_api.Utils.UtilsMain.IP">
+            <summary>
+            Dirección IP del solicitador del servicio.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.UtilsMain.URL">
+            <summary>
+            URL del servicio solicitado.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.UtilsMain.ID_LOG">
+            <summary>
+            ID llamada.
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.UtilsMain.USER_NAME">
+            <summary>
+            Nombre de usuario
+            </summary>
+        </member>
+        <member name="F:tfg_api.Utils.UtilsMain.Delegated">
+            <summary>
+            Para saber si el WS es delegado o no
+            </summary>
+        </member>
+        <member name="M:tfg_api.Utils.UtilsMain.GetRegistrosLog(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Obtención de la lista de registros de log
+            </summary>
+            <param name="rutaFicheros"></param>
+            <param name="anio"></param>
+            <param name="mes"></param>
+            <param name="dia"></param>
+            <param name="userWS"></param>
+            <param name="nameWS"></param>
+            <param name="datosWS"></param>
+            <returns>Listado de logs</returns>
+        </member>
+        <member name="P:tfg_api.Utils.LoginRequest.Username">
+            <summary>
+            User
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LoginRequest.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.id">
+            <summary>
+            id
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.file_init_line">
+            <summary>
+            Linea de inicio del log
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.file_final_line">
+            <summary>
+            Línea final del log
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.file">
+            <summary>
+            Fichero
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.ip">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.ip_view">
+            <summary>
+            IP normalizada
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.user">
+            <summary>
+            User
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.register">
+            <summary>
+            Registro
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.register_final">
+            <summary>
+            Registro final
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.service">
+            <summary>
+            Servicio
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.results">
+            <summary>
+            Resultados
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.date">
+            <summary>
+            Fecha
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.s_date">
+            <summary>
+            Fecha formateada
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.init_hour">
+            <summary>
+            Hora inicio
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.final_hour">
+            <summary>
+            Hora final
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.tiempoEjecucion">
+            <summary>
+            Tiempo de ejecución
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.error">
+            <summary>
+            Error
+            </summary>
+        </member>
+        <member name="P:tfg_api.Utils.LogItem.error_message">
+            <summary>
+            Mensaje de error
+            </summary>
+        </member>
+        <member name="M:tfg_api.Utils.LogItem.#ctor(System.String,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="id"></param>
+            <param name="file_init_line"></param>
+            <param name="file_final_line"></param>
+            <param name="file"></param>
+            <param name="ip"></param>
+            <param name="user"></param>
+            <param name="register"></param>
+            <param name="service"></param>
+            <param name="results"></param>
+            <param name="date"></param>
+            <param name="init_hour"></param>
+            <param name="final_hour"></param>
+        </member>
+        <member name="M:tfg_api.Utils.LogItem.GetTiempoRespuesta">
+            <summary>
+            Obtener tiempo de ejecución
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:tfg_api.Utils.TokenGenerator">
+            <summary>
+            JWT Token generator class using "secret-key"
+            more info: https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
+            </summary>
+        </member>
+        <member name="T:tfg_api.Utils.TokenValidationHandler">
+            <summary>
+            Token validator for Authorization Request using a DelegatingHandler
+            </summary>
+        </member>
+    </members>
+</doc>
