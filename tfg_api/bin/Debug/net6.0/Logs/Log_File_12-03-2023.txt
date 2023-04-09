@@ -1,0 +1,6 @@
+2023-03-12 19:59:24.9560|TRACE|tfg_api.Utils.Logs|Controller.|ID: jyyQHy8pKUWC7xy90ltg7g, Inicio llamada WS, IP: localhost:7076 URL: /api/Login USER: admin.FromBody: null
+2023-03-12 19:59:25.0295|TRACE|tfg_api.Utils.Logs|Controller.|ID: jyyQHy8pKUWC7xy90ltg7g, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Login.FromBody: null
+2023-03-12 20:28:07.4193|TRACE|tfg_api.Utils.Logs|Controller.|ID: aPxD7pfdEUvIalswmk9ug, Inicio llamada WS, IP: localhost:7076 URL: /api/Login USER: admin.FromBody: null
+2023-03-12 20:28:07.4941|TRACE|tfg_api.Utils.Logs|Controller.|ID: aPxD7pfdEUvIalswmk9ug, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Login.FromBody: null
+2023-03-12 20:42:11.6219|TRACE|tfg_api.Utils.Logs|Controller.|ID: tJDcUTdAzE2dKuhOhAEBQ, Inicio llamada WS, IP: localhost:7076 URL: /api/Login USER: admin.FromBody: null
+2023-03-12 20:42:11.6997|TRACE|tfg_api.Utils.Logs|Controller.|ID: tJDcUTdAzE2dKuhOhAEBQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Login.FromBody: null

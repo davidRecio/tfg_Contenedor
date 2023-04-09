@@ -1,0 +1,2 @@
+2023-03-01 13:52:42.2777|TRACE|tfg_api.Utils.Logs|Controller.|ID: 1ql5hzUGaEicdrZ0PUbb8w, Inicio llamada WS, IP: localhost:7076 URL: /api/Login USER: admin.FromBody: null
+2023-03-01 13:52:42.3899|TRACE|tfg_api.Utils.Logs|Controller.|ID: 1ql5hzUGaEicdrZ0PUbb8w, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Login.FromBody: null
