@@ -18,6 +18,6 @@ namespace tfg_api.DDBB
         /// <summary>
         /// Interaccion con la BBDD
         /// </summary>
-        public DbSet<Model.Asignatura.Asignatura_UsuarioBBDD> Asignaturas { get; set; }
+        public DbSet<Asignatura> Asignaturas { get; set; }
     }
 }

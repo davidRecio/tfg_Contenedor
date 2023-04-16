@@ -16,12 +16,12 @@ namespace tfg_api.Model.PreguntaFormulario
         /// <summary>
         /// contenido de la pregunta
         /// </summary>
-        [Required, StringLength(50)]
+        [ StringLength(200)]
         public string? Contenido { get; set; }
         /// <summary>
         /// url de la imagen asociada
         /// </summary>
-        [Required, StringLength(200)]
+        [ StringLength(200)]
         public string? Imagen_url { get; set; }
         /// <summary>
         /// tipo del formulario Toulose o CHASIDE

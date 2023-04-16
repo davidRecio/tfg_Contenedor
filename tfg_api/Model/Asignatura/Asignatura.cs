@@ -6,7 +6,7 @@ namespace tfg_api.Model.Asignatura
     /// <summary>
     /// clase de la asignatura
     /// </summary>
-    public class Asignatura_UsuarioBBDD
+    public class Asignatura
     {
         /// <summary>
         /// identificador de la asignatura

@@ -1,8 +1,7 @@
 ﻿
 using tfg_api.DDBB;
-using tfg_api.Model.RespuestaFormulario;
 using tfg_api.Model.UsuarioContenedor;
-using tfg_api.Model.Asignatura_UsuarioBBDD;
+using tfg_api.Model.AsignaturaUsuario;
 
 namespace tfg_api.Model.Interna
 {
@@ -244,7 +243,7 @@ namespace tfg_api.Model.Interna
         /// <param name="usuario"></param>
         /// <param name="asignatura"></param>
         /// <param name="tipo"></param>
-        public async void CalcularAptitudesAsignatura(Usuario usuario, Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD asignatura, string tipo) {
+        public async void CalcularAptitudesAsignatura(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipo) {
             usuario.Administrativas_Contables_Apt = 0;
             usuario.Humanisticas_Sociales_Apt = 0;
             usuario.Artisticas_Apt = 0;
@@ -420,7 +419,7 @@ namespace tfg_api.Model.Interna
         /// <param name="usuario"></param>
         /// <param name="asignatura"></param>
         /// <param name="tipo"></param>
-        public async void Recomendaciones(Usuario usuario, Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD asignatura, string tipo) {
+        public async void Recomendaciones(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipo) {
             // tiempo recomendado por asignatura de manera semanal son 2 horas minimo  maximo 6
             // si tienes un interes bajo lo mas seguro es que abandones la carrera, por lo que aumenta el riesgo de no estudiar
 

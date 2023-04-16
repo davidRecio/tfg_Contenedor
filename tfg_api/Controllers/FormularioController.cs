@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.Xml;
 using tfg_api.DDBB;
-using tfg_api.Model.Asignatura;
+using tfg_api.Model.Interna;
 using tfg_api.Model.PreguntaFormulario;
 using tfg_api.Model.RespuestaFormulario;
+using tfg_api.Model.UsuarioContenedor;
 
 namespace tfg_api.Controllers
 {
@@ -19,14 +18,17 @@ namespace tfg_api.Controllers
     {
         private readonly RespuestaFormularioBBDD respuestaFormularioBBDD;
         private readonly PreguntaFormularioBBDD preguntaFormularioBBDD;
+        private readonly UsuarioBBDD usuarioBBDD;
         /// <summary>
         /// Elemento que interactura como puente en base de datos y ruta
         /// </summary>
         /// <param name="respuestaFormularioBBDD"></param>
-        public FormularioController(RespuestaFormularioBBDD respuestaFormularioBBDD, PreguntaFormularioBBDD preguntaFormularioBBDD)
+        /// <param name="preguntaFormularioBBDD"></param>
+        public FormularioController(RespuestaFormularioBBDD respuestaFormularioBBDD, PreguntaFormularioBBDD preguntaFormularioBBDD, UsuarioBBDD usuarioBBDD)
         {
             this.respuestaFormularioBBDD = respuestaFormularioBBDD;
             this.preguntaFormularioBBDD = preguntaFormularioBBDD;
+            this.usuarioBBDD = usuarioBBDD;
         }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace tfg_api.Controllers
                     IdPregunta = p.IdPregunta,
                     Contenido = p.Contenido,
                     Imagen_url = p.Imagen_url,
+                    Tipo=p.Tipo,
                 }).ToListAsync();
 
             return preguntas;
@@ -53,27 +56,29 @@ namespace tfg_api.Controllers
         /// Obtiene todas las respuestas
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Authorize]
+        [HttpGet]
         [Route("Usuario/{idUsuario}/[controller]/{idFormulario}/Respuesta")]
-        public async Task<IEnumerable<RespuestaFormulario>> GetRespuestasFoprmulario( Guid IdUsuario, string idFormulario)
+        public async Task<IEnumerable<RespuestaFormulario>> GetRespuestasFoprmulario( Guid idUsuario, int idFormulario)
         {
             List<int> listaChaside = Enumerable.Range(1, 98).ToList();
             List<int> listaToulouse = Enumerable.Range(99, 107).ToList();
            
-            if (idFormulario.Equals('0')) {
+            if (idFormulario==0) {
 
-                var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(IdUsuario)).Where(r => !listaChaside.Any(lC => lC == r.IdPregunta)).Select(
+                var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario==idUsuario).Where(r => listaChaside.Any(lC => lC == r.IdPregunta)).Select(
                    r => new RespuestaFormulario
                    {
+                       IdUsuario = r.IdUsuario,
                        IdPregunta = r.IdPregunta,
                        Valor = r.Valor
                    }).ToListAsync();
                 return respuestas;
             }
             else {
-                var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(IdUsuario)).Where(r => !listaToulouse.Any(lC => lC == r.IdPregunta)).Select(
+                var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(idUsuario)).Where(r => listaToulouse.Any(lC => lC == r.IdPregunta)).Select(
                r => new RespuestaFormulario
                {
+                   IdUsuario = r.IdUsuario,
                    IdPregunta = r.IdPregunta,
                    Valor = r.Valor
                }).ToListAsync();
@@ -89,13 +94,14 @@ namespace tfg_api.Controllers
         /// Obtiene todas las respuestas
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Authorize]
+        [HttpGet]
         [Route("Usuario/{idUsuario}/[controller]/Respuesta")]
-        public async Task<IEnumerable<RespuestaFormulario>> GetRespuestas(Guid IdUsuario)
+        public async Task<IEnumerable<RespuestaFormulario>> GetRespuestas(Guid idUsuario)
         {
-            var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(IdUsuario)).Select(
+            var respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(idUsuario)).Select(
                 r => new RespuestaFormulario
                 {
+                    IdUsuario= r.IdUsuario,
                     IdPregunta = r.IdPregunta,
                     Valor = r.Valor
                 }).ToListAsync();
@@ -108,16 +114,22 @@ namespace tfg_api.Controllers
         /// Crea todas las respuestas
         /// </summary>
         /// <returns></returns>
-        [HttpPost, Authorize]
-        [Route("Usuario/{idUsuario}/[controller]/Respuesta")]
-        public async Task<ActionResult> CrearRespuestas([FromHeader] Guid IdUsuario, [FromBody]IEnumerable<RespuestaFormulario> RespuestaFormulariosBody)
+        [HttpPost]
+        [Route("Usuario/{IdUsuario}/[controller]/Respuesta")]
+        public async Task<ActionResult> CrearRespuestas(Guid IdUsuario, [FromBody]IEnumerable<AddRespuestaFormulario> RespuestaFormulariosBody)
         {
             try
             {
             
 
-            foreach (RespuestaFormulario respuestaFormulario in RespuestaFormulariosBody) {
-                await respuestaFormularioBBDD.RespuestaFormularios.AddAsync(respuestaFormulario);
+            foreach (AddRespuestaFormulario addRespuestaFormulario in RespuestaFormulariosBody) {
+                    RespuestaFormulario respuestaFormulario = new()
+                    {
+                        IdPregunta = addRespuestaFormulario.IdPregunta,
+                        Valor = addRespuestaFormulario.Valor,
+                        IdUsuario = IdUsuario
+                    };
+                    await respuestaFormularioBBDD.RespuestaFormularios.AddAsync(respuestaFormulario);
                 
             }
             await respuestaFormularioBBDD.SaveChangesAsync();
@@ -138,64 +150,114 @@ namespace tfg_api.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("Usuario/{idUsuario}/[controller]/{idFormulario}/Respuesta")]
-        public async Task<ActionResult> DeleteRespuestas( Guid id, string idFormulario)
+        public async Task<ActionResult> DeleteRespuestas( Guid idUsuario, int idFormulario)
         {
-            //revisar
-            if (idFormulario.Equals("0")) {
 
-                for (int i = 0; i <= 20; i++) {
 
-                    var respuesta = respuestaFormularioBBDD.RespuestaFormularios.FindAsync(id, idFormulario);
-                    if (await respuesta != null)
-                    {
-                        respuestaFormularioBBDD.Remove(respuesta);
-                        await respuestaFormularioBBDD.SaveChangesAsync();
-                        return Ok(respuesta);
+            List<int> listaChaside = Enumerable.Range(1, 98).ToList();
+            List<int> listaToulouse = Enumerable.Range(99, 107).ToList();
+            List<RespuestaFormulario> respuestas;
+            if (idFormulario == 0)
+            {
 
-                    }
-
-                }
-
+                 respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario == idUsuario).Where(r => listaChaside.Any(lC => lC == r.IdPregunta)).Select(
+                   r => new RespuestaFormulario
+                   {
+                       IdUsuario = r.IdUsuario,
+                       IdPregunta = r.IdPregunta,
+                       Valor = r.Valor
+                   }).ToListAsync();
+             
             }
             else
             {
-                for (int i = 20;  i <=30; i++)
+                 respuestas = await respuestaFormularioBBDD.RespuestaFormularios.Where(r => r.IdUsuario.Equals(idUsuario)).Where(r => listaToulouse.Any(lC => lC == r.IdPregunta)).Select(
+               r => new RespuestaFormulario
+               {
+                   IdUsuario = r.IdUsuario,
+                   IdPregunta = r.IdPregunta,
+                   Valor = r.Valor
+               }).ToListAsync();
+         
+            }
+            if (respuestas.Count > 0)
+            {
+
+                foreach (RespuestaFormulario r in respuestas)
                 {
-
-                    var respuesta = respuestaFormularioBBDD.RespuestaFormularios.FindAsync(id, idFormulario);
-                    if (await respuesta != null)
-                    {
-                        respuestaFormularioBBDD.Remove(respuesta);
-                        await respuestaFormularioBBDD.SaveChangesAsync();
-                        return Ok(respuesta);
-
-                    }
+                    respuestaFormularioBBDD.Remove(r);
+                    await respuestaFormularioBBDD.SaveChangesAsync();
 
                 }
-
+           
+                return Ok("ya estan borradas las respuestas del formulario");
             }
+         
 
             return NotFound();
         }
+  
         /// <summary>
         /// Actualiza las respuestas
         /// </summary>
         /// <returns></returns>
-        [HttpPut, Authorize]
+        [HttpPut]
         [Route("Usuario/{idUsuario}/[controller]/{idFormulario}/Respuesta")]
-        public ActionResult UpdateRespuestas(Guid IdUsuario, string idFormulario, [FromBody] IEnumerable<RespuestaFormulario> RespuestaFormulariosBody)
+        public async Task<ActionResult> UpdateRespuestas(Guid idUsuario, int idFormulario, [FromBody] IEnumerable<AddRespuestaFormulario> RespuestaFormulariosBody)
         {
             try
             {
-                Task<ActionResult> task = DeleteRespuestas(IdUsuario, idFormulario);
-                task = CrearRespuestas(IdUsuario, RespuestaFormulariosBody);
+                foreach (AddRespuestaFormulario respuesta in RespuestaFormulariosBody) {
+                    var respuestaFormulario = await respuestaFormularioBBDD.RespuestaFormularios.FindAsync(idUsuario, respuesta.IdPregunta);
 
+                    if(respuestaFormulario != null)
+                    {
+                        respuestaFormulario.Valor = respuesta.Valor;
+                        await respuestaFormularioBBDD.SaveChangesAsync();
+                    }            
+                }
                 return Ok();
             }
             catch (Exception)
             {
                 return StatusCode(502);
             }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <param name="idFormulario"></param>
+        /// <param name="RespuestaFormulariosBody"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("Usuario/{idUsuario}/[controller]/{idFormulario}/Calcular")]
+        public ActionResult FormularioCalcular(Guid idUsuario, int idFormulario, [FromBody] IEnumerable<RespuestaFormulario> RespuestaFormulariosBody)
+        {
+            string nombreFormulario;
+            ValueTask<Usuario> usuarioResult = usuarioBBDD.Usuarios.FindAsync(idUsuario);
+            InternalClass internalClass = new();
+            if (usuarioResult.Result != null)
+            {
+                if (idFormulario == 0)
+                {
+                    internalClass.CalcularChasideAsync(usuarioResult.Result, RespuestaFormulariosBody);
+                    nombreFormulario = "CHASIDE";
+                }
+                else
+                {
+                    internalClass.CalcularTolouseAsync(usuarioResult.Result, RespuestaFormulariosBody);
+                    nombreFormulario = "TOULOUSE";
+                }
+
+            }
+            else
+            {
+                return NotFound();
+            }
+            return Ok("Calculados las respuestas del formulario de " + nombreFormulario);
 
         }
     }

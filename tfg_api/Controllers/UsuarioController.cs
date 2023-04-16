@@ -39,12 +39,13 @@ namespace tfg_api.Controllers
         /// <summary>
         ///  Función encargada de recibir una id de un usuario y mostrar sus datos
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="idUsuario"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult> GetUsuario([FromHeader] Guid id)
+        [Route("{idUsuario}")]
+        public async Task<ActionResult> GetUsuario( Guid idUsuario)
         {
-            var usuario = await usuarioBBDD.Usuarios.FindAsync(id);
+            var usuario = await usuarioBBDD.Usuarios.FindAsync(idUsuario);
 
             if (usuario != null)
             {
@@ -78,14 +79,15 @@ namespace tfg_api.Controllers
         /// <summary>
         /// Actualiza al usuario
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="idUsuario"></param>
         /// <param name="updateUsuarioRequest"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<ActionResult> UpdateUsuario([FromHeader] Guid id, UpdateUsuarioRequest updateUsuarioRequest)
+        [Route("{idUsuario}")]
+    public async Task<ActionResult> UpdateUsuario(Guid idUsuario, UpdateUsuarioRequest updateUsuarioRequest)
         {
 
-          var usuario=  await usuarioBBDD.Usuarios.FindAsync(id);
+          var usuario=  await usuarioBBDD.Usuarios.FindAsync(idUsuario);
 
             if (usuario != null)
             {
@@ -104,12 +106,13 @@ namespace tfg_api.Controllers
         /// <summary>
         /// Borra al usuario
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="idUsuario"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<ActionResult> DeleteUsuario([FromHeader] Guid id)
+        [Route("{idUsuario}")]
+        public async Task<ActionResult> DeleteUsuario( Guid idUsuario)
         {
-            var usuario = await usuarioBBDD.Usuarios.FindAsync(id);
+            var usuario = await usuarioBBDD.Usuarios.FindAsync(idUsuario);
 
             if (usuario != null)
             {

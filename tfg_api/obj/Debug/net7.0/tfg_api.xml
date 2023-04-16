@@ -4,7 +4,12 @@
         <name>tfg_api</name>
     </assembly>
     <members>
-        <member name="M:tfg_api.Controllers.AdminController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="T:tfg_api.Controllers.AdminController">
+            <summary>
+            controlador de aministracion
+            </summary>
+        </member>
+        <member name="M:tfg_api.Controllers.AdminController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,tfg_api.DDBB.AsignaturaBBDD)">
             <summary>
             Constructor por defecto
             </summary>
@@ -26,38 +31,27 @@
             <param name="p5">Datos Identificativos</param>
             <returns>Lista de Logs</returns>
         </member>
-        <member name="T:tfg_api.Controllers.AsignaturaController">
-            <summary>
-            Controlador de la asignatura
-            </summary>
-        </member>
-        <member name="M:tfg_api.Controllers.AsignaturaController.#ctor(tfg_api.DDBB.AsignaturaBBDD)">
-            <summary>
-            Elemento que interactura como puente en base de datos y ruta
-            </summary>
-            <param name="asignaturaBBDD"></param>
-        </member>
-        <member name="M:tfg_api.Controllers.AsignaturaController.GetAsignaturas">
+        <member name="M:tfg_api.Controllers.AdminController.GetAsignaturas">
             <summary>
             Obtiene todos las asignaturas
             </summary>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.AsignaturaController.GetAsignatura(System.Guid)">
+        <member name="M:tfg_api.Controllers.AdminController.GetAsignatura(System.Guid)">
             <summary>
              Función encargada de recibir una id de una asignatura y mostrar sus datos
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.AsignaturaController.AddAsignatura(tfg_api.Model.Asignatura.AddAsignaturaRequest)">
+        <member name="M:tfg_api.Controllers.AdminController.AddAsignatura(tfg_api.Model.Asignatura.AddAsignaturaRequest)">
             <summary>
             Añade una asignatura
             </summary>
             <param name="addAsignaturaRequest"></param>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.AsignaturaController.UpdateAsignatura(System.Guid,tfg_api.Model.Asignatura.UpdateAsignaturaRequest)">
+        <member name="M:tfg_api.Controllers.AdminController.UpdateAsignatura(System.Guid,tfg_api.Model.Asignatura.UpdateAsignaturaRequest)">
             <summary>
             Actualiza la asignatura
             </summary>
@@ -65,11 +59,63 @@
             <param name="updateAsignaturaRequest"></param>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.AsignaturaController.DeleteAsignatura(System.Guid)">
+        <member name="M:tfg_api.Controllers.AdminController.DeleteAsignatura(System.Guid)">
             <summary>
             Borra la asignatura
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:tfg_api.Controllers.AsignaturaController">
+            <summary>
+            Controlador de la asignatura
+            </summary>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.#ctor(tfg_api.DDBB.AsignaturaBBDD,tfg_api.DDBB.AsignaturaUsuarioDDBB,tfg_api.DDBB.UsuarioBBDD)">
+            <summary>
+            Elemento que interactura como puente en base de datos y ruta
+            </summary>
+            <param name="asignaturaBBDD"></param>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.GetAsignaturasUsuario(System.Guid)">
+            <summary>
+            Obtiene todos las asignaturas
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.CrearAsignaturasUsuario(System.Guid,tfg_api.Model.Interna.AsignaturaCompleta)">
+            <summary>
+            Crea la asignatura del usuario
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.UpdateAsignatura(System.Guid,tfg_api.Model.Interna.AsignaturaCompleta)">
+            <summary>
+            Actualiza la asignatura del usuario
+            </summary>
+            <param name="id"></param>
+            <param name="updateAsignaturaRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.DeleteAsignatura(System.Guid,tfg_api.Model.Interna.AsignaturaCompleta)">
+            <summary>
+            Borra la asignatura del usuario
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.CalcularAptitudesAsignatura(System.Guid)">
+            <summary>
+            Actualiza aptitudes segun las notas de todas las asignaturas
+            </summary>
+            <param name="idUsuario"></param>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.AsignaturaController.CalcularRecomendacionesAsignatura(System.Guid)">
+            <summary>
+            Actualiza recomendaciones segun las notas de todas las asignaturas
+            </summary>
+            <param name="idUsuario"></param>
             <returns></returns>
         </member>
         <member name="T:tfg_api.Controllers.FormularioController">
@@ -77,11 +123,12 @@
             Controlador del formulario 
             </summary>
         </member>
-        <member name="M:tfg_api.Controllers.FormularioController.#ctor(tfg_api.DDBB.RespuestaFormularioBBDD,tfg_api.DDBB.PreguntaFormularioBBDD)">
+        <member name="M:tfg_api.Controllers.FormularioController.#ctor(tfg_api.DDBB.RespuestaFormularioBBDD,tfg_api.DDBB.PreguntaFormularioBBDD,tfg_api.DDBB.UsuarioBBDD)">
             <summary>
             Elemento que interactura como puente en base de datos y ruta
             </summary>
             <param name="respuestaFormularioBBDD"></param>
+            <param name="preguntaFormularioBBDD"></param>
         </member>
         <member name="M:tfg_api.Controllers.FormularioController.GetPreguntas(System.String)">
             <summary>
@@ -89,7 +136,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.FormularioController.GetRespuestasFoprmulario(System.Guid,System.String)">
+        <member name="M:tfg_api.Controllers.FormularioController.GetRespuestasFoprmulario(System.Guid,System.Int32)">
             <summary>
             Obtiene todas las respuestas
             </summary>
@@ -101,13 +148,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.FormularioController.CrearRespuestas(System.Guid,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+        <member name="M:tfg_api.Controllers.FormularioController.CrearRespuestas(System.Guid,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.AddRespuestaFormulario})">
             <summary>
             Crea todas las respuestas
             </summary>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.FormularioController.DeleteRespuestas(System.Guid,System.String)">
+        <member name="M:tfg_api.Controllers.FormularioController.DeleteRespuestas(System.Guid,System.Int32)">
             <summary>
             Borra  las respuestas
             </summary>
@@ -115,10 +162,19 @@
             <param name="tipo"></param>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.FormularioController.UpdateRespuestas(System.Guid,System.String,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+        <member name="M:tfg_api.Controllers.FormularioController.UpdateRespuestas(System.Guid,System.Int32,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.AddRespuestaFormulario})">
             <summary>
             Actualiza las respuestas
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:tfg_api.Controllers.FormularioController.FormularioCalcular(System.Guid,System.Int32,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+            <summary>
+            
+            </summary>
+            <param name="idUsuario"></param>
+            <param name="idFormulario"></param>
+            <param name="RespuestaFormulariosBody"></param>
             <returns></returns>
         </member>
         <member name="T:tfg_api.Controllers.LoginController">
@@ -195,18 +251,18 @@
             Interaccion con la BBDD
             </summary>
         </member>
-        <member name="T:tfg_api.DDBB.Asignatura_UsuarioBBDD">
+        <member name="T:tfg_api.DDBB.AsignaturaUsuarioDDBB">
             <summary>
             clase de conexion con BBDD
             </summary>
         </member>
-        <member name="M:tfg_api.DDBB.Asignatura_UsuarioBBDD.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.Asignatura_UsuarioBBDD})">
+        <member name="M:tfg_api.DDBB.AsignaturaUsuarioDDBB.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.AsignaturaUsuarioDDBB})">
             <summary>
             constructor por defecto
             </summary>
             <param name="options"></param>
         </member>
-        <member name="P:tfg_api.DDBB.Asignatura_UsuarioBBDD.Asignatura_Usuarios">
+        <member name="P:tfg_api.DDBB.AsignaturaUsuarioDDBB.AsignaturaUsuarios">
             <summary>
             Interaccion con la BBDD
             </summary>
@@ -259,27 +315,62 @@
             Interaccion con la BBDD
             </summary>
         </member>
+        <member name="T:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario">
+            <summary>
+            clase de la asignatura-Usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario.IdAsignatura">
+            <summary>
+            identificador de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario.IdUsuario">
+            <summary>
+            referencia al usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario.Nota">
+            <summary>
+            Nota de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario.TiempoEstudio">
+            <summary>
+            horas de estudio
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario.TiempoRecomendado">
+            <summary>
+            horas de estudio recomendado
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario.Riesgo">
+            <summary>
+            Riesgo en referente a la nota sacada
+            </summary>
+        </member>
         <member name="P:tfg_api.Model.Asignatura.AddAsignaturaRequest.Nombre">
             <summary>
             nombre de la asignatura
             </summary>
         </member>
-        <member name="T:tfg_api.Model.Asignatura.Asignatura_UsuarioBBDD">
+        <member name="T:tfg_api.Model.Asignatura.Asignatura">
             <summary>
             clase de la asignatura
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura.Asignatura_UsuarioBBDD.IdAsignatura">
+        <member name="P:tfg_api.Model.Asignatura.Asignatura.IdAsignatura">
             <summary>
             identificador de la asignatura
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura.Asignatura_UsuarioBBDD.Tipo">
+        <member name="P:tfg_api.Model.Asignatura.Asignatura.Tipo">
             <summary>
             tipo de la asignatura( humanistica, cientifica...)
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura.Asignatura_UsuarioBBDD.Nombre">
+        <member name="P:tfg_api.Model.Asignatura.Asignatura.Nombre">
             <summary>
             nombre de la asignatura
             </summary>
@@ -289,44 +380,49 @@
             nombre de la asignatura
             </summary>
         </member>
-        <member name="T:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD">
+        <member name="T:tfg_api.Model.Interna.AsignaturaCompleta">
             <summary>
             clase de la asignatura-Usuario
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.IdAsignatura">
+        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.IdAsignatura">
             <summary>
             identificador de la asignatura
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.IdUsuario">
+        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.IdUsuario">
             <summary>
             referencia al usuario
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.Nota">
+        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.Tipo">
             <summary>
-            Nota de la asignatura
+            tipo de la asignatura( humanistica, cientifica...)
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.Nombre">
+        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.Nombre">
             <summary>
             nombre de la asignatura
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.Riesgo">
+        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.Nota">
             <summary>
-            Riesgo en referente a la nota sacada
+            Nota de la asignatura
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.TiempoEstudio">
+        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.TiempoEstudio">
             <summary>
             horas de estudio
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD.TiempoRecomendado">
+        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.TiempoRecomendado">
             <summary>
             horas de estudio recomendado
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.Riesgo">
+            <summary>
+            Riesgo en referente a la nota sacada
             </summary>
         </member>
         <member name="T:tfg_api.Model.Interna.InternalClass">
@@ -348,7 +444,7 @@
             <param name="usuario"></param>
             <param name="formularioRespuestas"></param>
         </member>
-        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularAptitudesAsignatura(tfg_api.Model.UsuarioContenedor.Usuario,tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD,System.String)">
+        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularAptitudesAsignatura(tfg_api.Model.UsuarioContenedor.Usuario,tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario,System.String)">
             <summary>
             recalcula aptitudes segun notas
             </summary>
@@ -356,7 +452,7 @@
             <param name="asignatura"></param>
             <param name="tipo"></param>
         </member>
-        <member name="M:tfg_api.Model.Interna.InternalClass.Recomendaciones(tfg_api.Model.UsuarioContenedor.Usuario,tfg_api.Model.Asignatura_UsuarioBBDD.Asignatura_UsuarioBBDD,System.String)">
+        <member name="M:tfg_api.Model.Interna.InternalClass.Recomendaciones(tfg_api.Model.UsuarioContenedor.Usuario,tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario,System.String)">
             <summary>
             genera las recomendaciones
             </summary>
@@ -387,6 +483,21 @@
         <member name="P:tfg_api.Model.PreguntaFormulario.PreguntaFormulario.Tipo">
             <summary>
             tipo del formulario Toulose o CHASIDE
+            </summary>
+        </member>
+        <member name="T:tfg_api.Model.RespuestaFormulario.AddRespuestaFormulario">
+            <summary>
+            clase de la respuesta del formulario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.RespuestaFormulario.AddRespuestaFormulario.IdPregunta">
+            <summary>
+            referencia a la pregunta
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.RespuestaFormulario.AddRespuestaFormulario.Valor">
+            <summary>
+            la respuesta
             </summary>
         </member>
         <member name="T:tfg_api.Model.RespuestaFormulario.RespuestaFormulario">

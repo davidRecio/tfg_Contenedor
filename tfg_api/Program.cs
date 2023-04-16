@@ -48,6 +48,7 @@ var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 
 builder.Services.AddDbContext<UsuarioBBDD>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
 builder.Services.AddDbContext<AsignaturaBBDD>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
+builder.Services.AddDbContext<AsignaturaUsuarioDDBB>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
 builder.Services.AddDbContext<PreguntaFormularioBBDD>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
 builder.Services.AddDbContext<RespuestaFormularioBBDD>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
 

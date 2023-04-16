@@ -1,26 +1,31 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.EntityFrameworkCore;
+using tfg_api.DDBB;
+using tfg_api.Model.Asignatura;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.PortableExecutable;
-using System;
 using tfg_api.Utils;
 using Microsoft.AspNetCore.Authorization;
 
 
+
 namespace tfg_api.Controllers
 {
+    /// <summary>
+    /// controlador de aministracion
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class AdminController : Controller
     {
+        private readonly AsignaturaBBDD asignaturaBBDD;
         private readonly IWebHostEnvironment _env;
         #region - Constructores -
         /// <summary>
         /// Constructor por defecto
         /// </summary>
-        public AdminController(IWebHostEnvironment env)
+        public AdminController(IWebHostEnvironment env, AsignaturaBBDD asignaturaBBDD)
         {
             _env = env;
-
+            this.asignaturaBBDD = asignaturaBBDD;
         }
         #endregion
 
@@ -120,7 +125,7 @@ namespace tfg_api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("BBDD/Inicializar")]
         [Authorize]
         public StatusCodeResult Inicializar()
@@ -146,7 +151,115 @@ namespace tfg_api.Controllers
             }
             
         }
-        
+
+        #region "asignatura"
+
+
+        /// <summary>
+        /// Obtiene todos las asignaturas
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Authorize]
+        [Route("Asignatura/All")]
+
+        public async Task<ActionResult> GetAsignaturas()
+        {
+
+            return Ok(await asignaturaBBDD.Asignaturas.ToListAsync());
+        }
+
+
+        /// <summary>
+        ///  Función encargada de recibir una id de una asignatura y mostrar sus datos
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet, Authorize]
+        [Route("Asignatura")]
+        public async Task<ActionResult> GetAsignatura([FromHeader] Guid id)
+        {
+            var asignatura = await asignaturaBBDD.Asignaturas.FindAsync(id);
+
+            if (asignatura != null)
+            {
+                return Ok(asignatura);
+
+            }
+            return NotFound();
+        }
+        /// <summary>
+        /// Añade una asignatura
+        /// </summary>
+        /// <param name="addAsignaturaRequest"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Asignatura")]
+        public async Task<ActionResult> AddAsignatura(AddAsignaturaRequest addAsignaturaRequest)
+        {
+            var asignatura = new Asignatura()
+            {
+                IdAsignatura = Guid.NewGuid(),
+                Tipo = addAsignaturaRequest.Tipo,
+                Nombre = addAsignaturaRequest.Nombre
+            };
+
+            await asignaturaBBDD.Asignaturas.AddAsync(asignatura);
+            await asignaturaBBDD.SaveChangesAsync();
+
+            return Ok(asignatura);
+
+
+        }
+        /// <summary>
+        /// Actualiza la asignatura
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateAsignaturaRequest"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("Asignatura")]
+        public async Task<ActionResult> UpdateAsignatura([FromHeader] Guid id, UpdateAsignaturaRequest updateAsignaturaRequest)
+        {
+
+            var asignatura = await asignaturaBBDD.Asignaturas.FindAsync(id);
+
+            if (asignatura != null)
+            {
+
+                asignatura.Tipo = updateAsignaturaRequest.Tipo;
+                asignatura.Nombre = updateAsignaturaRequest.Nombre;
+
+                await asignaturaBBDD.SaveChangesAsync();
+
+                return Ok(asignatura);
+
+            }
+            return NotFound();
+
+        }
+        /// <summary>
+        /// Borra la asignatura
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("Asignatura")]
+        public async Task<ActionResult> DeleteAsignatura([FromHeader] Guid id)
+        {
+            var asignatura = await asignaturaBBDD.Asignaturas.FindAsync(id);
+
+            if (asignatura != null)
+            {
+                asignaturaBBDD.Remove(asignatura);
+                await asignaturaBBDD.SaveChangesAsync();
+                return Ok(asignatura);
+
+            }
+            return NotFound();
+        }
+
+        #endregion 
+
     }
 }
 

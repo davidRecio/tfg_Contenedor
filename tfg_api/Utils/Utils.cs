@@ -625,7 +625,8 @@ namespace tfg_api.Utils
             {
                 UseShellExecute = false,
                 CreateNoWindow = true,
-                RedirectStandardOutput = true
+                RedirectStandardOutput = true,                
+                
             };
 
             using Process process = new()
