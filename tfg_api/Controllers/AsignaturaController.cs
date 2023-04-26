@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tfg_api.DDBB;
@@ -29,72 +30,90 @@ namespace tfg_api.Controllers
             this.asignaturaUsuarioBBDD = asignaturaUsuarioBBDD;
             this.usuarioBBDD = usuarioBBDD;
         }
-
         /// <summary>
         /// Obtiene todos las asignaturas
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("Usuario/{idUsuario}/[controller]")]
+        [Route("usuarios/{idUsuario}/asignaturas/{idAsignatura}")]
+
+        public async Task<ActionResult> GetAsignaturasUsuario(Guid idUsuario,Guid idAsignatura)
+        {
+
+           
+            AsignaturaUsuario nota = await asignaturaUsuarioBBDD.AsignaturaUsuarios.FindAsync(idUsuario,idAsignatura);
+
+            AsignaturaUsuarioGet asignaturaUsuarioGet = new() {
+                UrlAsignatura = new Uri(Request.GetEncodedUrl() + "/" + idUsuario),
+                TiempoEstudio=nota.TiempoEstudio,
+                TiempoRecomendado=nota.TiempoRecomendado,
+                Riesgo=nota.Riesgo,
+                Nota=nota.Nota,
+            };
+
+            return Ok(asignaturaUsuarioGet);
+        }
+        /// <summary>
+        /// Obtiene todos las asignaturas
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("usuarios/{idUsuario}/asignaturas")]
 
         public async Task<ActionResult> GetAsignaturasUsuario(Guid idUsuario)
         {
-            List<AsignaturaCompleta> asignaturaCompletas = new();
+            List<AsignaturaUsuarioGetSort> listAsignaturaUsuarioGetSort = new();
             List<AsignaturaUsuario> listaNotas = await asignaturaUsuarioBBDD.AsignaturaUsuarios.ToListAsync();
 
             foreach(AsignaturaUsuario asignaturaUsuario in listaNotas)
             {
-                ValueTask<Asignatura> asig =  asignaturaBBDD.Asignaturas.FindAsync(asignaturaUsuario.IdAsignatura);
-                AsignaturaCompleta asignaturaCompleta = new()
+
+                AsignaturaUsuarioGetSort asignaturaUsuarioGetSort = new()
                 {
-                    IdAsignatura = asignaturaUsuario.IdAsignatura,
-                    IdUsuario = asignaturaUsuario.IdUsuario,
-                    Nombre = asig.Result.Nombre,
-                    Tipo = asig.Result.Tipo,
-                    Nota = asignaturaUsuario.Nota,
-                    Riesgo = asignaturaUsuario.Riesgo,
-                    TiempoEstudio = asignaturaUsuario.TiempoEstudio,
-                    TiempoRecomendado = asignaturaUsuario.TiempoRecomendado
+                    UrlAsignatura = new Uri(Request.GetEncodedUrl() + "/" + idUsuario),
+                    UrlAsigUsuario= new Uri(Request.GetEncodedUrl() + "/" + asignaturaUsuario.IdAsignatura)
                 };
-                asignaturaCompletas.Add(asignaturaCompleta);
+                listAsignaturaUsuarioGetSort.Add(asignaturaUsuarioGetSort);
 
             }
 
-            return Ok(asignaturaCompletas);
+            return Ok(listAsignaturaUsuarioGetSort);
         }
         /// <summary>
         /// Crea la asignatura del usuario
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("Usuario/{idUsuario}/[controller]")]
+        [Route("usuarios/{idUsuario}/asignaturas/{idAsignatura}")]
 
-        public async Task<ActionResult> CrearAsignaturasUsuario(Guid idUsuario, AsignaturaCompleta asignaturaCompleta)
+        public async Task<ActionResult> CrearAsignaturasUsuario(Guid idUsuario,Guid idAsignatura,[FromBody] AsignaturaUsuarioCreate asignaturaUsuarioCreate)
         {
 
-            Guid IdAsignatura = Guid.NewGuid();
-            if (asignaturaCompleta != null)
+            AsignaturaUsuarioGet asignaturaUsuarioGet = new();
+            if (idAsignatura != null && idUsuario != null)
             {
-                if (!asignaturaBBDD.Asignaturas.FindAsync(asignaturaCompleta.IdAsignatura).IsFaulted)
+                if (!asignaturaBBDD.Asignaturas.FindAsync(idAsignatura).IsFaulted)
                 {
                     AsignaturaUsuario asignaturaUsuario = new()
                     {
                         IdUsuario = idUsuario,
-                        IdAsignatura = IdAsignatura,
-                        Nota = asignaturaCompleta.Nota,
-                        TiempoEstudio = asignaturaCompleta.TiempoEstudio,
+                        IdAsignatura = idAsignatura,
+                        Nota = asignaturaUsuarioCreate.Nota,
+                        TiempoEstudio = asignaturaUsuarioCreate.TiempoEstudio,
 
                     };
                      asignaturaUsuarioBBDD.AsignaturaUsuarios.Add(asignaturaUsuario);
                     asignaturaUsuarioBBDD.SaveChanges();
-                   
+
+
+                    
                 }
                 else {
-                    return NotFound(asignaturaCompleta);
+                    return NotFound(idAsignatura);
                 }
                 
             }
-            return Ok(asignaturaCompleta);
+            return Ok(new Uri(Request.GetEncodedUrl() + "/" + idUsuario));
         }
 
         /// <summary>
@@ -104,18 +123,18 @@ namespace tfg_api.Controllers
         /// <param name="updateAsignaturaRequest"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("Usuario/{idUsuario}/[controller]")]
-        public async Task<ActionResult> UpdateAsignatura( Guid idUsuario, AsignaturaCompleta asignaturaCompleta)
+        [Route("usuarios/{idUsuario}/asignaturas/{idAsignatura}")]
+        public async Task<ActionResult> UpdateAsignatura( Guid idUsuario, Guid idAsignatura,[FromBody] AsignaturaUsuarioUpdate asignaturaUsuarioUpdate)
         {
 
-            var asignaturaUsuario = await asignaturaUsuarioBBDD.AsignaturaUsuarios.FindAsync(asignaturaCompleta.IdAsignatura, idUsuario);
+            var asignaturaUsuario = await asignaturaUsuarioBBDD.AsignaturaUsuarios.FindAsync(idAsignatura, idUsuario);
                
 
             if (asignaturaUsuario != null)
             {
 
-                asignaturaUsuario.Nota = asignaturaCompleta.Nota;
-                asignaturaUsuario.TiempoEstudio = asignaturaCompleta.TiempoEstudio;
+                asignaturaUsuario.Nota = asignaturaUsuarioUpdate.Nota;
+                asignaturaUsuario.TiempoEstudio = asignaturaUsuarioUpdate.TiempoEstudio;
                 await asignaturaBBDD.SaveChangesAsync();
 
                 return Ok(asignaturaUsuario);
@@ -130,10 +149,10 @@ namespace tfg_api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("Usuario/{idUsuario}/[controller]")]
-        public async Task<ActionResult> DeleteAsignatura(Guid idUsuario, AsignaturaCompleta asignaturaCompleta)
+        [Route("usuarios/{idUsuario}/asignaturas/{idAsignatura}")]
+        public async Task<ActionResult> DeleteAsignatura(Guid idUsuario, Guid idAsignatura)
         {
-            var asignaturaUsuario = await asignaturaUsuarioBBDD.AsignaturaUsuarios.FindAsync(asignaturaCompleta.IdAsignatura, idUsuario);
+            var asignaturaUsuario = await asignaturaUsuarioBBDD.AsignaturaUsuarios.FindAsync(idAsignatura, idUsuario);
 
             if (asignaturaUsuario != null)
             {
@@ -144,58 +163,125 @@ namespace tfg_api.Controllers
             }
             return NotFound();
         }
+
+
+        #region "asignatura"
+
+
         /// <summary>
-        /// Actualiza aptitudes segun las notas de todas las asignaturas
+        /// Obtiene todos las asignaturas
         /// </summary>
-        /// <param name="idUsuario"></param>
         /// <returns></returns>
-        [HttpPut]
-        [Route("Usuario/{idUsuario}/[controller]/Aptitudes")]
-        public  ActionResult CalcularAptitudesAsignatura(Guid idUsuario)
+        [HttpGet]
+        [Route("asignaturas")]
+
+        public async Task<ActionResult> GetAsignaturas()
         {
-            ValueTask<Usuario> usuarioResult = usuarioBBDD.Usuarios.FindAsync(idUsuario);
-            InternalClass internalClass = new();
-            if (usuarioResult.Result != null)
+            List<AsignaturaSort> asignaturaSorts = new();
+            List<Asignatura> listAsignaturas = await asignaturaBBDD.Asignaturas.ToListAsync();
+            foreach(Asignatura asignatura in listAsignaturas)
             {
-                List<AsignaturaUsuario> listaAsignaturas = asignaturaUsuarioBBDD.AsignaturaUsuarios.Where(p => p.IdUsuario.Equals(idUsuario)).ToList();
-                foreach (AsignaturaUsuario asignaturaUsuario in listaAsignaturas)
+                asignaturaSorts.Add(new AsignaturaSort {Nombre=asignatura.Nombre,UriAsignatura=new Uri(Request.GetEncodedUrl()+"/"+asignatura.IdAsignatura) });
+            }
+            return Ok(asignaturaSorts);
+        }
+
+
+        /// <summary>
+        ///  Función encargada de recibir una id de una asignatura y mostrar sus datos
+        /// </summary>
+        /// <param name="idAsignatura"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("asignaturas/{idAsignatura}")]
+        public async Task<ActionResult> GetAsignatura(Guid idAsignatura)
+        {
+            var asignatura = await asignaturaBBDD.Asignaturas.FindAsync(idAsignatura);
+
+            if (asignatura != null)
+            {
+                AsignaturaGet asignaturaGet = new()
                 {
-                    ValueTask<Asignatura> asignatura = asignaturaBBDD.Asignaturas.FindAsync(asignaturaUsuario.IdAsignatura);
-                    internalClass.CalcularAptitudesAsignatura(usuarioResult.Result, asignaturaUsuario, asignatura.Result.Tipo);
-                }
-                return Ok("Ya se han actulaizado las aptitudes según las asignaturas");
+                    Nombre = asignatura.Nombre,
+                    Tipo = asignatura.Tipo,
+                };
+                return Ok(asignaturaGet);
+
             }
-            else {
-                return NotFound();
-            }
-          
+            return NotFound();
         }
         /// <summary>
-        /// Actualiza recomendaciones segun las notas de todas las asignaturas
+        /// Añade una asignatura
         /// </summary>
-        /// <param name="idUsuario"></param>
+        /// <param name="addAsignaturaRequest"></param>
         /// <returns></returns>
-        [HttpPut]
-        [Route("Usuario/{idUsuario}/[controller]/Recomendaciones")]
-        public ActionResult CalcularRecomendacionesAsignatura(Guid idUsuario)
+        [HttpPost]
+        [Route("asignaturas")]
+        public async Task<ActionResult> AddAsignatura(AddAsignaturaRequest addAsignaturaRequest)
         {
-            ValueTask<Usuario> usuarioResult = usuarioBBDD.Usuarios.FindAsync(idUsuario);
-            InternalClass internalClass = new();
-            if (usuarioResult.Result != null)
+            var asignatura = new Asignatura()
             {
-                List<AsignaturaUsuario> listaAsignaturas = asignaturaUsuarioBBDD.AsignaturaUsuarios.Where(p => p.IdUsuario.Equals(idUsuario)).ToList();
-                foreach (AsignaturaUsuario asignaturaUsuario in listaAsignaturas)
-                {
-                    ValueTask<Asignatura> asignatura = asignaturaBBDD.Asignaturas.FindAsync(asignaturaUsuario.IdAsignatura);
-                    internalClass.Recomendaciones(usuarioResult.Result, asignaturaUsuario, asignatura.Result.Tipo);
-                }
-                return Ok("Ya se han actulaizado las aptitudes según las asignaturas");
-            }
-            else
-            {
-                return NotFound();
-            }
+                IdAsignatura = Guid.NewGuid(),
+                Tipo = addAsignaturaRequest.Tipo,
+                Nombre = addAsignaturaRequest.Nombre
+            };
+
+            await asignaturaBBDD.Asignaturas.AddAsync(asignatura);
+            await asignaturaBBDD.SaveChangesAsync();
+
+            return Ok(new Uri(Request.GetEncodedUrl() + "/" + asignatura.IdAsignatura));
+
 
         }
+        /// <summary>
+        /// Actualiza la asignatura
+        /// </summary>
+        /// <param name="idAsignatura"></param>
+        /// <param name="updateAsignaturaRequest"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("asignaturas/{idAsignatura}")]
+        public async Task<ActionResult> UpdateAsignatura(Guid idAsignatura, [FromBody]UpdateAsignaturaRequest updateAsignaturaRequest)
+        {
+
+            var asignatura = await asignaturaBBDD.Asignaturas.FindAsync(idAsignatura);
+
+            if (asignatura != null)
+            {
+
+                asignatura.Tipo = updateAsignaturaRequest.Tipo;
+                asignatura.Nombre = updateAsignaturaRequest.Nombre;
+
+                await asignaturaBBDD.SaveChangesAsync();
+
+                return Ok(new Uri(Request.GetEncodedUrl() + "/" + idAsignatura));
+
+            }
+            return NotFound();
+
+        }
+        /// <summary>
+        /// Borra la asignatura
+        /// </summary>
+        /// <param name="idAsignatura"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("asignaturas/{idAsignatura}")]
+        public async Task<ActionResult> DeleteAsignatura(Guid idAsignatura)
+        {
+            var asignatura = await asignaturaBBDD.Asignaturas.FindAsync(idAsignatura);
+
+            if (asignatura != null)
+            {
+                asignaturaBBDD.Remove(asignatura);
+                await asignaturaBBDD.SaveChangesAsync();
+                return Ok(asignatura);
+
+            }
+            return NotFound();
+        }
+
+        #endregion 
+
     }
 }
