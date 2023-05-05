@@ -1,8 +1,12 @@
+using aplicacionWeb.Servicios;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<IServicio_API_Usuario, Servicio_API_Usuario>();
+builder.Services.AddScoped<IServicio_API_Asignatura, Servicio_API_Asignatura>();
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,7 +21,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

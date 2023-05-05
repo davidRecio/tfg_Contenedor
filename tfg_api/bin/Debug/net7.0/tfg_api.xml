@@ -9,7 +9,7 @@
             controlador de aministracion
             </summary>
         </member>
-        <member name="M:tfg_api.Controllers.AdminController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:tfg_api.Controllers.AdminController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,tfg_api.DDBB.UsuarioBBDD)">
             <summary>
             Constructor por defecto
             </summary>
@@ -395,9 +395,19 @@
             identificador de la asignatura
             </summary>
         </member>
-        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuarioGetSort.UrlAsigUsuario">
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuarioGetSort.Nombre">
             <summary>
-            datos del usuario
+            nombre de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuarioGetSort.Riesgo">
+            <summary>
+            Riesgo en referente a la nota sacada
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuarioGetSort.Nota">
+            <summary>
+            Nota de la asignatura
             </summary>
         </member>
         <member name="T:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuarioUpdate">

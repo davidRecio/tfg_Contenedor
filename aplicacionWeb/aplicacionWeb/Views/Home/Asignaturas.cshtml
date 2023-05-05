@@ -1,0 +1,621 @@
+﻿@{
+    ViewData["Title"] = "Asignaturas";
+}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Tables</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src='https://code.jquery.com/jquery-3.5.1.js'></script>
+    <script type="text/javascript" src='https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js'></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/searchbuilder/1.4.0/js/dataTables.searchBuilder.min.js"></script>
+
+
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css' />
+    <link rel="stylesheet" href='https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/searchbuilder/1.4.0/css/searchBuilder.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css" />
+
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.11.3/sorting/diacritics-sort.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/intl.js"></script>
+</head>
+
+
+
+<body id="page-top">
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Asignaturas</h1>
+                <p class="mb-4">En esta pestaña se mostrarán y se realizará la gestión, de las asignaturas que ha cursado el usuario tanto en la universidad como en el primer año de carrera</p>
+
+                <div id="Pop_up" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-lg">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="col-xs-12">
+                                    <tr>
+                                        <td>
+                                            <label id="LabelError" class="col-xs-5"></label>
+                                        </td>
+                                    </tr>
+                                    <label class="col-xs-4">Asignatura: </label>
+                                    <div class="dropdown">
+                                        <button type="button" id="btn_DropListaAsignatura"  onclick="myFunction('ListaAsignatura')" class="dropbtn btn btn-primary">Selección</button>
+                                        <div id="myDropdownListaAsignatura" class="dropdown-content" style="display:none;">
+                                            <input type="text" placeholder="Buscar.." id="myInputListaAsignatura" onkeyup="filterFunction('ListaAsignatura')" />
+
+                                            <nav id="topNavListaAsignatura" class="dropdown-menu" style="display:inline-grid;">
+                                            </nav>
+
+                                        </div>
+                                    </div>
+                                </table>
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                            <br />
+                            <br />
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    Volver
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DataTables  -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <div class="text-center">
+                            <button class="btn btn-primary mt-3 mt-sm-0" onclick="ShowPopup('Add');">Añadir Asignatura</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table table-striped" style="width: 100%;">
+                            <table class="display" id="tb_asignaturas" style="width:100%">
+                                <thead style="background-color:  #337ab7;">
+                                    <tr>
+                                        <th>UrlAsignatura</th>
+                                        <th>Nombre</th>
+                                        <th>Riesgo</th>
+                                        <th>Nota</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th style="visibility: hidden">UrlAsignatura</th>
+                                        <th style="visibility: hidden">Nombre</th>
+                                        <th style="visibility: hidden">Riesgo</th>
+                                        <th style="visibility: hidden">Nota</th>
+                                        <th style="visibility: hidden">Acciones</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+
+    
+
+
+
+
+
+
+        <script>
+         
+             $(document).ready(function () {
+                getDatos("ListaAsignaturaUsuario");
+             });
+             
+    
+                 function getDatos(tipo) {
+                     var urlWs="";
+                if (tipo == "ListaAsignaturaUsuario") {
+                    urlWs = `@Url.Action("GetDatosListaAsignaturaUsuario", "Home")`;
+                     }else if(tipo=="ListaAsignatura"){
+                    urlWs = `@Url.Action("GetDatosListaAsignatura", "Home")`;
+                     }
+                 
+            $.ajax({
+                    type: "GET",
+                    url: urlWs,
+                    contentType: "application/json;  charset=utf-8",
+                      dataType: "json",
+                     success: function (response) {
+                    OnSuccessGetDatos(response, tipo)
+                },
+                failure: function (response) {
+                    alert('falla');
+                },
+                error: function (response) {
+                    alert(`'No se pueden cargar datos'`+tipo);
+                }
+            });
+
+
+        }
+        
+         function ShowPopup(tipo) {
+                if (tipo == "Add") {
+                    getDatos("ListaAsignatura");
+              $("#Pop_up .modal-title").html("Añadir asignatura");
+                $("#Pop_up").modal("show");
+                   
+             }
+               
+         
+         
+         }
+            function OnSuccessGetDatos(response,tipo) {
+
+              
+                if (tipo == "ListaAsignatura") {
+                    var datosResponse = response;
+                if ($(datosResponse).length > 0) {
+                    $(datosResponse).each(function () {
+                            AddItem(this.nombre, this.uriAsignatura, "ListaAsignatura");
+
+                        ////carga el text del drop recuperado
+                        //if (document.getElementById("MainContent_hidenDropAgrup").value != "" &&
+                        //    document.getElementById("MainContent_hidenDropAgrup").value == this.COD_AGRUP ) {
+                        //    var boton = document.getElementById("MainContent_btn_Drop" + "Agrup");
+                        //    boton.firstChild.data = this.AGRUPACION_EXT;
+                        //}
+                    });
+                }
+            }
+                if (tipo == "ListaAsignaturaUsuario") {
+                    var table = $('#tb_asignaturas').DataTable();
+                    table.clear().destroy();
+                    //document.getElementById("cargaTabla_tablaBoost").style.display = "";
+                    //document.getElementById("tablaBoost").style.display = "none";
+
+
+
+                    // DataTable
+
+                var table = $('#tb_asignaturas').DataTable({
+                        liveSearch: false,
+                        "language": {
+                            "processing": "Procesando...",
+                            "lengthMenu": "Mostrar _MENU_ registros",
+                            "zeroRecords": "No se encontraron resultados",
+                            "emptyTable": "Ningún dato disponible en esta tabla",
+                            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "search": "Buscar:",
+                            "infoThousands": ",",
+                            "loadingRecords": "Cargando...",
+                            "paginate": {
+                                "first": "Primero",
+                                "last": "Último",
+                                "next": "Siguiente",
+                                "previous": "Anterior"
+                            },
+                            "aria": {
+                                "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                            },
+                            "buttons": {
+                                "copy": "Copiar",
+                                "colvis": "Visibilidad",
+                                "collection": "Colección",
+                                "colvisRestore": "Restaurar visibilidad",
+                                "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
+                                "copySuccess": {
+                                    "1": "Copiada 1 fila al portapapeles",
+                                    "_": "Copiadas %ds fila al portapapeles"
+                                },
+                                "copyTitle": "Copiar al portapapeles",
+                                "csv": "CSV",
+                                "excel": "Excel",
+                                "pageLength": {
+                                    "-1": "Mostrar todas las filas",
+                                    "_": "Mostrar %d filas"
+                                },
+                                "pdf": "PDF",
+                                "print": "Imprimir",
+                                "renameState": "Cambiar nombre",
+                                "updateState": "Actualizar",
+                                "createState": "Crear Estado",
+                                "removeAllStates": "Remover Estados",
+                                "removeState": "Remover",
+                                "savedStates": "Estados Guardados",
+                                "stateRestore": "Estado %d"
+                            },
+                            "autoFill": {
+                                "cancel": "Cancelar",
+                                "fill": "Rellene todas las celdas con <i>%d<\/i>",
+                                "fillHorizontal": "Rellenar celdas horizontalmente",
+                                "fillVertical": "Rellenar celdas verticalmentemente"
+                            },
+                            "decimal": ",",
+                            "searchBuilder": {
+                                "add": "Añadir filtro",
+                                "button": "FILTRO",
+                                "clearAll": "Borrar filtros",
+                                "condition": "Condición",
+                                "conditions": {
+                                    "date": {
+                                        "after": "Despues",
+                                        "before": "Antes",
+                                        "between": "Entre",
+                                        "empty": "Vacío",
+                                        "equals": "Igual a",
+                                        "notBetween": "No entre",
+                                        "notEmpty": "No Vacio",
+                                        "not": "Diferente de"
+                                    },
+                                    "number": {
+                                        "between": "Entre",
+                                        "empty": "Vacio",
+                                        "equals": "Igual a",
+                                        "gt": "Mayor a",
+                                        "gte": "Mayor o igual a",
+                                        "lt": "Menor que",
+                                        "lte": "Menor o igual que",
+                                        "notBetween": "No entre",
+                                        "notEmpty": "No vacío",
+                                        "not": "Diferente de"
+                                    },
+                                    "string": {
+                                        "contains": "Contiene",
+                                        "empty": "Vacío",
+                                        "endsWith": "Termina en",
+                                        "equals": "Igual a",
+                                        "notEmpty": "No Vacio",
+                                        "startsWith": "Empieza con",
+                                        "not": "Diferente de",
+                                        "notContains": "No Contiene",
+                                        "notStartsWith": "No empieza con",
+                                        "notEndsWith": "No termina con"
+                                    },
+                                    "array": {
+                                        "not": "Diferente de",
+                                        "equals": "Igual",
+                                        "empty": "Vacío",
+                                        "contains": "Contiene",
+                                        "notEmpty": "No Vacío",
+                                        "without": "Sin"
+                                    }
+                                },
+                                "data": "Columna",
+                                "deleteTitle": "Eliminar regla de filtrado",
+                                "leftTitle": "Criterios anulados",
+                                "logicAnd": "Y",
+                                "logicOr": "O",
+                                "rightTitle": "Criterios de sangría",
+                                "title": {
+                                    "0": "Constructor de búsqueda",
+                                    "_": "Constructor de búsqueda (%d)"
+                                },
+                                "value": "Valor"
+                            },
+                            "searchPanes": {
+                                "clearMessage": "Borrar todo",
+                                "collapse": {
+                                    "0": "Paneles de búsqueda",
+                                    "_": "Paneles de búsqueda (%d)"
+                                },
+                                "count": "{total}",
+                                "countFiltered": "{shown} ({total})",
+                                "emptyPanes": "Sin paneles de búsqueda",
+                                "loadMessage": "Cargando paneles de búsqueda",
+                                "title": "Filtros Activos - %d",
+                                "showMessage": "Mostrar Todo",
+                                "collapseMessage": "Colapsar Todo"
+                            },
+                            "select": {
+                                "cells": {
+                                    "1": "1 celda seleccionada",
+                                    "_": "%d celdas seleccionadas"
+                                },
+                                "columns": {
+                                    "1": "1 columna seleccionada",
+                                    "_": "%d columnas seleccionadas"
+                                },
+                                "rows": {
+                                    "1": "1 fila seleccionada",
+                                    "_": "%d filas seleccionadas"
+                                }
+                            },
+                            "thousands": ".",
+                            "datetime": {
+                                "previous": "Anterior",
+                                "next": "Proximo",
+                                "hours": "Horas",
+                                "minutes": "Minutos",
+                                "seconds": "Segundos",
+                                "unknown": "-",
+                                "amPm": [
+                                    "AM",
+                                    "PM"
+                                ],
+                                "months": {
+                                    "0": "Enero",
+                                    "1": "Febrero",
+                                    "10": "Noviembre",
+                                    "11": "Diciembre",
+                                    "2": "Marzo",
+                                    "3": "Abril",
+                                    "4": "Mayo",
+                                    "5": "Junio",
+                                    "6": "Julio",
+                                    "7": "Agosto",
+                                    "8": "Septiembre",
+                                    "9": "Octubre"
+                                },
+                                "weekdays": [
+                                    "Dom",
+                                    "Lun",
+                                    "Mar",
+                                    "Mie",
+                                    "Jue",
+                                    "Vie",
+                                    "Sab"
+                                ]
+                            },
+                            "editor": {
+                                "close": "Cerrar",
+                                "create": {
+                                    "button": "Nuevo",
+                                    "title": "Crear Nuevo Registro",
+                                    "submit": "Crear"
+                                },
+                                "edit": {
+                                    "button": "Editar",
+                                    "title": "Editar Registro",
+                                    "submit": "Actualizar"
+                                },
+                                "remove": {
+                                    "button": "Eliminar",
+                                    "title": "Eliminar Registro",
+                                    "submit": "Eliminar",
+                                    "confirm": {
+                                        "_": "¿Está seguro que desea eliminar %d filas?",
+                                        "1": "¿Está seguro que desea eliminar 1 fila?"
+                                    }
+                                },
+                                "error": {
+                                    "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                                },
+                                "multi": {
+                                    "title": "Múltiples Valores",
+                                    "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
+                                    "restore": "Deshacer Cambios",
+                                    "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+                                }
+                            },
+                            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                            "stateRestore": {
+                                "creationModal": {
+                                    "button": "Crear",
+                                    "name": "Nombre:",
+                                    "order": "Clasificación",
+                                    "paging": "Paginación",
+                                    "search": "Busqueda",
+                                    "select": "Seleccionar",
+                                    "columns": {
+                                        "search": "Búsqueda de Columna",
+                                        "visible": "Visibilidad de Columna"
+                                    },
+                                    "title": "Crear Nuevo Estado",
+                                    "toggleLabel": "Incluir:"
+                                },
+                                "emptyError": "El nombre no puede estar vacio",
+                                "removeConfirm": "¿Seguro que quiere eliminar este %s?",
+                                "removeError": "Error al eliminar el registro",
+                                "removeJoiner": "y",
+                                "removeSubmit": "Eliminar",
+                                "renameButton": "Cambiar Nombre",
+                                "renameLabel": "Nuevo nombre para %s",
+                                "duplicateError": "Ya existe un Estado con este nombre.",
+                                "emptyStates": "No hay Estados guardados",
+                                "removeTitle": "Remover Estado",
+                                "renameTitle": "Cambiar Nombre Estado"
+                            }
+                        },
+                        "data": response,
+                        //"order": [[0, "asc"], [1, "asc"], [4, "asc"], [7, "asc"]],
+                        "columns": [
+                        { "data": "urlAsignatura" ,
+                          "visible": false,
+                          "searchable": false, 
+                        },
+                        { "data": "nombre" },
+                        { "data": "riesgo" },
+                        { "data": "nota" },
+                            {
+                                "data": null,
+                                sortable: false,
+                                "createdCell": function (td) {
+                                    $(td).css('display', 'contents');
+                                },
+                                "render": function (data, type, full, meta) {
+                            //        var visible = ""
+                            //        var borrar = ""
+                            //        //if (document.getElementById("MainContent_hiddenPermiso_asignar_docencia").value === "") {
+                            //        //    document.getElementById("MainContent_hiddenPermiso_asignar_docencia").value = "S"
+                            //        //}
+
+                            //        if (((document.getElementById("MainContent_hiddenEstado_cierre").value === 'S' || document.getElementById("MainContent_hiddenPermiso_usuario").value.endsWith('RRHH') ||
+                            //            document.getElementById("MainContent_hiddenAcceso_usuario").value === 'L') && (document.getElementById("MainContent_hiddenPermiso_cierre").value === 'False')) ||
+                            //            document.getElementById("MainContent_hiddenPermiso_asignar_docencia").value !== 'S' || document.getElementById("MainContent_hiddenAcceso_usuario").value === 'L') {
+                            //            visible = "hidden"
+                            //        }
+
+
+                            //        if (data.PROFESOR === "") {
+                            //            borrar = "hidden"
+                            //        }
+
+                            //        var rowId = full.ROW_ID;
+                                    return `
+                                  <div style="display:block;">             
+                                            <button type='button' class='btn btn-default' aria-label='Left Align' title='Editar Asignatura'>
+                                               <span class=' 	glyphicon glyphicon-pencil' aria-hidden='true'></span>
+                                            </button>
+                                           <button type='button' class='btn btn-default' aria-label='Left Align' title='Borrar Asignatura'>
+                                               <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+                                           </button>
+                                          <button type='button' class='btn btn-default' aria-label='Left Align' title='Informacion de la Asignatura' >
+                                             <span class='glyphicon glyphicon-search' aria-hidden='true'></span>
+                                        </button>                                
+                                     </div>
+                                  `;
+                                },
+
+                            },
+
+                        ],                      
+                        searchBuilder: {
+                            columns: [1, 2, 3],
+                            filterChanged: function (count) {
+
+                            }
+                        },
+                        "buttons": [
+                            'searchBuilder'
+                        ],
+                        select: {
+                            style: 'single'
+                        },
+                        dom: 'Qrtip',
+                        //cambio de pagina
+                        //drawCallback: function (settings) {
+                        //    obtenerPage("dt_asignacion");
+                        //},
+                        rowCallback: function (row, data, index) {
+                            //var dat = parsearJsonToArray(data);
+                            //if (dat[9][1] == "Baja") {
+                            //  // $(row).addClass('red');
+                            //    $(row).children().css("background-color", "tomato");
+                            //}
+
+                        }
+
+
+                    });
+                    //document.getElementById("cargaTabla_tablaBoost").style.display = "none";
+                    //document.getElementById("tablaBoost").style.display = "";
+                    //table.page(parseInt(pagina)).draw(false);
+                    //reestablecerFiltros("dt_asignacion");
+                    //ordenarSelect("");
+                
+            
+                }
+            }
+            function myFunction(tipo) {
+
+                document.getElementById("myDropdown" + tipo).classList.toggle("show");
+
+            }
+            function cerrarMenu(tipo) {
+                document.getElementById("myInput" + tipo).value = "";
+                filterFunction(tipo);
+                document.getElementById("MainContent_hidenDrop" + tipo).value = "";
+                //  document.getElementById("myDropdown" + tipo).classList.toggle("show");
+
+            }
+            function filterFunction(tipo) {
+
+                input = document.getElementById("myInput" + tipo);
+                div = document.getElementById("myDropdown" + tipo);
+
+                var input, filter, ul, li, a, i;
+                filter = input.value.toUpperCase();
+
+                a = div.getElementsByTagName("a");
+                for (i = 0; i < a.length; i++) {
+                    txtValue = a[i].textContent || a[i].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        a[i].style.display = "";
+                    } else {
+                        a[i].style.display = "none";
+                    }
+                }
+            }
+            function cambiarDrop(text, Value, tipo) {
+                var boton = document.getElementById("btn_Drop" + tipo);
+                boton.firstChild.data = text;
+                //document.getElementById("MainContent_hidenDrop" + tipo).value = Value;
+
+                document.getElementById("myDropdown" + tipo).classList.toggle("show");
+
+                if ((tipo == "Agrup") || (tipo == "Area")) {
+                    document.getElementById("MainContent_hidenFilterCriteria").value = ""
+                    document.getElementById("cargaTabla_tablaBoost").style.display = "";
+                    document.getElementById("tablaBoost").style.display = "none";
+                    getDatos("Asignacion", "");
+                }
+            }
+
+            function AddItem(Text, Value, tipo) {
+
+
+                var contenedor = document.getElementById("topNav" + tipo);
+                var item;
+
+                if ((Text != "" && Value != "") && Text != "undefined") {
+                    item = `  <a  onclick='cambiarDrop("` + Text + `","` + Value + `","` + tipo + `");'>` + Text;
+                    contenedor.insertAdjacentHTML("beforeend", item);
+                }
+            }
+        </script>
+</body>
+
+
+

@@ -1,4 +1,6 @@
-﻿using aplicacionWeb.Models;
+﻿using aplicacionWeb.Model;
+using aplicacionWeb.Model.UsuarioContenedor;
+using aplicacionWeb.Servicios;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,13 +8,14 @@ namespace aplicacionWeb.Controllers
 {
     public class AccountController : Controller
     {
-     
-            private readonly ILogger<AccountController> _logger;
 
-            public AccountController(ILogger<AccountController> logger)
+        private IServicio_API_Usuario _servicioApiUsuario;
+
+        public AccountController(IServicio_API_Usuario servicioApiUsuario)
             {
-                _logger = logger;
-            }
+
+            _servicioApiUsuario = servicioApiUsuario;
+        }
 
             public IActionResult Login()
             {
@@ -23,7 +26,55 @@ namespace aplicacionWeb.Controllers
                 return View();
             }
 
+        [HttpPost]
+        public async Task<IActionResult> CrearUsuario(string usuario, string pass, string passRepeat)
+        {
+            bool respuesta=false;
+            AddUsuarioRequest usuarioRequest = new()
+            {
+                Nombre = usuario,
+                Pass = pass,
+            };
 
+            if (!usuario.Equals("")|| !pass.Equals("")|| pass!=passRepeat) {
+                respuesta = _servicioApiUsuario.Guardar(usuarioRequest).Result;
+            }
+
+            if (respuesta)
+                return RedirectToAction("Index");
+            else
+                return NoContent();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Autenticar(string usuario, string pass)
+        {
+            string respuesta = "";
+            AddUsuarioRequest usuarioRequest = new()
+            {
+                Nombre = usuario,
+                Pass = pass,
+            };
+
+            if (!usuario.Equals("") || !pass.Equals(""))
+            {
+                respuesta = _servicioApiUsuario.Autenticar(usuario, pass).Result;
+            }
+
+            if (respuesta != "") {
+
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                Response.Cookies.Append("token", respuesta);
+               
+               
+            return Redirect("~/Home/Index");
+        }
+                return NoContent();
+
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()
             {

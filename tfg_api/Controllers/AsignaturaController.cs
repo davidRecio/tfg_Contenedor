@@ -41,10 +41,10 @@ namespace tfg_api.Controllers
         {
 
            
-            AsignaturaUsuario nota = await asignaturaUsuarioBBDD.AsignaturaUsuarios.FindAsync(idUsuario,idAsignatura);
+            AsignaturaUsuario nota = await asignaturaUsuarioBBDD.AsignaturaUsuarios.FindAsync(idAsignatura, idUsuario);
 
             AsignaturaUsuarioGet asignaturaUsuarioGet = new() {
-                UrlAsignatura = new Uri(Request.GetEncodedUrl() + "/" + idUsuario),
+                UrlAsignatura = new Uri(Request.GetEncodedUrl().Split("usuarios")[0] + "asignaturas/" + idAsignatura),
                 TiempoEstudio=nota.TiempoEstudio,
                 TiempoRecomendado=nota.TiempoRecomendado,
                 Riesgo=nota.Riesgo,
@@ -67,11 +67,14 @@ namespace tfg_api.Controllers
 
             foreach(AsignaturaUsuario asignaturaUsuario in listaNotas)
             {
-
+                Asignatura asignatura = await asignaturaBBDD.Asignaturas.FindAsync(asignaturaUsuario.IdAsignatura);
                 AsignaturaUsuarioGetSort asignaturaUsuarioGetSort = new()
                 {
-                    UrlAsignatura = new Uri(Request.GetEncodedUrl() + "/" + idUsuario),
-                    UrlAsigUsuario= new Uri(Request.GetEncodedUrl() + "/" + asignaturaUsuario.IdAsignatura)
+                   
+                UrlAsignatura = new Uri(Request.GetEncodedUrl() + "/" + asignatura.IdAsignatura),
+                    Riesgo=asignaturaUsuario.Riesgo,
+                    Nombre=asignatura.Nombre,
+                    Nota=asignaturaUsuario.Nota             
                 };
                 listAsignaturaUsuarioGetSort.Add(asignaturaUsuarioGetSort);
 

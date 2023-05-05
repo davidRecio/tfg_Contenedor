@@ -1,0 +1,14 @@
+2023-05-03 08:23:31.8093|TRACE|tfg_api.Utils.Logs|Controller.|ID: Tx5QtbFuvU2wUNBU66MfA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-05-03 08:23:31.8721|TRACE|tfg_api.Utils.Logs|Controller.|ID: Tx5QtbFuvU2wUNBU66MfA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-03 08:30:52.5345|TRACE|tfg_api.Utils.Logs|Controller.|ID: kp1JNeXwksIfOH4C0KzA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-05-03 08:30:52.5657|TRACE|tfg_api.Utils.Logs|Controller.|ID: kp1JNeXwksIfOH4C0KzA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-03 08:47:26.0321|TRACE|tfg_api.Utils.Logs|Controller.|ID: 0dBS7vcHFUiuYWBf5oumDA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-05-03 08:47:26.0395|TRACE|tfg_api.Utils.Logs|Controller.|ID: 0dBS7vcHFUiuYWBf5oumDA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-03 08:49:18.7067|TRACE|tfg_api.Utils.Logs|Controller.|ID: hp9XF27Kb0ORDRxTUn9Kiw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-05-03 08:49:18.7125|TRACE|tfg_api.Utils.Logs|Controller.|ID: hp9XF27Kb0ORDRxTUn9Kiw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-03 09:05:21.7358|TRACE|tfg_api.Utils.Logs|Controller.|ID: kULAJN2dkKJgDZQ1SjKXg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-05-03 09:05:21.7488|TRACE|tfg_api.Utils.Logs|Controller.|ID: kULAJN2dkKJgDZQ1SjKXg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-03 20:30:39.7169|TRACE|tfg_api.Utils.Logs|Controller.|ID: oN1NlvbekyFRbpDfKTzLA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-05-03 20:30:39.7377|TRACE|tfg_api.Utils.Logs|Controller.|ID: oN1NlvbekyFRbpDfKTzLA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-03 21:11:02.4649|TRACE|tfg_api.Utils.Logs|Controller.|ID: fAjFdimtEG5xFyinZQrg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-05-03 21:11:02.4753|TRACE|tfg_api.Utils.Logs|Controller.|ID: fAjFdimtEG5xFyinZQrg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null

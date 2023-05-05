@@ -1,0 +1,19 @@
+2023-04-29 21:13:12.3775|TRACE|tfg_api.Utils.Logs|Controller.|ID: IHaTMrK3pkGafQM1fXDEQw, Inicio llamada WS, IP: localhost:7076 URL: /api/Admin USER: admin.FromBody: null
+2023-04-29 21:13:12.4328|TRACE|tfg_api.Utils.Logs|Controller.|ID: IHaTMrK3pkGafQM1fXDEQw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:13:34.5053|ERROR|tfg_api.Utils.Logs|Controller.|ID: IHaTMrK3pkGafQM1fXDEQw, Error ws: Object reference not set to an instance of an object., IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:13:42.8606|TRACE|tfg_api.Utils.Logs|Controller.|ID: uxUsffAhT0m50OvVuExZDA, Inicio llamada WS, IP: localhost:7076 URL: /api/Admin USER: admin.FromBody: null
+2023-04-29 21:13:42.8664|TRACE|tfg_api.Utils.Logs|Controller.|ID: uxUsffAhT0m50OvVuExZDA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:13:49.2468|ERROR|tfg_api.Utils.Logs|Controller.|ID: uxUsffAhT0m50OvVuExZDA, Error ws: Object reference not set to an instance of an object., IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:13:52.2278|TRACE|tfg_api.Utils.Logs|Controller.|ID: DPS0CZk9kSzqNOR7BPUFQ, Inicio llamada WS, IP: localhost:7076 URL: /api/Admin USER: admin.FromBody: null
+2023-04-29 21:13:52.2278|TRACE|tfg_api.Utils.Logs|Controller.|ID: DPS0CZk9kSzqNOR7BPUFQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:14:24.6474|ERROR|tfg_api.Utils.Logs|Controller.|ID: DPS0CZk9kSzqNOR7BPUFQ, Error ws: Object reference not set to an instance of an object., IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:47:18.0601|TRACE|tfg_api.Utils.Logs|Controller.|ID: Ju8rb9Vux0qamR6WvL0SHA, Inicio llamada WS, IP: localhost:7076 URL: /api/Admin USER: aaqa.FromBody: null
+2023-04-29 21:47:18.1734|TRACE|tfg_api.Utils.Logs|Controller.|ID: Ju8rb9Vux0qamR6WvL0SHA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:47:47.9774|TRACE|tfg_api.Utils.Logs|Controller.|ID: yjxfYCDzkEyHiVRLFfR6ew, Inicio llamada WS, IP: localhost:7076 URL: /api/Admin USER: admin.FromBody: null
+2023-04-29 21:47:47.9774|TRACE|tfg_api.Utils.Logs|Controller.|ID: yjxfYCDzkEyHiVRLFfR6ew, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:48:50.7862|ERROR|tfg_api.Utils.Logs|Controller.|ID: yjxfYCDzkEyHiVRLFfR6ew, Error ws: Object reference not set to an instance of an object., IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:52:39.7139|TRACE|tfg_api.Utils.Logs|Controller.|ID: GCcLQxL60SJmwOJRtmMJw, Inicio llamada WS, IP: localhost:7076 URL: /api/Admin USER: aqua.FromBody: null
+2023-04-29 21:52:39.7990|TRACE|tfg_api.Utils.Logs|Controller.|ID: GCcLQxL60SJmwOJRtmMJw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:52:57.6331|ERROR|tfg_api.Utils.Logs|Controller.|ID: GCcLQxL60SJmwOJRtmMJw, Error ws: Object reference not set to an instance of an object., IP: localhost:7076 URL: /api/Admin.FromBody: null
+2023-04-29 21:53:17.3123|TRACE|tfg_api.Utils.Logs|Controller.|ID: 8xnVJs0OU2yaCHJj19YTA, Inicio llamada WS, IP: localhost:7076 URL: /api/Admin USER: aaqa.FromBody: null
+2023-04-29 21:53:17.3160|TRACE|tfg_api.Utils.Logs|Controller.|ID: 8xnVJs0OU2yaCHJj19YTA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/Admin.FromBody: null

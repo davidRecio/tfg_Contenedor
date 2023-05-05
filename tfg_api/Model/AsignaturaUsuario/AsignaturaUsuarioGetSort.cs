@@ -13,12 +13,21 @@ namespace tfg_api.Model.AsignaturaUsuario
         /// </summary>
         public Uri? UrlAsignatura { get; set; }
         /// <summary>
-        /// datos del usuario
+        /// nombre de la asignatura
         /// </summary>
-     
-        public Uri? UrlAsigUsuario { get; set; }
 
+        public string? Nombre { get; set; }
 
+        /// <summary>
+        /// Riesgo en referente a la nota sacada
+        /// </summary>
+        public int Riesgo { get; set; }
+
+        /// <summary>
+        /// Nota de la asignatura
+        /// </summary>
+
+        public double Nota { get; set; }
 
     }
 }

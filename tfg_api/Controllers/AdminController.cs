@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using tfg_api.Utils;
 using Microsoft.AspNetCore.Authorization;
-
-
+using tfg_api.Model.UsuarioContenedor;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace tfg_api.Controllers
 {
@@ -11,18 +12,20 @@ namespace tfg_api.Controllers
     /// controlador de aministracion
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/admin")]
     public class AdminController : Controller
     {
        
         private readonly IWebHostEnvironment _env;
+        private readonly UsuarioBBDD usuarioBBDD;
         #region - Constructores -
         /// <summary>
         /// Constructor por defecto
         /// </summary>
-        public AdminController(IWebHostEnvironment env)
+        public AdminController(IWebHostEnvironment env, UsuarioBBDD usuarioBBDD)
         {
-            _env = env;     
+            _env = env;
+            this.usuarioBBDD = usuarioBBDD;
         }
         #endregion
 
@@ -31,7 +34,7 @@ namespace tfg_api.Controllers
         /// </summary>
         /// <returns>Ping del API</returns>
         [HttpGet]
-        [Route("Ping")]
+        [Route("ping")]
         [Authorize]
         public StatusCodeResult Ping()
         {
@@ -65,7 +68,7 @@ namespace tfg_api.Controllers
         /// <param name="p5">Datos Identificativos</param>
         /// <returns>Lista de Logs</returns>
         [HttpGet]
-        [Route("APILogs")]
+        [Route("logs")]
         [Authorize]
         public List<LogItem> APILogs(string p1 = null, string p2 = null, string p3 = null, bool p4 = false, string p5=null)
         {
@@ -123,7 +126,7 @@ namespace tfg_api.Controllers
         }
 
         [HttpPost]
-        [Route("BBDD/Inicializar")]
+        [Route("bbdd/inicializar")]
         [Authorize]
         public StatusCodeResult Inicializar()
         {
@@ -155,6 +158,7 @@ namespace tfg_api.Controllers
         /// <param name="login"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("login")]
         public async Task<ActionResult> Autenticar(LoginRequest login)
         {
             bool isCredentialValid = false;
@@ -163,7 +167,7 @@ namespace tfg_api.Controllers
             var IP = utils.GetIP();
             var URL = utils.GetURL();
             var Delegated = utils.GetDelegated();
-
+            Usuario usuario= null;
 
             try
             {
@@ -177,7 +181,10 @@ namespace tfg_api.Controllers
 
                 if (isCredentialValid)
                 {
-                    var token = TokenGenerator.GenerateTokenJwt(login.Username);
+                    if (!login.Username.IsNullOrEmpty()) {
+                         usuario =  usuarioBBDD.Usuarios.Where(p => p.Nombre.Equals(login.Username)).ToList().FirstOrDefault(); 
+                    }
+                    var token = TokenGenerator.GenerateTokenJwt(login.Username, usuario.IdUsuario.ToString().ToUpper().Replace("-",""));
                     return Ok(token);
                 }
                 else

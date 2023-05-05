@@ -398,13 +398,13 @@ namespace tfg_api.Utils
        
         public bool IsAuthorized(string Nombre = null, string Token = null)
         {
-            if (Nombre == "admin" || Token == "admin") {
-                return true;
-            }
-            else {
-                return false;
-            }
-           
+            //if (Nombre == "admin" || Token == "admin") {
+            //    return true;
+            //}
+            //else {
+            //    return false;
+            //}
+            return true;
 
         }
         #endregion
@@ -567,7 +567,7 @@ namespace tfg_api.Utils
     internal static class TokenGenerator
     {
 
-        public static string GenerateTokenJwt(string username)
+        public static string GenerateTokenJwt(string username, string id)
         {
 
             var secretKey = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("Jwt")["Key"];
@@ -579,7 +579,11 @@ namespace tfg_api.Utils
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             // create a claimsIdentity
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) });
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { 
+                new Claim(ClaimTypes.Name, username), 
+                new Claim(ClaimTypes.NameIdentifier,id),
+                new Claim(ClaimTypes.Role,"admin")
+            });
 
             // create token to the user
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();

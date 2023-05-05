@@ -36,7 +36,7 @@ namespace tfg_api.Controllers
         /// Obtiene todos los usuarios
         /// </summary>
         /// <returns></returns>
-        [HttpGet,Authorize]
+        [HttpGet]
    
         public async Task<ActionResult> GetUsuarios()
         {
