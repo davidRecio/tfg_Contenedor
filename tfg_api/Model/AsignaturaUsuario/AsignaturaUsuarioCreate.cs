@@ -11,7 +11,7 @@ namespace tfg_api.Model.AsignaturaUsuario
         /// Nota de la asignatura
         /// </summary>
      
-        public double Nota { get; set; }
+        public decimal Nota { get; set; }
         /// <summary>
         /// horas de estudio
         /// </summary>

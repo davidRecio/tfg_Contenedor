@@ -127,7 +127,6 @@ namespace tfg_api.Controllers
 
         [HttpPost]
         [Route("bbdd/inicializar")]
-        [Authorize]
         public StatusCodeResult Inicializar()
         {
             try {
@@ -143,6 +142,8 @@ namespace tfg_api.Controllers
                 interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD3.sql");
                 Task.Delay(5000).Wait();
                 interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD4.sql");
+                Task.Delay(5000).Wait();
+                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD5.sql");
                 return StatusCode(200);
             }
             catch (Exception ex)

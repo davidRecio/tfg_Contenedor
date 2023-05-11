@@ -51,6 +51,8 @@ builder.Services.AddDbContext<AsignaturaBBDD>(options => options.UseSqlServer(bu
 builder.Services.AddDbContext<AsignaturaUsuarioDDBB>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
 builder.Services.AddDbContext<PreguntaFormularioBBDD>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
 builder.Services.AddDbContext<RespuestaFormularioBBDD>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
+builder.Services.AddDbContext<AsignaturaAreaBBDD>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
+builder.Services.AddDbContext<AreaConocimientoBBDD>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalHostConnectionStrings")));
 
 
 

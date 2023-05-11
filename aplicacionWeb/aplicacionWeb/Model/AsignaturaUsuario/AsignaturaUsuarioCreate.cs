@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace aplicacionWeb.ModelsAsignaturaUsuario
+namespace aplicacionWeb.Models.AsignaturaUsuario
 {
   
     public class AsignaturaUsuarioCreate

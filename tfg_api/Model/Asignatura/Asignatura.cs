@@ -6,17 +6,18 @@ namespace tfg_api.Model.Asignatura
     /// <summary>
     /// clase de la asignatura
     /// </summary>
-    public class AsignaturaGet
+    public class Asignatura
     {
- 
         /// <summary>
-        /// tipo de la asignatura( humanistica, cientifica...)
+        /// identificador de la asignatura
         /// </summary>
-        public string? Tipo { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid IdAsignatura { get; set; } 
 
         /// <summary>
         /// nombre de la asignatura
         /// </summary>
+        [Required, StringLength(50)]
         public string? Nombre { get; set; }
 
      

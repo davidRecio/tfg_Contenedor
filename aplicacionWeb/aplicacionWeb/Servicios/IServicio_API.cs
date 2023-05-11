@@ -23,13 +23,13 @@ namespace aplicacionWeb.Servicios
         void SetToken(string token);
         #region "sin usuario"
         Task<List<AsignaturaSort>> ListaAsignatura();
-        Task<AsignaturaGet> Obtener();
+        Task<AsignaturaUsuarioGet> Obtener(string idAsignatura);
 
-        Task<bool> Guardar(AddAsignaturaRequest objeto);
+        Task<bool> Crear(string idAsignatura, string nota_input, string tiempoEstudio_input);
 
-        Task<bool> Editar(UpdateAsignaturaRequest objeto);
+        Task<bool> Editar(AsignaturaUsuarioUpdate objeto, string idAsignatura);
 
-        Task<bool> Eliminar();
+        Task<bool> Eliminar(string idAsignatura);
         #endregion
 
         #region "con usuario"

@@ -243,7 +243,7 @@ namespace tfg_api.Model.Interna
         /// <param name="usuario"></param>
         /// <param name="asignatura"></param>
         /// <param name="tipo"></param>
-        public async void CalcularAptitudesAsignatura(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipo) {
+        public async void CalcularAptitudesAsignatura(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipoLista) {
             usuario.Administrativas_Contables_Apt = 0;
             usuario.Humanisticas_Sociales_Apt = 0;
             usuario.Artisticas_Apt = 0;
@@ -253,160 +253,168 @@ namespace tfg_api.Model.Interna
             usuario.CienciasExactas_Agrarias_Apt = 0;
 
             decimal nota = decimal.Parse(asignatura.Nota.ToString());
-            switch (tipo) {
-         
-                case "Administrativas_Contables": {
-                        if (nota > 5 && nota<=8) {
-                            usuario.Administrativas_Contables_Apt++;
-                        }
-                        if (nota > 8 && nota <= 10){
-                            usuario.Administrativas_Contables_Apt++;
-                            usuario.Administrativas_Contables_Apt++;
-                        }
-                        if (nota > 2 && nota < 5) {
-                            usuario.Administrativas_Contables_Apt--;
-                        }
-                        if ( nota <= 2)
+            foreach (string tipo in tipoLista.Split(","))
+            {
+                switch (tipo)
+                {
+
+                    case "Administrativas_Contables":
                         {
-                            usuario.Administrativas_Contables_Apt--;
-                            usuario.Administrativas_Contables_Apt--;
+                            if (nota > 5 && nota <= 8)
+                            {
+                                usuario.Administrativas_Contables_Apt++;
+                            }
+                            if (nota > 8 && nota <= 10)
+                            {
+                                usuario.Administrativas_Contables_Apt++;
+                                usuario.Administrativas_Contables_Apt++;
+                            }
+                            if (nota > 2 && nota < 5)
+                            {
+                                usuario.Administrativas_Contables_Apt--;
+                            }
+                            if (nota <= 2)
+                            {
+                                usuario.Administrativas_Contables_Apt--;
+                                usuario.Administrativas_Contables_Apt--;
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case "Humanisticas_Sociales":
-                    {
-                        if (nota > 5 && nota <= 8)
+                    case "Humanisticas_Sociales":
                         {
-                            usuario.Humanisticas_Sociales_Apt++;
+                            if (nota > 5 && nota <= 8)
+                            {
+                                usuario.Humanisticas_Sociales_Apt++;
+                            }
+                            if (nota > 8 && nota <= 10)
+                            {
+                                usuario.Humanisticas_Sociales_Apt++;
+                                usuario.Humanisticas_Sociales_Apt++;
+                            }
+                            if (nota > 2 && nota < 5)
+                            {
+                                usuario.Humanisticas_Sociales_Apt--;
+                            }
+                            if (nota <= 2)
+                            {
+                                usuario.Humanisticas_Sociales_Apt--;
+                                usuario.Humanisticas_Sociales_Apt--;
+                            }
+                            break;
                         }
-                        if (nota > 8 && nota <= 10)
+                    case "Artisticas":
                         {
-                            usuario.Humanisticas_Sociales_Apt++;
-                            usuario.Humanisticas_Sociales_Apt++;
+                            if (nota > 5 && nota <= 8)
+                            {
+                                usuario.Artisticas_Apt++;
+                            }
+                            if (nota > 8 && nota <= 10)
+                            {
+                                usuario.Artisticas_Apt++;
+                                usuario.Artisticas_Apt++;
+                            }
+                            if (nota > 2 && nota < 5)
+                            {
+                                usuario.Artisticas_Apt--;
+                            }
+                            if (nota <= 2)
+                            {
+                                usuario.Artisticas_Apt--;
+                                usuario.Artisticas_Apt--;
+                            }
+                            break;
                         }
-                        if (nota > 2 && nota < 5)
+                    case "Medicina_CsSalud":
                         {
-                            usuario.Humanisticas_Sociales_Apt--;
+                            if (nota > 5 && nota <= 8)
+                            {
+                                usuario.Medicina_CsSalud_Apt++;
+                            }
+                            if (nota > 8 && nota <= 10)
+                            {
+                                usuario.Medicina_CsSalud_Apt++;
+                                usuario.Medicina_CsSalud_Apt++;
+                            }
+                            if (nota > 2 && nota < 5)
+                            {
+                                usuario.Medicina_CsSalud_Apt--;
+                            }
+                            if (nota <= 2)
+                            {
+                                usuario.Medicina_CsSalud_Apt--;
+                                usuario.Medicina_CsSalud_Apt--;
+                            }
+                            break;
                         }
-                        if (nota <= 2)
+                    case "Ingenieria_Computacion":
                         {
-                            usuario.Humanisticas_Sociales_Apt--;
-                            usuario.Humanisticas_Sociales_Apt--;
+                            if (nota > 5 && nota <= 8)
+                            {
+                                usuario.Ingenieria_Computacion_Apt++;
+                            }
+                            if (nota > 8 && nota <= 10)
+                            {
+                                usuario.Ingenieria_Computacion_Apt++;
+                                usuario.Ingenieria_Computacion_Apt++;
+                            }
+                            if (nota > 2 && nota < 5)
+                            {
+                                usuario.Ingenieria_Computacion_Apt--;
+                            }
+                            if (nota <= 2)
+                            {
+                                usuario.Ingenieria_Computacion_Apt--;
+                                usuario.Ingenieria_Computacion_Apt--;
+                            }
+                            break;
                         }
-                        break;
-                    }
-                case "Artisticas":
-                    {
-                        if (nota > 5 && nota <= 8)
+                    case "DefensaSeguridad":
                         {
-                            usuario.Artisticas_Apt++;
+                            if (nota > 5 && nota <= 8)
+                            {
+                                usuario.DefensaSeguridad_Apt++;
+                            }
+                            if (nota > 8 && nota <= 10)
+                            {
+                                usuario.DefensaSeguridad_Apt++;
+                                usuario.DefensaSeguridad_Apt++;
+                            }
+                            if (nota > 2 && nota < 5)
+                            {
+                                usuario.DefensaSeguridad_Apt--;
+                            }
+                            if (nota <= 2)
+                            {
+                                usuario.DefensaSeguridad_Apt--;
+                                usuario.DefensaSeguridad_Apt--;
+                            }
+                            break;
                         }
-                        if (nota > 8 && nota <= 10)
+                    case "CienciasExactas_Agrarias":
                         {
-                            usuario.Artisticas_Apt++;
-                            usuario.Artisticas_Apt++;
+                            if (nota > 5 && nota <= 8)
+                            {
+                                usuario.CienciasExactas_Agrarias_Apt++;
+                            }
+                            if (nota > 8 && nota <= 10)
+                            {
+                                usuario.CienciasExactas_Agrarias_Apt++;
+                                usuario.CienciasExactas_Agrarias_Apt++;
+                            }
+                            if (nota > 2 && nota < 5)
+                            {
+                                usuario.CienciasExactas_Agrarias_Apt--;
+                            }
+                            if (nota <= 2)
+                            {
+                                usuario.CienciasExactas_Agrarias_Apt--;
+                                usuario.CienciasExactas_Agrarias_Apt--;
+                            }
+                            break;
                         }
-                        if (nota > 2 && nota < 5)
-                        {
-                            usuario.Artisticas_Apt--;
-                        }
-                        if (nota <= 2)
-                        {
-                            usuario.Artisticas_Apt--;
-                            usuario.Artisticas_Apt--;
-                        }
-                        break;
-                    }
-                case "Medicina_CsSalud":
-                    {
-                        if (nota > 5 && nota <= 8)
-                        {
-                            usuario.Medicina_CsSalud_Apt++;
-                        }
-                        if (nota > 8 && nota <= 10)
-                        {
-                            usuario.Medicina_CsSalud_Apt++;
-                            usuario.Medicina_CsSalud_Apt++;
-                        }
-                        if (nota > 2 && nota < 5)
-                        {
-                            usuario.Medicina_CsSalud_Apt--;
-                        }
-                        if (nota <= 2)
-                        {
-                            usuario.Medicina_CsSalud_Apt--;
-                            usuario.Medicina_CsSalud_Apt--;
-                        }
-                        break;
-                    }
-                case "Ingenieria_Computacion":
-                    {
-                        if (nota > 5 && nota <= 8)
-                        {
-                            usuario.Ingenieria_Computacion_Apt++;
-                        }
-                        if (nota > 8 && nota <= 10)
-                        {
-                            usuario.Ingenieria_Computacion_Apt++;
-                            usuario.Ingenieria_Computacion_Apt++;
-                        }
-                        if (nota > 2 && nota < 5)
-                        {
-                            usuario.Ingenieria_Computacion_Apt--;
-                        }
-                        if (nota <= 2)
-                        {
-                            usuario.Ingenieria_Computacion_Apt--;
-                            usuario.Ingenieria_Computacion_Apt--;
-                        }
-                        break;
-                    }
-                case "DefensaSeguridad":
-                    {
-                        if (nota > 5 && nota <= 8)
-                        {
-                            usuario.DefensaSeguridad_Apt++;
-                        }
-                        if (nota > 8 && nota <= 10)
-                        {
-                            usuario.DefensaSeguridad_Apt++;
-                            usuario.DefensaSeguridad_Apt++;
-                        }
-                        if (nota > 2 && nota < 5)
-                        {
-                            usuario.DefensaSeguridad_Apt--;
-                        }
-                        if (nota <= 2)
-                        {
-                            usuario.DefensaSeguridad_Apt--;
-                            usuario.DefensaSeguridad_Apt--;
-                        }
-                        break;
-                    }
-                case "CienciasExactas_Agrarias":
-                    {
-                        if (nota > 5 && nota <= 8)
-                        {
-                            usuario.CienciasExactas_Agrarias_Apt++;
-                        }
-                        if (nota > 8 && nota <= 10)
-                        {
-                            usuario.CienciasExactas_Agrarias_Apt++;
-                            usuario.CienciasExactas_Agrarias_Apt++;
-                        }
-                        if (nota > 2 && nota < 5)
-                        {
-                            usuario.CienciasExactas_Agrarias_Apt--;
-                        }
-                        if (nota <= 2)
-                        {
-                            usuario.CienciasExactas_Agrarias_Apt--;
-                            usuario.CienciasExactas_Agrarias_Apt--;
-                        }
-                        break;
-                    }
 
 
+                }
             }
             await usuarioBBDD.SaveChangesAsync();
 
@@ -419,7 +427,7 @@ namespace tfg_api.Model.Interna
         /// <param name="usuario"></param>
         /// <param name="asignatura"></param>
         /// <param name="tipo"></param>
-        public async void Recomendaciones(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipo) {
+        public async void Recomendaciones(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipoLista) {
             // tiempo recomendado por asignatura de manera semanal son 2 horas minimo  maximo 6
             // si tienes un interes bajo lo mas seguro es que abandones la carrera, por lo que aumenta el riesgo de no estudiar
 
@@ -427,51 +435,55 @@ namespace tfg_api.Model.Interna
             asignatura.TiempoRecomendado = 4;
             int aptitudAsignatura = 0;
             int interesAsignatura = 0;
-            switch (tipo) {
+            foreach (string tipo in tipoLista.Split(","))
+            {
+                switch (tipo)
+                {
 
-                case "Administrativas_Contables":
-                    {
+                    case "Administrativas_Contables":
+                        {
                             aptitudAsignatura = Int32.Parse(usuario.Administrativas_Contables_Apt.ToString());
-                        interesAsignatura = Int32.Parse(usuario.Administrativas_Contables_Int.ToString());
+                            interesAsignatura = Int32.Parse(usuario.Administrativas_Contables_Int.ToString());
                             break;
-                    }
-                case "Humanisticas_Sociales":
-                    {
-                        aptitudAsignatura = Int32.Parse(usuario.Humanisticas_Sociales_Apt.ToString());
-                        interesAsignatura = Int32.Parse(usuario.Humanisticas_Sociales_Int.ToString());
-                        break;
-                    }
-                case "Artisticas":
-                    {
-                            aptitudAsignatura = Int32.Parse(usuario.Artisticas_Apt.ToString());
-                        interesAsignatura = Int32.Parse(usuario.Artisticas_Int.ToString());
-                        break;
-                    }
-                case "Medicina_CsSalud":
-                    {
-                            aptitudAsignatura = Int32.Parse(usuario.Medicina_CsSalud_Apt.ToString());
-                        interesAsignatura = Int32.Parse(usuario.Medicina_CsSalud_Int.ToString());
-                        break;
                         }
-                case "Ingenieria_Computacion":
-                    {
-                        aptitudAsignatura = Int32.Parse(usuario.Ingenieria_Computacion_Apt.ToString());
-                        interesAsignatura = Int32.Parse(usuario.Ingenieria_Computacion_Int.ToString());
-                        break;
-                    }
-                case "DefensaSeguridad":
-                    {                   
+                    case "Humanisticas_Sociales":
+                        {
+                            aptitudAsignatura = Int32.Parse(usuario.Humanisticas_Sociales_Apt.ToString());
+                            interesAsignatura = Int32.Parse(usuario.Humanisticas_Sociales_Int.ToString());
+                            break;
+                        }
+                    case "Artisticas":
+                        {
+                            aptitudAsignatura = Int32.Parse(usuario.Artisticas_Apt.ToString());
+                            interesAsignatura = Int32.Parse(usuario.Artisticas_Int.ToString());
+                            break;
+                        }
+                    case "Medicina_CsSalud":
+                        {
+                            aptitudAsignatura = Int32.Parse(usuario.Medicina_CsSalud_Apt.ToString());
+                            interesAsignatura = Int32.Parse(usuario.Medicina_CsSalud_Int.ToString());
+                            break;
+                        }
+                    case "Ingenieria_Computacion":
+                        {
+                            aptitudAsignatura = Int32.Parse(usuario.Ingenieria_Computacion_Apt.ToString());
+                            interesAsignatura = Int32.Parse(usuario.Ingenieria_Computacion_Int.ToString());
+                            break;
+                        }
+                    case "DefensaSeguridad":
+                        {
                             aptitudAsignatura = Int32.Parse(usuario.DefensaSeguridad_Apt.ToString());
-                        interesAsignatura = Int32.Parse(usuario.DefensaSeguridad_Int.ToString());
-                        break;
-                    }
-                case "CienciasExactas_Agrarias":
-                    {
-                        aptitudAsignatura =Int32.Parse(usuario.CienciasExactas_Agrarias_Apt.ToString());
-                        interesAsignatura = Int32.Parse(usuario.CienciasExactas_Agrarias_Int.ToString());
-                        break;
-                    }
-            
+                            interesAsignatura = Int32.Parse(usuario.DefensaSeguridad_Int.ToString());
+                            break;
+                        }
+                    case "CienciasExactas_Agrarias":
+                        {
+                            aptitudAsignatura = Int32.Parse(usuario.CienciasExactas_Agrarias_Apt.ToString());
+                            interesAsignatura = Int32.Parse(usuario.CienciasExactas_Agrarias_Int.ToString());
+                            break;
+                        }
+
+                }
             }
             #region "tiempo de partida"
             // si le dedicas tiempo en esceso puede o saturar o quitar tiempo para otras, y si es menor puede que no le dediques suficiente

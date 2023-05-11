@@ -60,7 +60,7 @@
         <div id="content">
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="container-fluid" style="width: 80%;">
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Asignaturas</h1>
@@ -69,29 +69,66 @@
                 <div id="Pop_up" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
                     <div class="modal-dialog modal-lg">
                         <!-- Modal content-->
+
+                    
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title"></h4>
                             </div>
                             <div class="modal-body">
+                                    <input type="text" for="inputName" name="hidenDropListaAsignatura" id="hidenDropListaAsignatura" style="display: none" />
+                                    <label id="mensajeBorrar">Estas seguro de borrar la asignatura</label>
+                                    <div id="contenidoAsignatura">
                                 <table class="col-xs-12">
                                     <tr>
                                         <td>
-                                            <label id="LabelError" class="col-xs-5"></label>
+                                            <label class="col-xs-4">Asignatura: </label>
+                                            <div class="dropdown">
+                                                <button type="button" id="btn_DropListaAsignatura" onclick="myFunction('ListaAsignatura')" class="dropbtn btn btn-primary">Selección</button>
+                                                <div id="myDropdownListaAsignatura" class="dropdown-content" style="display:none;">
+                                                    <input type="text" placeholder="Buscar.." id="myInputListaAsignatura" onkeyup="filterFunction('ListaAsignatura')" />
+
+                                                    <nav id="topNavListaAsignatura" class="dropdown-menu" style="display:inline-grid;">
+                                                    </nav>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                   </tr>
+                                   <tr>
+                                        <td>
+                                            <label class="col-xs-4" for="inputName">Nota: </label>
+                                            <input type="text" id="nota_input"  name="nota_input"/>
+                                        </td>
+                                   </tr>
+                                    <tr>
+                                        <td>
+                                                <label class="col-xs-4" for="inputName">T.Estudio: </label>
+                                                <input type="text" id="tiempoEstudio_input" name="tiempoEstudio_input" />
                                         </td>
                                     </tr>
-                                    <label class="col-xs-4">Asignatura: </label>
-                                    <div class="dropdown">
-                                        <button type="button" id="btn_DropListaAsignatura"  onclick="myFunction('ListaAsignatura')" class="dropbtn btn btn-primary">Selección</button>
-                                        <div id="myDropdownListaAsignatura" class="dropdown-content" style="display:none;">
-                                            <input type="text" placeholder="Buscar.." id="myInputListaAsignatura" onkeyup="filterFunction('ListaAsignatura')" />
+                                    
+                                    </table>
+                                </div>
+                                <div id="apartadoInfo">
+                                <table class="col-xs-12">                                   
+                                      <tr>
+                                        <td>
+                                                <label class="col-xs-4" for="inputName">TR.Estudio: </label>
+                                            <input type="text" id="tiempoRecEstudio_input" name="tiempoRecEstudio_input" disabled="disabled" />
+                                        </td>
+                                    </tr>
+                                      <tr>
+                                        <td>
+                                                <label class="col-xs-4" for="inputName">Riesgo: </label>
+                                            <input type="text" id="riesgo_input" name="riesgo_input" disabled="disabled" />
+                                        </td>
+                                    </tr>
+                                    
+                                
 
-                                            <nav id="topNavListaAsignatura" class="dropdown-menu" style="display:inline-grid;">
-                                            </nav>
-
-                                        </div>
-                                    </div>
                                 </table>
+                                </div>
                                 <br />
                                 <br />
                                 <br />
@@ -102,16 +139,23 @@
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                                     Volver
                                 </button>
+                                <button id="buttonCrear" class="btn btn-primary mt-3 mt-sm-0" onclick="getDatos('AddAsignaturaUsuario','');">Crear</button>
+                                <button id="buttonActualizar" class="btn btn-primary mt-3 mt-sm-0" onclick="getDatos('UpdateAsignaturaUsuario','');">Actualizar</button>
+                                <button id="buttonBorrar" class="btn btn-primary mt-3 mt-sm-0" onclick="getDatos('DeleteAsignaturaUsuario','');">Borrar</button>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
-
+                <div id="hidden_content" style="display:none;">
+                    
+                </div>
                 <!-- DataTables  -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <div class="text-center">
-                            <button class="btn btn-primary mt-3 mt-sm-0" onclick="ShowPopup('Add');">Añadir Asignatura</button>
+                            <button  class="btn btn-primary mt-3 mt-sm-0" onclick="ShowPopup('Add','');">Añadir Asignatura</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -157,56 +201,132 @@
         <script>
          
              $(document).ready(function () {
-                getDatos("ListaAsignaturaUsuario");
+                getDatos("ListaAsignaturaUsuario","");
              });
              
     
-                 function getDatos(tipo) {
+                 function getDatos(tipo,inputDato) {
+
                      var urlWs="";
+                     var typeMeth="";
+                     var datos="";
                 if (tipo == "ListaAsignaturaUsuario") {
                     urlWs = `@Url.Action("GetDatosListaAsignaturaUsuario", "Home")`;
+                    typeMeth="GET";
                      }else if(tipo=="ListaAsignatura"){
                     urlWs = `@Url.Action("GetDatosListaAsignatura", "Home")`;
-                     }
-                 
-            $.ajax({
-                    type: "GET",
-                    url: urlWs,
-                    contentType: "application/json;  charset=utf-8",
-                      dataType: "json",
-                     success: function (response) {
-                    OnSuccessGetDatos(response, tipo)
-                },
-                failure: function (response) {
-                    alert('falla');
-                },
-                error: function (response) {
-                    alert(`'No se pueden cargar datos'`+tipo);
-                }
-            });
+                    typeMeth="GET";
+                } else if (tipo == "AddAsignaturaUsuario") {
+                    urlWs = `@Url.Action("AddAsignaturaUsuario", "Home")`;
+                    typeMeth = "POST";
 
+                    var idAsignatura = document.getElementById("hidenDropListaAsignatura").value;
+                    var nota = document.getElementById("nota_input").value;
+                    var tiempoEstudio = document.getElementById("tiempoEstudio_input").value;
+                     var datos=idAsignatura+"€"+nota+"€"+tiempoEstudio;
+                } else if (tipo == "Info" || tipo=="UpdateButton" ){
+                    urlWs = `@Url.Action("InfoAsignaturaUsuario", "Home")`;
+                    typeMeth = "GET";
+                    document.getElementById("hidenDropListaAsignatura").value = inputDato.split("$")[1];
+                    datos = inputDato.split("$")[0];
+                }else if (tipo == "UpdateAsignaturaUsuario") {
+                    urlWs = `@Url.Action("UpdateAsignaturaUsuario", "Home")`;
+                    typeMeth = "PUT";
+                    var idAsignatura = document.getElementById("hidenDropListaAsignatura").value;
+                   var nota = document.getElementById("nota_input").value;
+                   var tiempoEstudio = document.getElementById("tiempoEstudio_input").value;
+                  var  tiempoRecomendado = document.getElementById("tiempoRecEstudio_input").value;
+                   var riesgo = document.getElementById("riesgo_input").value;
+                    var datos = idAsignatura+"€"+ nota + "€" + tiempoEstudio + "€" + tiempoRecomendado + "€" + riesgo;
+                } else if (tipo == "DeleteAsignaturaUsuario") {
+                    urlWs = `@Url.Action("DeleteAsignaturaUsuario", "Home")`;
+                    typeMeth = "DELETE";
+                    var idAsignatura = document.getElementById("hidenDropListaAsignatura").value
+                    var datos = idAsignatura;
+                }
+                
+
+                    $.ajax({
+                        type: typeMeth,
+                            url: urlWs,
+                            contentType: "application/x-www-form-urlencoded",
+                             data: {"datos":datos},
+                              dataType: "json",
+                             success: function (response) {
+                            OnSuccessGetDatos(response, tipo)
+                        },
+                        failure: function (response) {
+                            alert('falla');
+                        },
+                        error: function (response) {
+                            alert(`'No se pueden cargar datos'`+tipo);
+                        }
+                    });
+                 
 
         }
-        
-         function ShowPopup(tipo) {
+
+            function ShowPopup(tipo, inputDato) {
+                               document.getElementById("nota_input").disabled = false;
+                    document.getElementById("tiempoEstudio_input").disabled = false;
+                document.getElementById("btn_DropListaAsignatura").disabled = false;               
+                document.getElementById("apartadoInfo").style.display = "none";
+                document.getElementById("buttonCrear").style.display = "none";
+                document.getElementById("buttonActualizar").style.display = "none";
+                document.getElementById("mensajeBorrar").style.display = "none";
+                document.getElementById("buttonBorrar").style.display = "none";
+                document.getElementById("contenidoAsignatura").style.display = "block";
+               
+                
                 if (tipo == "Add") {
-                    getDatos("ListaAsignatura");
-              $("#Pop_up .modal-title").html("Añadir asignatura");
+                    document.getElementById("buttonCrear").style.display = "block";
+                    getDatos("ListaAsignatura","");
+                  $("#Pop_up .modal-title").html("Añadir asignatura");
+                $("#Pop_up").modal("show");
+                   
+             }else if(tipo=="Info"){
+                 document.getElementById("apartadoInfo").style.display = "block";
+                    getDatos("ListaAsignatura","");
+                    document.getElementById("nota_input").disabled = true;
+                    document.getElementById("tiempoEstudio_input").disabled = true; 
+                    document.getElementById("btn_DropListaAsignatura").disabled = true;
+
+                    $("#Pop_up .modal-title").html("Información asignatura");
+                    $("#Pop_up").modal("show");
+                } else if (tipo == "UpdateButton") {
+                    document.getElementById("btn_DropListaAsignatura").disabled = true;
+                    document.getElementById("buttonActualizar").style.display = "block";
+                    getDatos("ListaAsignatura","");
+                  $("#Pop_up .modal-title").html("Actualizar asignatura");
                 $("#Pop_up").modal("show");
                    
              }
+                else if (tipo == "DeleteButton") {
+                    document.getElementById("mensajeBorrar").style.display = "block";
+                    document.getElementById("buttonBorrar").style.display = "block";
+                    document.getElementById("contenidoAsignatura").style.display = "none";
+                    document.getElementById("hidenDropListaAsignatura").value = inputDato.split("asignaturas/")[1];
+                    $("#Pop_up .modal-title").html("Borrar asignatura ");
+                    $("#Pop_up").modal("show");
+
+                }
                
          
          
          }
             function OnSuccessGetDatos(response,tipo) {
 
+             
               
                 if (tipo == "ListaAsignatura") {
                     var datosResponse = response;
                 if ($(datosResponse).length > 0) {
+                        var contenedor = document.getElementById("topNav" + tipo);
+                        while (contenedor.firstChild) {
+                            contenedor.firstChild.remove()
+                        }
                     $(datosResponse).each(function () {
-                            AddItem(this.nombre, this.uriAsignatura, "ListaAsignatura");
+                            AddItem(this.nombre, this.uriAsignatura.split("asignaturas")[1].substring(1), "ListaAsignatura");
 
                         ////carga el text del drop recuperado
                         //if (document.getElementById("MainContent_hidenDropAgrup").value != "" &&
@@ -216,7 +336,41 @@
                         //}
                     });
                 }
-            }
+                } if (tipo == "Info" || tipo == "UpdateButton") {
+
+                    document.getElementById("nota_input").value = response.nota;
+                    document.getElementById("tiempoRecEstudio_input").value = response.tiempoRecomendado;
+                    document.getElementById("tiempoEstudio_input").value = response.tiempoEstudio;
+                    document.getElementById("riesgo_input").value=response.riesgo;
+                    document.getElementById("btn_DropListaAsignatura").firstChild.data=document.getElementById("hidenDropListaAsignatura").value ;
+                    document.getElementById("hidenDropListaAsignatura").value=response.urlAsignatura.split("asignaturas/")[1];
+                     
+                    if(tipo=="UpdateButton"){
+                        ShowPopup("UpdateButton","")
+                    }else{
+                        ShowPopup("Info","");
+
+                    }
+                  
+                }
+                if (tipo == "UpdateAsignaturaUsuario") {
+
+                         getDatos("ListaAsignaturaUsuario","");
+                       $("#Pop_up").modal("toggle");  
+             
+                   
+                }
+                      if (tipo == "DeleteAsignaturaUsuario") {
+
+                         getDatos("ListaAsignaturaUsuario","");
+                       $("#Pop_up").modal("toggle");  
+             
+                   
+                }
+             if (tipo == "AddAsignaturaUsuario") {
+              getDatos("ListaAsignaturaUsuario","");
+               $("#Pop_up").modal("toggle");
+                }
                 if (tipo == "ListaAsignaturaUsuario") {
                     var table = $('#tb_asignaturas').DataTable();
                     table.clear().destroy();
@@ -476,7 +630,10 @@
                           "searchable": false, 
                         },
                         { "data": "nombre" },
-                        { "data": "riesgo" },
+                        { "data": "riesgo",
+                                "visible": false,
+                                "searchable": false,
+                        },
                         { "data": "nota" },
                             {
                                 "data": null,
@@ -485,33 +642,18 @@
                                     $(td).css('display', 'contents');
                                 },
                                 "render": function (data, type, full, meta) {
-                            //        var visible = ""
-                            //        var borrar = ""
-                            //        //if (document.getElementById("MainContent_hiddenPermiso_asignar_docencia").value === "") {
-                            //        //    document.getElementById("MainContent_hiddenPermiso_asignar_docencia").value = "S"
-                            //        //}
-
-                            //        if (((document.getElementById("MainContent_hiddenEstado_cierre").value === 'S' || document.getElementById("MainContent_hiddenPermiso_usuario").value.endsWith('RRHH') ||
-                            //            document.getElementById("MainContent_hiddenAcceso_usuario").value === 'L') && (document.getElementById("MainContent_hiddenPermiso_cierre").value === 'False')) ||
-                            //            document.getElementById("MainContent_hiddenPermiso_asignar_docencia").value !== 'S' || document.getElementById("MainContent_hiddenAcceso_usuario").value === 'L') {
-                            //            visible = "hidden"
-                            //        }
-
-
-                            //        if (data.PROFESOR === "") {
-                            //            borrar = "hidden"
-                            //        }
-
-                            //        var rowId = full.ROW_ID;
+                      
+                                  var url = full.urlAsignatura;
+                                  var nombre = full.nombre;
                                     return `
-                                  <div style="display:block;">             
-                                            <button type='button' class='btn btn-default' aria-label='Left Align' title='Editar Asignatura'>
+                                  <div style="display:block;">
+                                                                                <button type='button' class='btn btn-default' aria-label='Left Align' title='Editar Asignatura'onclick='getDatos("UpdateButton","` + url + `$` + nombre + `");' >
                                                <span class=' 	glyphicon glyphicon-pencil' aria-hidden='true'></span>
                                             </button>
-                                           <button type='button' class='btn btn-default' aria-label='Left Align' title='Borrar Asignatura'>
+                                                                   <button type='button' class='btn btn-default' aria-label='Left Align' title='Borrar Asignatura' onclick='ShowPopup("DeleteButton","` + url +`");'>
                                                <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
                                            </button>
-                                          <button type='button' class='btn btn-default' aria-label='Left Align' title='Informacion de la Asignatura' >
+                                                      <button type='button' class='btn btn-default' aria-label='Left Align' title='Informacion de la Asignatura' onclick='getDatos("Info","` + url + `$`+nombre+`");' >
                                              <span class='glyphicon glyphicon-search' aria-hidden='true'></span>
                                         </button>                                
                                      </div>
@@ -522,7 +664,7 @@
 
                         ],                      
                         searchBuilder: {
-                            columns: [1, 2, 3],
+                            columns: [1, 3],
                             filterChanged: function (count) {
 
                             }
@@ -566,7 +708,7 @@
             function cerrarMenu(tipo) {
                 document.getElementById("myInput" + tipo).value = "";
                 filterFunction(tipo);
-                document.getElementById("MainContent_hidenDrop" + tipo).value = "";
+                document.getElementById("hidenDrop" + tipo).value = "";
                 //  document.getElementById("myDropdown" + tipo).classList.toggle("show");
 
             }
@@ -591,16 +733,11 @@
             function cambiarDrop(text, Value, tipo) {
                 var boton = document.getElementById("btn_Drop" + tipo);
                 boton.firstChild.data = text;
-                //document.getElementById("MainContent_hidenDrop" + tipo).value = Value;
+                document.getElementById("hidenDrop" + tipo).value = Value;
 
                 document.getElementById("myDropdown" + tipo).classList.toggle("show");
 
-                if ((tipo == "Agrup") || (tipo == "Area")) {
-                    document.getElementById("MainContent_hidenFilterCriteria").value = ""
-                    document.getElementById("cargaTabla_tablaBoost").style.display = "";
-                    document.getElementById("tablaBoost").style.display = "none";
-                    getDatos("Asignacion", "");
-                }
+         
             }
 
             function AddItem(Text, Value, tipo) {
@@ -608,7 +745,7 @@
 
                 var contenedor = document.getElementById("topNav" + tipo);
                 var item;
-
+              
                 if ((Text != "" && Value != "") && Text != "undefined") {
                     item = `  <a  onclick='cambiarDrop("` + Text + `","` + Value + `","` + tipo + `");'>` + Text;
                     contenedor.insertAdjacentHTML("beforeend", item);

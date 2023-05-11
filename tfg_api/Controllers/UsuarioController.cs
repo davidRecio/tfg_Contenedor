@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using tfg_api.DDBB;
+using tfg_api.Model.AreaConocimiento;
 using tfg_api.Model.Asignatura;
+using tfg_api.Model.AsignaturaArea;
 using tfg_api.Model.AsignaturaUsuario;
 using tfg_api.Model.Interna;
 using tfg_api.Model.UsuarioContenedor;
@@ -21,15 +23,20 @@ namespace tfg_api.Controllers
         private readonly UsuarioBBDD usuarioBBDD;
         private readonly AsignaturaBBDD asignaturaBBDD;
         private readonly AsignaturaUsuarioDDBB asignaturaUsuarioBBDD;
+        private readonly AsignaturaAreaBBDD asignaturaAreaBBDD;
+        private readonly AreaConocimientoBBDD areaConocimientoBBDD;
         /// <summary>
         /// Elemento que interactura como puente en base de datos y ruta
         /// </summary>
         /// <param name="usuarioBBDD"></param>
-        public UsuarioController(UsuarioBBDD usuarioBBDD, AsignaturaBBDD asignaturaBBDD, AsignaturaUsuarioDDBB asignaturaUsuarioBBDD)
+        public UsuarioController(UsuarioBBDD usuarioBBDD, AsignaturaBBDD asignaturaBBDD, AsignaturaUsuarioDDBB asignaturaUsuarioBBDD,
+             AsignaturaAreaBBDD asignaturaAreaBBDD, AreaConocimientoBBDD areaConocimientoBBDD)
         {
             this.usuarioBBDD = usuarioBBDD;
             this.asignaturaBBDD = asignaturaBBDD;
             this.asignaturaUsuarioBBDD = asignaturaUsuarioBBDD;
+            this.asignaturaAreaBBDD = asignaturaAreaBBDD;
+            this.areaConocimientoBBDD = areaConocimientoBBDD;
         }
 
         /// <summary>
@@ -138,7 +145,7 @@ namespace tfg_api.Controllers
 
                 usuario.Nombre = updateUsuarioRequest.Nombre;
                 usuario.Pass= updateUsuarioRequest.Pass;
-
+                 usuarioBBDD.Update(usuario);
                 await usuarioBBDD.SaveChangesAsync();
                 UsuarioGetSort usuarioGetSort = new()
                 {
@@ -179,17 +186,26 @@ namespace tfg_api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{idUsuario}/aptitudes")]
-        public ActionResult CalcularAptitudesAsignatura(Guid idUsuario)
+        public async Task<ActionResult> CalcularAptitudesAsignatura(Guid idUsuario)
         {
+            string tipoArea = "";
             ValueTask<Usuario> usuarioResult = usuarioBBDD.Usuarios.FindAsync(idUsuario);
             InternalClass internalClass = new();
             if (usuarioResult.Result != null)
             {
-                List<AsignaturaUsuario> listaAsignaturas = asignaturaUsuarioBBDD.AsignaturaUsuarios.Where(p => p.IdUsuario.Equals(idUsuario)).ToList();
+                List<AsignaturaUsuario> listaAsignaturas = asignaturaUsuarioBBDD.AsignaturasUsuarios.Where(p => p.IdUsuario.Equals(idUsuario)).ToList();
                 foreach (AsignaturaUsuario asignaturaUsuario in listaAsignaturas)
                 {
-                    ValueTask<Asignatura> asignatura = asignaturaBBDD.Asignaturas.FindAsync(asignaturaUsuario.IdAsignatura);
-                    internalClass.CalcularAptitudesAsignatura(usuarioResult.Result, asignaturaUsuario, asignatura.Result.Tipo);
+                    var asignaturaAreaList = await asignaturaAreaBBDD.AsignaturasAreas.Where(p => p.IdAsignatura.Equals(asignaturaUsuario.IdAsignatura)).ToListAsync();
+
+                   
+                    foreach (AsignaturaArea asignaturaArea in asignaturaAreaList) {
+                        AreaConocimiento area = await areaConocimientoBBDD.AreasConocimientos.FindAsync(asignaturaArea.IdArea);
+                        tipoArea = tipoArea + ", " + area.Nombre;
+                    }
+                    tipoArea = tipoArea.Substring(0, 1);
+
+                    internalClass.CalcularAptitudesAsignatura(usuarioResult.Result, asignaturaUsuario, tipoArea);
                 }
                 return Ok(usuarioResult);
             }
@@ -206,17 +222,27 @@ namespace tfg_api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{idUsuario}/recomendaciones")]
-        public ActionResult CalcularRecomendacionesAsignatura(Guid idUsuario)
+        public async Task<ActionResult> CalcularRecomendacionesAsignatura(Guid idUsuario)
         {
+            string tipoArea = "";
             ValueTask<Usuario> usuarioResult = usuarioBBDD.Usuarios.FindAsync(idUsuario);
             InternalClass internalClass = new();
             if (usuarioResult.Result != null)
             {
-                List<AsignaturaUsuario> listaAsignaturas = asignaturaUsuarioBBDD.AsignaturaUsuarios.Where(p => p.IdUsuario.Equals(idUsuario)).ToList();
+                List<AsignaturaUsuario> listaAsignaturas = asignaturaUsuarioBBDD.AsignaturasUsuarios.Where(p => p.IdUsuario.Equals(idUsuario)).ToList();
                 foreach (AsignaturaUsuario asignaturaUsuario in listaAsignaturas)
                 {
-                    ValueTask<Asignatura> asignatura = asignaturaBBDD.Asignaturas.FindAsync(asignaturaUsuario.IdAsignatura);
-                    internalClass.Recomendaciones(usuarioResult.Result, asignaturaUsuario, asignatura.Result.Tipo);
+                    var asignaturaAreaList = await asignaturaAreaBBDD.AsignaturasAreas.Where(p => p.IdAsignatura.Equals(asignaturaUsuario.IdAsignatura)).ToListAsync();
+
+
+                    foreach (AsignaturaArea asignaturaArea in asignaturaAreaList)
+                    {
+                        AreaConocimiento area = await areaConocimientoBBDD.AreasConocimientos.FindAsync(asignaturaArea.IdArea);
+                        tipoArea = tipoArea + ", " + area.Nombre;
+                    }
+                    tipoArea = tipoArea.Substring(0, 1);
+
+                    internalClass.Recomendaciones(usuarioResult.Result, asignaturaUsuario, tipoArea);
                 }
                 return Ok("Ya se han actulaizado las aptitudes según las asignaturas");
             }

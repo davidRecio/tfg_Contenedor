@@ -3,8 +3,10 @@ using aplicacionWeb.Model.Asignatura;
 using aplicacionWeb.Model.AsignaturaUsuario;
 using aplicacionWeb.Model.UsuarioContenedor;
 using aplicacionWeb.Model.Utils;
+using aplicacionWeb.Models.AsignaturaUsuario;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -217,19 +219,67 @@ public class Servicio_API_Asignatura : IServicio_API_Asignatura
         return lista;
     }
 
-    Task<AsignaturaGet> IServicio_API_Asignatura.Obtener()
+    public async Task<AsignaturaUsuarioGet> Obtener(string idAsignatura)
     {
-        throw new NotImplementedException();
+        AsignaturaUsuarioGet asignaturaUsuario = new();
+        var cliente = new HttpClient();
+        cliente.BaseAddress = new Uri(_baseUrl);
+        cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+        var response = await cliente.GetAsync(routePrincipal + "usuarios/" + idUsuario + "/asignaturas/"+ idAsignatura);
+
+        if (response.IsSuccessStatusCode)
+        {
+
+            var json_respuesta = await response.Content.ReadAsStringAsync();
+            asignaturaUsuario = JsonConvert.DeserializeObject<AsignaturaUsuarioGet>(json_respuesta);
+
+        }
+
+        return asignaturaUsuario;
     }
 
-    public Task<bool> Guardar(AddAsignaturaRequest objeto)
+    public async Task<bool> Crear(string idAsignatura, string nota_input, string tiempoEstudio_input)
     {
-        throw new NotImplementedException();
+        bool respuesta = false;
+
+        AsignaturaUsuarioCreate asignaturaUsuarioCreate = new ()
+        {
+            Nota = Double.Parse(nota_input),
+            TiempoEstudio = Int32.Parse(tiempoEstudio_input),
+
+        };
+
+        var cliente = new HttpClient();
+        cliente.BaseAddress = new Uri(_baseUrl);
+        cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+        var content = new StringContent(JsonConvert.SerializeObject(asignaturaUsuarioCreate), Encoding.UTF8, "application/json");
+
+        var response = await cliente.PostAsync(routePrincipal + "usuarios/" + idUsuario + "/asignaturas/" + idAsignatura, content);
+
+        if (response.IsSuccessStatusCode)
+        {
+            respuesta = true;
+        }
+
+        return respuesta;
     }
 
-    public Task<bool> Editar(UpdateAsignaturaRequest objeto)
+    public async Task<bool> Editar(AsignaturaUsuarioUpdate objeto, string idAsignatura)
     {
-        throw new NotImplementedException();
+        bool respuesta = false;
+        var cliente = new HttpClient();
+        cliente.BaseAddress = new Uri(_baseUrl);
+        cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+        var content = new StringContent(JsonConvert.SerializeObject(objeto), Encoding.UTF8, "application/json");
+
+        var response = await cliente.PutAsync(routePrincipal + "usuarios/" + idUsuario + "/asignaturas/" + idAsignatura, content);
+
+        if (response.IsSuccessStatusCode)
+        {
+            respuesta = true;
+        }
+
+        return respuesta;
     }
 
     public async Task<List<AsignaturaUsuarioGetSort>> ListaAsignaturaUsuario()
@@ -251,9 +301,22 @@ public class Servicio_API_Asignatura : IServicio_API_Asignatura
         return lista;
     }
 
-    public Task<bool> Eliminar()
+    public async Task<bool> Eliminar(string idAsignatura)
     {
-        throw new NotImplementedException();
+        bool respuesta = false;
+        var cliente = new HttpClient();
+        cliente.BaseAddress = new Uri(_baseUrl);
+        cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+        
+
+        var response = await cliente.DeleteAsync(routePrincipal + "usuarios/" + idUsuario + "/asignaturas/" + idAsignatura);
+
+        if (response.IsSuccessStatusCode)
+        {
+            respuesta = true;
+        }
+
+        return respuesta;
     }
 
     public void SetToken(string token)
@@ -276,5 +339,7 @@ public class Servicio_API_Asignatura : IServicio_API_Asignatura
         }
 
     }
+
+    
 }
 

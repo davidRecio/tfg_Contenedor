@@ -43,7 +43,7 @@
             Controlador de la asignatura
             </summary>
         </member>
-        <member name="M:tfg_api.Controllers.AsignaturaController.#ctor(tfg_api.DDBB.AsignaturaBBDD,tfg_api.DDBB.AsignaturaUsuarioDDBB,tfg_api.DDBB.UsuarioBBDD)">
+        <member name="M:tfg_api.Controllers.AsignaturaController.#ctor(tfg_api.DDBB.AsignaturaBBDD,tfg_api.DDBB.AsignaturaUsuarioDDBB,tfg_api.DDBB.UsuarioBBDD,tfg_api.DDBB.AsignaturaAreaBBDD,tfg_api.DDBB.AreaConocimientoBBDD)">
             <summary>
             Elemento que interactura como puente en base de datos y ruta
             </summary>
@@ -175,7 +175,7 @@
             Exposición del recurso Usuario
             </summary>
         </member>
-        <member name="M:tfg_api.Controllers.UsuarioController.#ctor(tfg_api.DDBB.UsuarioBBDD,tfg_api.DDBB.AsignaturaBBDD,tfg_api.DDBB.AsignaturaUsuarioDDBB)">
+        <member name="M:tfg_api.Controllers.UsuarioController.#ctor(tfg_api.DDBB.UsuarioBBDD,tfg_api.DDBB.AsignaturaBBDD,tfg_api.DDBB.AsignaturaUsuarioDDBB,tfg_api.DDBB.AsignaturaAreaBBDD,tfg_api.DDBB.AreaConocimientoBBDD)">
             <summary>
             Elemento que interactura como puente en base de datos y ruta
             </summary>
@@ -230,6 +230,38 @@
             <param name="idUsuario"></param>
             <returns></returns>
         </member>
+        <member name="T:tfg_api.DDBB.AreaConocimientoBBDD">
+            <summary>
+            clase de conexion con BBDD
+            </summary>
+        </member>
+        <member name="M:tfg_api.DDBB.AreaConocimientoBBDD.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.AreaConocimientoBBDD})">
+            <summary>
+            constructor por defecto
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:tfg_api.DDBB.AreaConocimientoBBDD.AreasConocimientos">
+            <summary>
+            Interaccion con la BBDD
+            </summary>
+        </member>
+        <member name="T:tfg_api.DDBB.AsignaturaAreaBBDD">
+            <summary>
+            clase de conexion con BBDD
+            </summary>
+        </member>
+        <member name="M:tfg_api.DDBB.AsignaturaAreaBBDD.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{tfg_api.DDBB.AsignaturaAreaBBDD})">
+            <summary>
+            constructor por defecto
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:tfg_api.DDBB.AsignaturaAreaBBDD.AsignaturasAreas">
+            <summary>
+            Interaccion con la BBDD
+            </summary>
+        </member>
         <member name="T:tfg_api.DDBB.AsignaturaBBDD">
             <summary>
             clase de conexion con BBDD
@@ -257,7 +289,7 @@
             </summary>
             <param name="options"></param>
         </member>
-        <member name="P:tfg_api.DDBB.AsignaturaUsuarioDDBB.AsignaturaUsuarios">
+        <member name="P:tfg_api.DDBB.AsignaturaUsuarioDDBB.AsignaturasUsuarios">
             <summary>
             Interaccion con la BBDD
             </summary>
@@ -308,6 +340,36 @@
         <member name="P:tfg_api.DDBB.UsuarioBBDD.Usuarios">
             <summary>
             Interaccion con la BBDD
+            </summary>
+        </member>
+        <member name="T:tfg_api.Model.AreaConocimiento.AreaConocimiento">
+            <summary>
+            clase de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AreaConocimiento.AreaConocimiento.IdArea">
+            <summary>
+            identificador de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AreaConocimiento.AreaConocimiento.Nombre">
+            <summary>
+            nombre de la asignatura
+            </summary>
+        </member>
+        <member name="T:tfg_api.Model.AsignaturaArea.AsignaturaArea">
+            <summary>
+            clase de la asignatura-Usuario
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaArea.AsignaturaArea.IdAsignatura">
+            <summary>
+            identificador de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.AsignaturaArea.AsignaturaArea.IdArea">
+            <summary>
+            referencia al area de conocimiento
             </summary>
         </member>
         <member name="T:tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario">
@@ -440,21 +502,6 @@
             nombre de la asignatura
             </summary>
         </member>
-        <member name="T:tfg_api.Model.Asignatura.AsignaturaGet">
-            <summary>
-            clase de la asignatura
-            </summary>
-        </member>
-        <member name="P:tfg_api.Model.Asignatura.AsignaturaGet.Tipo">
-            <summary>
-            tipo de la asignatura( humanistica, cientifica...)
-            </summary>
-        </member>
-        <member name="P:tfg_api.Model.Asignatura.AsignaturaGet.Nombre">
-            <summary>
-            nombre de la asignatura
-            </summary>
-        </member>
         <member name="T:tfg_api.Model.Asignatura.Asignatura">
             <summary>
             clase de la asignatura
@@ -465,12 +512,17 @@
             identificador de la asignatura
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura.Asignatura.Tipo">
+        <member name="P:tfg_api.Model.Asignatura.Asignatura.Nombre">
             <summary>
-            tipo de la asignatura( humanistica, cientifica...)
+            nombre de la asignatura
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Asignatura.Asignatura.Nombre">
+        <member name="T:tfg_api.Model.Asignatura.AsignaturaGet">
+            <summary>
+            clase de la asignatura
+            </summary>
+        </member>
+        <member name="P:tfg_api.Model.Asignatura.AsignaturaGet.Nombre">
             <summary>
             nombre de la asignatura
             </summary>
@@ -500,16 +552,6 @@
             clase de la asignatura-Usuario
             </summary>
         </member>
-        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.IdAsignatura">
-            <summary>
-            identificador de la asignatura
-            </summary>
-        </member>
-        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.IdUsuario">
-            <summary>
-            referencia al usuario
-            </summary>
-        </member>
         <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.Tipo">
             <summary>
             tipo de la asignatura( humanistica, cientifica...)
@@ -518,26 +560,6 @@
         <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.Nombre">
             <summary>
             nombre de la asignatura
-            </summary>
-        </member>
-        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.Nota">
-            <summary>
-            Nota de la asignatura
-            </summary>
-        </member>
-        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.TiempoEstudio">
-            <summary>
-            horas de estudio
-            </summary>
-        </member>
-        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.TiempoRecomendado">
-            <summary>
-            horas de estudio recomendado
-            </summary>
-        </member>
-        <member name="P:tfg_api.Model.Interna.AsignaturaCompleta.Riesgo">
-            <summary>
-            Riesgo en referente a la nota sacada
             </summary>
         </member>
         <member name="T:tfg_api.Model.Interna.InternalClass">

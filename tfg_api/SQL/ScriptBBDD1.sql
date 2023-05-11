@@ -22,6 +22,7 @@
 		[CC] [decimal] NULL DEFAULT 0,
 		[IGAP] [decimal] NULL DEFAULT 0,
 		[ICI] [decimal] NULL DEFAULT 0,
+		[ROL] [nvarchar](50) NOT NULL DEFAULT 'USER',
 	 CONSTRAINT [PK_Usuarios] PRIMARY KEY CLUSTERED 
 	(
 		[IdUsuario] ASC
@@ -45,7 +46,6 @@
 --Asignaturas
 	CREATE TABLE  tfg.[dbo].[Asignaturas](
 		[IdAsignatura] [uniqueidentifier] NOT NULL,
-		[Tipo] [nvarchar](50) NOT NULL,
 		[Nombre] [nvarchar](50) NOT NULL,
 	 CONSTRAINT [PK_Asignaturas] PRIMARY KEY CLUSTERED 
 	(
@@ -53,15 +53,35 @@
 	));
 	ALTER TABLE  tfg.[dbo].[Asignaturas] ADD  CONSTRAINT [DF_IdAsignatura]  DEFAULT (newsequentialid()) FOR [IdAsignatura];
 
+
+	--Areas_Conocimiento
+	CREATE TABLE  tfg.[dbo].[AreasConocimientos](
+		[IdArea] [uniqueidentifier] NOT NULL,
+		[Nombre] [nvarchar](50) NOT NULL,
+	 CONSTRAINT [PK_AreasConocimientos] PRIMARY KEY CLUSTERED 
+	(
+		[IdArea] ASC
+	));
+	ALTER TABLE  tfg.[dbo].[AreasConocimientos] ADD  CONSTRAINT [DF_IdArea]  DEFAULT (newsequentialid()) FOR [IdArea];
+--AsignaturasArea
+CREATE TABLE  tfg.[dbo].[AsignaturasArea](
+		[IdAsignatura] [uniqueidentifier] NOT NULL,
+		[IdArea] [uniqueidentifier] NOT NULL,
+	 CONSTRAINT [PK_AsignaturasAreas] PRIMARY KEY CLUSTERED 
+	(
+		[IdAsignatura] ASC,
+		[IdArea] ASC
+	));
+
 --Asignaturas_Usuario
-	CREATE TABLE  tfg.[dbo].[Asignaturas_Usuario](
+	CREATE TABLE  tfg.[dbo].[AsignaturasUsuarios](
 		[IdAsignatura] [uniqueidentifier] NOT NULL,
 		[IdUsuario] [uniqueidentifier] NOT NULL,
-		[Nota] [float] NOT NULL,
+		[Nota] [decimal] NOT NULL,
 		[TiempoEstudio] [int] NOT NULL,
-		[TiempoRecomendado] [int] NOT NULL,
-		[Riesgo] [int] NOT NULL,
-	 CONSTRAINT [PK_Asignaturas_Usuario] PRIMARY KEY CLUSTERED 
+		[TiempoRecomendado] [int] ,
+		[Riesgo] [int] ,
+	 CONSTRAINT [PK_AsignaturasUsuarios] PRIMARY KEY CLUSTERED 
 	(
 		[IdAsignatura] ASC,
 		[IdUsuario] ASC
