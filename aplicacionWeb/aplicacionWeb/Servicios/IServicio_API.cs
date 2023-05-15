@@ -1,5 +1,7 @@
 ﻿using aplicacionWeb.Model.Asignatura;
 using aplicacionWeb.Model.AsignaturaUsuario;
+using aplicacionWeb.Model.PreguntaFormulario;
+using aplicacionWeb.Model.RespuestaFormulario;
 using aplicacionWeb.Model.UsuarioContenedor;
 
 
@@ -35,5 +37,15 @@ namespace aplicacionWeb.Servicios
         #region "con usuario"
         Task<List<AsignaturaUsuarioGetSort>> ListaAsignaturaUsuario();
         #endregion
+    }
+    public interface IServicio_API_Formulario
+    {
+        void SetToken(string token);
+  
+        Task<List<PreguntaFormulario>> ListaPreguntaFormulario(int tipo);
+
+        Task<bool> GuardarRespuestas(string[] listaRespuestas, int tipo);
+
+
     }
 }

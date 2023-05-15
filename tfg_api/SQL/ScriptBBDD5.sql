@@ -102,15 +102,15 @@
 			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Tipo])VALUES('97.¿Te gustaria trabajar como profesional dirigiendo la construccion de una empresa hidroelectrica?','0');
 			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Tipo])VALUES('98.¿Sabes que es el PBI?','0');
 		--Tolouse
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura1','https://ibb.co/DYMJWsb','1');
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura2','https://ibb.co/R0kKvFV','1');
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura3','https://ibb.co/TtHtGzW','1');
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura4','https://ibb.co/rk4SZy9','1');
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura5','https://ibb.co/Xt1N4Qx','1');
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura6','https://ibb.co/172YCh4','1');
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura7','https://ibb.co/8zm3sM3','1');
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura8','https://ibb.co/WzwQThf','1');
-			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Test','https://ibb.co/Cz1LCn1','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura1','https://i.postimg.cc/3RMJvLMZ/Figura1.webp','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura2','https://i.postimg.cc/brpy6swD/Figura2.webp','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura3','https://i.postimg.cc/d18Qm8wc/Figura3.webp','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura4','https://i.postimg.cc/prC23Rm0/Figura4.webp','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura5','https://i.postimg.cc/DfPySdxq/Figura5.webp','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura6','https://i.postimg.cc/P5PtFGT4/Figura6.webp','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura7','https://i.postimg.cc/FsPrZF5z/Figura7.webp','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Figura8','https://i.postimg.cc/rFyyx0H7/Figura8.webp','1');
+			INSERT INTO tfg.[dbo].PreguntaFormularios ([Contenido],[Imagen_url],[Tipo])VALUES('Test','https://i.postimg.cc/L4VSv4Kf/test.webp','1');
 
 	INSERT INTO tfg.[dbo].AreasConocimientos ([IdArea],[Nombre])VALUES('57BF6E93-0FEC-ED11-A633-D037457CE39B','Administrativas_Contables');
 INSERT INTO tfg.[dbo].AreasConocimientos ([IdArea],[Nombre])VALUES('58BF6E93-0FEC-ED11-A633-D037457CE39B','Humanisticas_Sociales');

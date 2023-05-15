@@ -1,12 +1,16 @@
 ﻿
 using aplicacionWeb.Model.Asignatura;
 using aplicacionWeb.Model.AsignaturaUsuario;
+using aplicacionWeb.Model.PreguntaFormulario;
+using aplicacionWeb.Model.RespuestaFormulario;
 using aplicacionWeb.Model.UsuarioContenedor;
 using aplicacionWeb.Model.Utils;
 using aplicacionWeb.Models.AsignaturaUsuario;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -343,3 +347,116 @@ public class Servicio_API_Asignatura : IServicio_API_Asignatura
     
 }
 
+public class Servicio_API_Formulario : IServicio_API_Formulario
+{
+    private static string _usuario;
+    private static string _clave;
+    private static string _baseUrl;
+    private static string _token;
+    private static string routePrincipal = "api/";
+    private static JwtSecurityTokenHandler tokenHandler;
+    private static string idUsuario;
+    public Servicio_API_Formulario()
+    {
+
+        var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+
+        _usuario = builder.GetSection("ApiSetting:usuario").Value;
+        _clave = builder.GetSection("ApiSetting:clave").Value;
+        _baseUrl = builder.GetSection("ApiSetting:baseUrl").Value;
+    }
+
+    public async Task<bool> GuardarRespuestas(string[] listaRespuestasUsuario,int tipo)
+    {
+        bool respuesta = false;
+        var cliente = new HttpClient();
+        cliente.BaseAddress = new Uri(_baseUrl);
+        cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+        List<AddRespuestaFormulario> listaRespuestas= new();
+        int contador = 1;
+        if (tipo == 1) {
+            contador = 99;
+        }
+        
+        foreach (string respuestaUsuario in listaRespuestasUsuario)
+        {
+            if (respuestaUsuario != "")
+            {
+                AddRespuestaFormulario respuestaFormulario = new()
+                {
+                    IdPregunta = contador,
+                    Valor = respuestaUsuario,
+                };
+
+                listaRespuestas.Add(respuestaFormulario);
+                contador++;
+            }
+        
+        }
+
+        var json = JsonConvert.SerializeObject(listaRespuestas);
+
+
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await cliente.PutAsync(routePrincipal + "usuarios/" + idUsuario + "/formularios/" + tipo, content);
+            if (response.IsSuccessStatusCode)
+            {
+
+                var json_respuesta = await response.Content.ReadAsStringAsync();
+                respuesta = true;
+
+            }
+        
+       
+       
+        
+        return respuesta;
+    }
+
+
+
+    //USAR REFERENCIAS 
+
+    public async Task<List<PreguntaFormulario>> ListaPreguntaFormulario(int tipo)
+    {
+        List<PreguntaFormulario> lista = new();
+        var cliente = new HttpClient();
+        cliente.BaseAddress = new Uri(_baseUrl);
+        cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+        var response = await cliente.GetAsync(routePrincipal + "formularios/"+tipo);
+
+        if (response.IsSuccessStatusCode)
+        {
+
+            var json_respuesta = await response.Content.ReadAsStringAsync();
+            lista = JsonConvert.DeserializeObject<List<PreguntaFormulario>>(json_respuesta);
+
+        }
+
+        return lista;
+    }
+
+    public void SetToken(string token)
+    {
+        _token = token;
+        string roll = "";
+        var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
+
+        List<Claim> claims = tokenHandler.ReadJwtToken(_token).Claims.ToList();
+        foreach (Claim claim in claims)
+        {
+            if (claim.Type.Equals("nameid"))
+            {
+                idUsuario = claim.Value.ToString();
+            }
+            if (claim.Type.Equals("role"))
+            {
+                roll = claim.Value.ToString();
+            }
+        }
+
+    }
+
+
+}

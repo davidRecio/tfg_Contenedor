@@ -28,12 +28,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBc2lnbmF0dXJhcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/david/Documents/GitHub/tfg_Contenedor/aplicacionWeb/aplicacionWeb/Views/Home/Chaside.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaGFzaWRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/david/Documents/GitHub/tfg_Contenedor/aplicacionWeb/aplicacionWeb/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/david/Documents/GitHub/tfg_Contenedor/aplicacionWeb/aplicacionWeb/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/david/Documents/GitHub/tfg_Contenedor/aplicacionWeb/aplicacionWeb/Views/Home/Toulouse.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUb3Vsb3VzZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/david/Documents/GitHub/tfg_Contenedor/aplicacionWeb/aplicacionWeb/Views/Shared/Error.cshtml]

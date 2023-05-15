@@ -194,6 +194,7 @@ namespace tfg_api.Controllers
                             IdUsuario = idUsuario
                         };
                         await respuestaFormularioBBDD.RespuestaFormularios.AddAsync(respuestaFormularioAux);
+                        await respuestaFormularioBBDD.SaveChangesAsync();
                     }            
                 }
                 return Ok();

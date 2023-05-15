@@ -16,3 +16,5 @@
 2023-05-11 15:35:05.5244|TRACE|tfg_api.Utils.Logs|Controller.|ID: E9CD71ygUqZoT1wEGauQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
 2023-05-11 17:38:27.3808|TRACE|tfg_api.Utils.Logs|Controller.|ID: 2Za4Mxbev0q8TUezZfQvAg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
 2023-05-11 17:38:27.3808|TRACE|tfg_api.Utils.Logs|Controller.|ID: 2Za4Mxbev0q8TUezZfQvAg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-11 17:56:04.6151|TRACE|tfg_api.Utils.Logs|Controller.|ID: AxWFKVl1NEeCd9xapZPyaQ, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-11 17:56:04.6151|TRACE|tfg_api.Utils.Logs|Controller.|ID: AxWFKVl1NEeCd9xapZPyaQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null

@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IServicio_API_Usuario, Servicio_API_Usuario>();
 builder.Services.AddScoped<IServicio_API_Asignatura, Servicio_API_Asignatura>();
+builder.Services.AddScoped<IServicio_API_Formulario, Servicio_API_Formulario>();
 builder.Services.AddSession();
 var app = builder.Build();
 

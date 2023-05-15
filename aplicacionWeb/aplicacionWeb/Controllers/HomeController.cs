@@ -2,9 +2,12 @@
 using aplicacionWeb.Model.Asignatura;
 using aplicacionWeb.Model.AsignaturaUsuario;
 using aplicacionWeb.Model.Interna;
+using aplicacionWeb.Model.PreguntaFormulario;
+using aplicacionWeb.Model.RespuestaFormulario;
 using aplicacionWeb.Model.UsuarioContenedor;
 using aplicacionWeb.Servicios;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 
@@ -14,17 +17,20 @@ namespace aplicacionWeb.Controllers
     public class HomeController : Controller
     {
         private IServicio_API_Asignatura _servicioApiAsignatura;
+        private IServicio_API_Formulario _servicio_API_Formulario;
 
-        public HomeController(IServicio_API_Asignatura servicioApiAsignatura)
+        public HomeController(IServicio_API_Asignatura servicioApiAsignatura, IServicio_API_Formulario servicio_API_Formulario)
         {
 
             _servicioApiAsignatura = servicioApiAsignatura;
+            _servicio_API_Formulario = servicio_API_Formulario;
         }
 
         public IActionResult Index()
         {
             string cookieValueFromReq = Request.Cookies["token"].ToString();
             _servicioApiAsignatura.SetToken(cookieValueFromReq);
+            _servicio_API_Formulario.SetToken(cookieValueFromReq);
             return View();
         }
 
@@ -33,8 +39,17 @@ namespace aplicacionWeb.Controllers
             
             return View();
         }
+        public IActionResult Chaside()
+        {
 
-       
+            return View();
+        }
+        public IActionResult Toulouse()
+        {
+
+            return View();
+        }
+
         [HttpGet]
         public async Task<List<AsignaturaUsuarioGetSort>> GetDatosListaAsignaturaUsuario()
         {
@@ -100,6 +115,46 @@ namespace aplicacionWeb.Controllers
 
             return b;
         }
+
+        [HttpGet]
+        public async Task<List<PreguntaFormulario>> GetDatosListaPreguntasChaside()
+        {
+            
+            var b = await _servicio_API_Formulario.ListaPreguntaFormulario(0);
+
+            return b;
+        }
+
+        [HttpPut]
+        public async Task<Boolean> UpdateRespuestasChaside(string datos)
+        {
+          
+            string[] contentDatos = datos.Split("€");
+       
+            var b = await _servicio_API_Formulario.GuardarRespuestas(contentDatos,0);
+
+            return b;
+        }
+
+        [HttpGet]
+        public async Task<List<PreguntaFormulario>> GetDatosListaPreguntasToulouse()
+        {
+            List<PreguntaFormulario> preguntasFinales= new();
+            var b = await _servicio_API_Formulario.ListaPreguntaFormulario(1);
+         
+            b.Remove(b.LastOrDefault());
+
+            for (int i = 0; i < 3; i++) {
+                Random random = new Random();
+                int randomNumber = random.Next(0, b.Count - 1);
+                preguntasFinales.Add(b[randomNumber]);
+                b.Remove(b[randomNumber]);
+            }
+           
+
+            return preguntasFinales;
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
