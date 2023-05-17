@@ -374,21 +374,35 @@ public class Servicio_API_Formulario : IServicio_API_Formulario
         cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
         List<AddRespuestaFormulario> listaRespuestas= new();
         int contador = 1;
-        if (tipo == 1) {
-            contador = 99;
-        }
+        string  valor;
+       
         
         foreach (string respuestaUsuario in listaRespuestasUsuario)
         {
             if (respuestaUsuario != "")
             {
-                AddRespuestaFormulario respuestaFormulario = new()
-                {
-                    IdPregunta = contador,
-                    Valor = respuestaUsuario,
-                };
+                if (tipo == 1)
+                { 
+                    AddRespuestaFormulario respuestaFormulario = new()
+                    {
+                        IdPregunta = Int32.Parse(respuestaUsuario.Split("_")[1]),
+                        Valor = respuestaUsuario.Split("_")[0],
+                    };
 
-                listaRespuestas.Add(respuestaFormulario);
+                    listaRespuestas.Add(respuestaFormulario);
+                }
+                else
+                {
+                    AddRespuestaFormulario respuestaFormulario = new()
+                    {
+                        IdPregunta = contador,
+                        Valor = respuestaUsuario,
+                    };
+
+                    listaRespuestas.Add(respuestaFormulario);
+                }
+             
+
                 contador++;
             }
         

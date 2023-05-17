@@ -52,10 +52,11 @@ namespace tfg_api.Model.Interna
             {3,2,4,3,5,5,4,4},
             {4,3,4,4,4,3,4,4},
             {4,2,4,4,4,4,5,3},
-            {4,1,3,3,6,4,5,4},
-            {150,119,151,152,171,148,156,153}
+            {4,1,3,3,6,4,5,4}
             };
-        private readonly UsuarioBBDD? usuarioBBDD;
+        //,{150,119,151,152,171,148,156,153}
+
+  
 
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace tfg_api.Model.Interna
         /// </summary>
         /// <param name="usuario"></param>
         /// <param name="formularioRespuestas"></param>
-        public async void CalcularChasideAsync(Usuario usuario, IEnumerable<RespuestaFormulario.RespuestaFormulario> formularioRespuestas)
+        public  Usuario CalcularChaside(Usuario usuario, IEnumerable<RespuestaFormulario.RespuestaFormulario> formularioRespuestas)
         {
             usuario.Administrativas_Contables_Int = 0;
             usuario.Humanisticas_Sociales_Int = 0;
@@ -159,10 +160,9 @@ namespace tfg_api.Model.Interna
                         usuario.CienciasExactas_Agrarias_Apt += 1;
                     }
                 }
-                await usuarioBBDD.SaveChangesAsync();
-
 
             }
+            return usuario;
         }
 
         /// <summary>
@@ -170,9 +170,9 @@ namespace tfg_api.Model.Interna
         /// </summary>
         /// <param name="usuario"></param>
         /// <param name="formularioRespuestas"></param>
-        public async void CalcularTolouseAsync(Usuario usuario, IEnumerable<RespuestaFormulario.RespuestaFormulario> formularioRespuestas)
+        public  Usuario CalcularTolouse(Usuario usuario, IEnumerable<RespuestaFormulario.RespuestaFormulario> formularioRespuestas)
         {
-
+            //99-106
             usuario.CC = 0;
             usuario.ICI = 0;
             usuario.IGAP = 0;
@@ -190,20 +190,18 @@ namespace tfg_api.Model.Interna
 
             foreach (RespuestaFormulario.RespuestaFormulario rf in formularioRespuestas.ToArray())
             {
-                //formato de las respuestas 1,2,3,4,5,6,7,8;2,3,4,5,6,7,8,9;.....
+                //formato de las respuestas 5;5;4;2;5;3;2;4;2;2;4;5;5;3;4;3;5;4;5;2;4;3;3;4;4;5;3;5;3;5;3;5;3;4;4;3;3;4;4;4
                 //cada columna representa la figuara, siendo la 1 la figura1 asi hasta la 8
                 // en caso de ver -1 es saltable ya que no contempla esa figura
                 // 39 filas en total + 1 que es la suma en total
-                
-                //separo en filas
+
+                //separo en filas              
                 arrayFilas = rf.Valor.ToString().Split(";");
                 int contadorFilas = 0;
                 foreach (string fila in arrayFilas) {
-                    int contadorColumnas = 0;
-                    arrayColumnas = fila.ToString().Split(",");
-
-                    foreach (string columna in arrayColumnas) { 
-                      int respuestaUsuario = Int32.Parse(columna);
+                    int contadorColumnas = rf.IdPregunta-99;
+        
+                      int respuestaUsuario = Int32.Parse(fila);
                       int respuestaPlantilla = Int32.Parse(resultadoToulouse[contadorFilas, contadorColumnas].ToString());
 
                         if (respuestaUsuario != -1)
@@ -222,19 +220,19 @@ namespace tfg_api.Model.Interna
                                 aciertosTotales += respuestaUsuario;
                             }
                         }
-                        contadorColumnas += 1;
 
-                    }
                     contadorFilas += 1;
                 }
+                   
+                
 
                 usuario.CC = (aciertosTotales - errorTotal) / (aciertosTotales - omisionTotal);
                 usuario.IGAP = aciertosTotales - (errorTotal - omisionTotal);
                 usuario.ICI = ((aciertosTotales - errorTotal) / 39) * 100;
-                await usuarioBBDD.SaveChangesAsync();
+                
 
             }
-
+            return usuario;
         }
 
         /// <summary>
@@ -243,19 +241,20 @@ namespace tfg_api.Model.Interna
         /// <param name="usuario"></param>
         /// <param name="asignatura"></param>
         /// <param name="tipo"></param>
-        public async void CalcularAptitudesAsignatura(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipoLista) {
-            usuario.Administrativas_Contables_Apt = 0;
-            usuario.Humanisticas_Sociales_Apt = 0;
-            usuario.Artisticas_Apt = 0;
-            usuario.Medicina_CsSalud_Apt = 0;
-            usuario.Ingenieria_Computacion_Apt = 0;
-            usuario.DefensaSeguridad_Apt = 0;
-            usuario.CienciasExactas_Agrarias_Apt = 0;
-
+        public  Usuario CalcularAptitudesAsignatura(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipoLista,string formato) {
+            if (formato.Equals("resta")) {
+                usuario.Administrativas_Contables_Apt = 0;
+                usuario.Humanisticas_Sociales_Apt = 0;
+                usuario.Artisticas_Apt = 0;
+                usuario.Medicina_CsSalud_Apt = 0;
+                usuario.Ingenieria_Computacion_Apt = 0;
+                usuario.DefensaSeguridad_Apt = 0;
+                usuario.CienciasExactas_Agrarias_Apt = 0;
+            }
             decimal nota = decimal.Parse(asignatura.Nota.ToString());
             foreach (string tipo in tipoLista.Split(","))
             {
-                switch (tipo)
+                switch (tipo.Replace(" ",""))
                 {
 
                     case "Administrativas_Contables":
@@ -416,7 +415,7 @@ namespace tfg_api.Model.Interna
 
                 }
             }
-            await usuarioBBDD.SaveChangesAsync();
+               return usuario;
 
 
         }
@@ -427,10 +426,11 @@ namespace tfg_api.Model.Interna
         /// <param name="usuario"></param>
         /// <param name="asignatura"></param>
         /// <param name="tipo"></param>
-        public async void Recomendaciones(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipoLista) {
+        public AsignaturaUsuario.AsignaturaUsuario Recomendaciones(Usuario usuario, AsignaturaUsuario.AsignaturaUsuario asignatura, string tipoLista) {
             // tiempo recomendado por asignatura de manera semanal son 2 horas minimo  maximo 6
             // si tienes un interes bajo lo mas seguro es que abandones la carrera, por lo que aumenta el riesgo de no estudiar
 
+            //REVISAR
             asignatura.Riesgo = 0;
             asignatura.TiempoRecomendado = 4;
             int aptitudAsignatura = 0;
@@ -582,7 +582,7 @@ namespace tfg_api.Model.Interna
             if (asignatura.Riesgo < 0) {
                 asignatura.Riesgo = 0;
             }
-            await usuarioBBDD.SaveChangesAsync();
+            return asignatura;
         }
 
 

@@ -22,7 +22,7 @@
                 <h1 class="h3 mb-2 text-gray-800">Formulario de Toulouse</h1>
                 <p class="mb-4">
                     Este formulario evaluará la concentracion, atencion/retencion e impulsividad del estudiante en función de el recuento de las figuras que aparecen al principio del conjunto de las imagenes.
-                    Se cuentan de manera individual, no se busca una serie
+                    Se cuentan por fila y de manera individual, no se busca una serie, para ello se separarán por ";".
                 </p>
    
 
@@ -32,7 +32,7 @@
                 <br />
                 <br />
                 <div id="respuestas"></div>
-                <button class="btn btn-primary mt-3 mt-sm-0" onclick="">Guardar</button>
+                <button class="btn btn-primary mt-3 mt-sm-0" onclick="guardarRespuestas()">Guardar</button>
 
 
 
@@ -61,7 +61,7 @@
             urlWs = `@Url.Action("GetDatosListaPreguntasToulouse", "Home")`;
             typeMeth = "GET";
         } else if (tipo == "UpdateRespuestas") {
-            urlWs = `@Url.Action("UpdateRespuestasChaside", "Home")`;
+            urlWs = `@Url.Action("UpdateRespuestasToulouse", "Home")`;
             typeMeth = "PUT";
         }
 
@@ -85,74 +85,45 @@
 
     }
      function OnSuccessGetDatos(response,tipo) {
-        $.each(response, function (index, value) {
-            var imagenes = document.getElementById("imagenes");
-            var respuestas = document.getElementById("respuestas");
-            var separador = document.createElement('br');
-            //const img = document.querySelector("img");
-            //img.src = "https://i.postimg.cc/3RMJvLMZ/Figura1.webp";
-            var pregunta = document.createElement('img');           
-            pregunta.setAttribute("alt", value.contenido);
-            pregunta.setAttribute("src", value.imagen_url);
-            imagenes.appendChild(pregunta);
-            imagenes.appendChild(separador);
-            imagenes.appendChild(separador);
-            var divRespuestas = document.createElement('div');
-            divRespuestas.setAttribute("class", "form-group");
-            respuestas.appendChild(divRespuestas);
-            pregunta.setAttribute("id", "pregunta_" + index);
-            divRespuestas.appendChild(pregunta);
-            var entradaRespuesta = document.createElement('input');
-            entradaRespuesta.setAttribute("type", "number");
-            entradaRespuesta.setAttribute("class", "form-control");
-            entradaRespuesta.setAttribute("id", "respuesta_" + index);
-            divRespuestas.appendChild(entradaRespuesta);
-            //var CheckNo = document.createElement('input');
-            //CheckNo.setAttribute("id", "flexRadioNo_" + index);
-            //CheckNo.setAttribute("class", "form-check-input");
-            //CheckNo.setAttribute("name", "flexRadio_" + index);
-            //CheckNo.setAttribute("checked","true")
-            //CheckNo.setAttribute("type", "radio");
-            //divCheckNo.appendChild(CheckNo);
-            //var labelNo = document.createElement('label');
-            //labelNo.innerText = "No";
-            //labelNo.setAttribute("class", "form-check-label");
-            //labelNo.setAttribute("for", "flexRadioNo_" + index);
-            //divCheckNo.appendChild(labelNo);
-            //divCheckNo.appendChild(separador);
-            //var divCheckSi = document.createElement('div');
-            //divCheckSi.setAttribute("id", "divCheckSi_" + index);
-            //divCheckSi.setAttribute("class", "form-check");
-            //formulario.appendChild(divCheckSi);
-            //var CheckSi = document.createElement('input');
-            //CheckSi.setAttribute("id", "flexRadioSi_" + index);
-            //CheckSi.setAttribute("class", "form-check-input");
-            //CheckSi.setAttribute("name", "flexRadio_" + index);
-            //CheckSi.setAttribute("type", "radio");
-            //divCheckSi.appendChild(CheckSi);
-            //var labelSi = document.createElement('label');
-            //labelSi.innerText = "Si";
-            //labelSi.setAttribute("class", "form-check-label");
-            //labelSi.setAttribute("for", "flexRadioSi_" + index);
-            //divCheckSi.appendChild(labelSi);
-            //divCheckSi.appendChild(separador);
-            //divCheckSi.appendChild(separador);
-        });
+        if (tipo == "UpdateRespuestas") {
+            if (response) {
+                alert("Los datos han sido guardados")
+            } else {
+                alert("Los datos no han sido guardados")
+            }
+        }else{
+            $.each(response, function (index, value) {
+                var imagenes = document.getElementById("imagenes");
+                var respuestas = document.getElementById("respuestas");
+                var separador = document.createElement('br');
+                var pregunta = document.createElement('img');           
+                pregunta.setAttribute("alt", value.contenido);
+                pregunta.setAttribute("src", value.imagen_url);
+                imagenes.appendChild(pregunta);
+                imagenes.appendChild(separador);
+                imagenes.appendChild(separador);
+                var divRespuestas = document.createElement('div');
+                divRespuestas.setAttribute("class", "form-group");
+                respuestas.appendChild(divRespuestas);
+                pregunta.setAttribute("id", "pregunta_" + value.idPregunta);
+                divRespuestas.appendChild(pregunta);
+                var entradaRespuesta = document.createElement('input');
+                entradaRespuesta.setAttribute("type", "text");
+                entradaRespuesta.setAttribute("class", "form-control");
+                entradaRespuesta.setAttribute("id", "respuesta_" + value.idPregunta);
+                divRespuestas.appendChild(entradaRespuesta);
+            });
+        }
      }
-    function buscarcheckbox() {
-        let input = $("#formulario").find("input") //guarda el elemento
+    function guardarRespuestas() {
+        let input = $("#respuestas").find("input"); 
         var respuestas ="";
         $.each(input, function (index, value) {
-         if(value.checked){
-             if(value.id.includes("Si")){
-                    respuestas = respuestas + "€" + "1";
-             }else{
-                respuestas = respuestas + "€" + "0";
-         }
-               
-         }
-         });
-        getDatos("UpdateRespuestas",respuestas);
+        respuestas = respuestas + "€" +value.value+"_"+value.id.split("_")[1];
+     
+
+        });
+        getDatos("UpdateRespuestas", respuestas);
     }
     </script>
 

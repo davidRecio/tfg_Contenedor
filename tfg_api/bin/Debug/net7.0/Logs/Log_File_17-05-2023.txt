@@ -1,0 +1,14 @@
+2023-05-17 00:05:35.8081|TRACE|tfg_api.Utils.Logs|Controller.|ID: yCF4P9GBd0GcXya4GdXRnQ, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-17 00:05:35.8897|TRACE|tfg_api.Utils.Logs|Controller.|ID: yCF4P9GBd0GcXya4GdXRnQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-17 00:10:13.3640|TRACE|tfg_api.Utils.Logs|Controller.|ID: KxVhS4tZUmU3MemvaYyfQ, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-17 00:10:13.4061|TRACE|tfg_api.Utils.Logs|Controller.|ID: KxVhS4tZUmU3MemvaYyfQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-17 00:37:58.7889|TRACE|tfg_api.Utils.Logs|Controller.|ID: 580dojZxaEaPb8sYni8Vfg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-17 00:37:58.8369|TRACE|tfg_api.Utils.Logs|Controller.|ID: 580dojZxaEaPb8sYni8Vfg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-17 08:15:35.8490|TRACE|tfg_api.Utils.Logs|Controller.|ID: fa9Q1Gcn8keOCHtdxKs2pg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-17 08:15:50.4523|TRACE|tfg_api.Utils.Logs|Controller.|ID: fa9Q1Gcn8keOCHtdxKs2pg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-17 09:10:55.2477|TRACE|tfg_api.Utils.Logs|Controller.|ID: J5YONlber0qPBeH6LWdF1A, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-17 09:10:55.2997|TRACE|tfg_api.Utils.Logs|Controller.|ID: J5YONlber0qPBeH6LWdF1A, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-17 18:07:44.1496|TRACE|tfg_api.Utils.Logs|Controller.|ID: ouXJKvyikSyHCjlFpUNDw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-17 18:07:44.2171|TRACE|tfg_api.Utils.Logs|Controller.|ID: ouXJKvyikSyHCjlFpUNDw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-17 18:39:29.8886|TRACE|tfg_api.Utils.Logs|Controller.|ID: sYj3rjxMB0urUQS8e5oWlg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-17 18:39:29.9546|TRACE|tfg_api.Utils.Logs|Controller.|ID: sYj3rjxMB0urUQS8e5oWlg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null

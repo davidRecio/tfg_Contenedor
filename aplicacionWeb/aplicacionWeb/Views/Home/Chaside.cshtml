@@ -83,50 +83,58 @@
 
     }
      function OnSuccessGetDatos(response,tipo) {
-        $.each(response, function (index, value) {
-            var formulario = document.getElementById("formulario")
-            var separador = document.createElement('br');
+        if (tipo == "UpdateRespuestas") {
+            if(response){
+                alert("Los datos han sido guardados")
+            }else{
+                alert("Los datos no han sido guardados")
+            }
+         }else{
+            $.each(response, function (index, value) {
+                var formulario = document.getElementById("formulario")
+                var separador = document.createElement('br');
 
-            var pregunta = document.createElement('h5');
-            pregunta.setAttribute("id", "pregunta_"+index);
-            pregunta.innerText=value.contenido
-            formulario.appendChild(pregunta);
-            formulario.appendChild(separador);
-            var divCheckNo = document.createElement('div');
-            divCheckNo.setAttribute("id", "divCheckNo_" + index);
-            divCheckNo.setAttribute("class", "form-check");
-            formulario.appendChild(divCheckNo);
-            var CheckNo = document.createElement('input');
-            CheckNo.setAttribute("id", "flexRadioNo_" + index);
-            CheckNo.setAttribute("class", "form-check-input");
-            CheckNo.setAttribute("name", "flexRadio_" + index);
-            CheckNo.setAttribute("checked","true")
-            CheckNo.setAttribute("type", "radio");
-            divCheckNo.appendChild(CheckNo);
-            var labelNo = document.createElement('label');
-            labelNo.innerText = "No";
-            labelNo.setAttribute("class", "form-check-label");
-            labelNo.setAttribute("for", "flexRadioNo_" + index);
-            divCheckNo.appendChild(labelNo);
-            divCheckNo.appendChild(separador);
-            var divCheckSi = document.createElement('div');
-            divCheckSi.setAttribute("id", "divCheckSi_" + index);
-            divCheckSi.setAttribute("class", "form-check");
-            formulario.appendChild(divCheckSi);
-            var CheckSi = document.createElement('input');
-            CheckSi.setAttribute("id", "flexRadioSi_" + index);
-            CheckSi.setAttribute("class", "form-check-input");
-            CheckSi.setAttribute("name", "flexRadio_" + index);
-            CheckSi.setAttribute("type", "radio");
-            divCheckSi.appendChild(CheckSi);
-            var labelSi = document.createElement('label');
-            labelSi.innerText = "Si";
-            labelSi.setAttribute("class", "form-check-label");
-            labelSi.setAttribute("for", "flexRadioSi_" + index);
-            divCheckSi.appendChild(labelSi);
-            divCheckSi.appendChild(separador);
-            divCheckSi.appendChild(separador);
+                var pregunta = document.createElement('h5');
+                pregunta.setAttribute("id", "pregunta_"+index);
+                pregunta.innerText=value.contenido
+                formulario.appendChild(pregunta);
+                formulario.appendChild(separador);
+                var divCheckNo = document.createElement('div');
+                divCheckNo.setAttribute("id", "divCheckNo_" + index);
+                divCheckNo.setAttribute("class", "form-check");
+                formulario.appendChild(divCheckNo);
+                var CheckNo = document.createElement('input');
+                CheckNo.setAttribute("id", "flexRadioNo_" + index);
+                CheckNo.setAttribute("class", "form-check-input");
+                CheckNo.setAttribute("name", "flexRadio_" + index);
+                CheckNo.setAttribute("checked","true")
+                CheckNo.setAttribute("type", "radio");
+                divCheckNo.appendChild(CheckNo);
+                var labelNo = document.createElement('label');
+                labelNo.innerText = "No";
+                labelNo.setAttribute("class", "form-check-label");
+                labelNo.setAttribute("for", "flexRadioNo_" + index);
+                divCheckNo.appendChild(labelNo);
+                divCheckNo.appendChild(separador);
+                var divCheckSi = document.createElement('div');
+                divCheckSi.setAttribute("id", "divCheckSi_" + index);
+                divCheckSi.setAttribute("class", "form-check");
+                formulario.appendChild(divCheckSi);
+                var CheckSi = document.createElement('input');
+                CheckSi.setAttribute("id", "flexRadioSi_" + index);
+                CheckSi.setAttribute("class", "form-check-input");
+                CheckSi.setAttribute("name", "flexRadio_" + index);
+                CheckSi.setAttribute("type", "radio");
+                divCheckSi.appendChild(CheckSi);
+                var labelSi = document.createElement('label');
+                labelSi.innerText = "Si";
+                labelSi.setAttribute("class", "form-check-label");
+                labelSi.setAttribute("for", "flexRadioSi_" + index);
+                divCheckSi.appendChild(labelSi);
+                divCheckSi.appendChild(separador);
+                divCheckSi.appendChild(separador);
         });
+        }
      }
     function buscarcheckbox() {
         let input = $("#formulario").find("input") //guarda el elemento
@@ -134,9 +142,9 @@
         $.each(input, function (index, value) {
          if(value.checked){
              if(value.id.includes("Si")){
-                    respuestas = respuestas + "€" + "1";
+                    respuestas = respuestas + "€" + "S";
              }else{
-                respuestas = respuestas + "€" + "0";
+                respuestas = respuestas + "€" + "N";
          }
                
          }

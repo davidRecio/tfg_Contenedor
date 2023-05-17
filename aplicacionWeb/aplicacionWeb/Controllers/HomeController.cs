@@ -154,6 +154,16 @@ namespace aplicacionWeb.Controllers
 
             return preguntasFinales;
         }
+        [HttpPut]
+        public async Task<Boolean> UpdateRespuestasToulouse(string datos)
+        {
+
+            string[] contentDatos = datos.Split("€");
+
+            var b = await _servicio_API_Formulario.GuardarRespuestas(contentDatos, 1);
+
+            return b;
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

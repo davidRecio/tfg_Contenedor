@@ -24,6 +24,7 @@ namespace tfg_api.Controllers
         private readonly AsignaturaUsuarioDDBB asignaturaUsuarioBBDD;
         private readonly AsignaturaAreaBBDD asignaturaAreaBBDD;
         private readonly AreaConocimientoBBDD areaConocimientoBBDD;
+        private readonly UsuarioBBDD usuarioBBDD;
         /// <summary>
         /// Elemento que interactura como puente en base de datos y ruta
         /// </summary>
@@ -35,6 +36,7 @@ namespace tfg_api.Controllers
             this.asignaturaUsuarioBBDD = asignaturaUsuarioBBDD;     
             this.asignaturaAreaBBDD= asignaturaAreaBBDD;
             this.areaConocimientoBBDD= areaConocimientoBBDD;
+            this.usuarioBBDD=usuarioBBDD;
         }
         /// <summary>
         /// Obtiene todos las asignaturas
@@ -117,9 +119,12 @@ namespace tfg_api.Controllers
                     };
                     await asignaturaUsuarioBBDD.AsignaturasUsuarios.AddAsync(asignaturaUsuario);
                     await asignaturaUsuarioBBDD.SaveChangesAsync();
+                    Usuario usuario=  await CalcularAptitudesAsignatura(idUsuario,idAsignatura,"crear");
+                    usuarioBBDD.Usuarios.Update(usuario);
+                    await usuarioBBDD.SaveChangesAsync();
 
 
-                    
+
                 }
                 else {
                     return NotFound(idAsignatura);
@@ -146,17 +151,25 @@ namespace tfg_api.Controllers
             if (asignaturaUsuario != null)
             {
 
-                asignaturaUsuario.Nota = asignaturaUsuarioUpdate.Nota;
-                asignaturaUsuario.TiempoEstudio = asignaturaUsuarioUpdate.TiempoEstudio;
                 try {
+                    Usuario usuario = await CalcularAptitudesAsignatura(idUsuario, idAsignatura, "restar");
+                    usuarioBBDD.Usuarios.Update(usuario);
+                    await usuarioBBDD.SaveChangesAsync();
+
+
+                    asignaturaUsuario.Nota = asignaturaUsuarioUpdate.Nota;
+                    asignaturaUsuario.TiempoEstudio = asignaturaUsuarioUpdate.TiempoEstudio;
                     asignaturaUsuarioBBDD.Update(asignaturaUsuario);
+                    usuario = await CalcularAptitudesAsignatura(idUsuario, idAsignatura, "crear");
+                    usuarioBBDD.Usuarios.Update(usuario);
+                    await usuarioBBDD.SaveChangesAsync();
                 }
                 catch (Exception e) {
 
                 }
                 
                 await asignaturaUsuarioBBDD.SaveChangesAsync();
-
+             
                 return Ok(asignaturaUsuario);
 
             }
@@ -176,6 +189,10 @@ namespace tfg_api.Controllers
 
             if (asignaturaUsuario != null)
             {
+            
+                Usuario usuario = await CalcularAptitudesAsignatura(idUsuario, idAsignatura, "restar");
+                usuarioBBDD.Usuarios.Update(usuario);
+                await usuarioBBDD.SaveChangesAsync();
                 asignaturaUsuarioBBDD.Remove(asignaturaUsuario);
                 await asignaturaUsuarioBBDD.SaveChangesAsync();
                 return Ok(asignaturaUsuario);
@@ -359,7 +376,44 @@ namespace tfg_api.Controllers
             return NotFound();
         }
 
-        #endregion 
+        #endregion
+
+        private async Task<Usuario> CalcularAptitudesAsignatura(Guid idUsuario, Guid idAsignatura,string formato)
+        {
+            List<AsignaturaArea> asignaturaAreaList= new();
+            try { 
+             asignaturaAreaList = await asignaturaAreaBBDD.AsignaturasAreas.Where(p => p.IdAsignatura.Equals(idAsignatura)).ToListAsync();
+
+            }
+            catch (Exception e) { }
+            string tipoArea = "";
+            ValueTask<Usuario> usuarioResult = usuarioBBDD.Usuarios.FindAsync(idUsuario);
+            ValueTask<AsignaturaUsuario> asignaturaUsuario = asignaturaUsuarioBBDD.AsignaturasUsuarios.FindAsync(idAsignatura, idUsuario);
+            InternalClass internalClass = new();
+            foreach (AsignaturaArea asignaturaArea in asignaturaAreaList)
+            {
+                AreaConocimiento area = await areaConocimientoBBDD.AreasConocimientos.FindAsync(asignaturaArea.IdArea);
+                tipoArea = tipoArea + ", " + area.Nombre;
+            }
+            //tipoArea = tipoArea.Substring(0, 1);
+            Usuario usuarioResultante = internalClass.CalcularAptitudesAsignatura(usuarioResult.Result, asignaturaUsuario.Result, tipoArea, formato);
+            if (formato.Equals("restar")) {
+                usuarioResult.Result.Administrativas_Contables_Apt = usuarioResult.Result.Administrativas_Contables_Apt - usuarioResultante.Administrativas_Contables_Apt;
+                usuarioResult.Result.Humanisticas_Sociales_Apt = usuarioResult.Result.Humanisticas_Sociales_Apt - usuarioResultante.Humanisticas_Sociales_Apt;
+                usuarioResult.Result.Artisticas_Apt = usuarioResult.Result.Artisticas_Apt - usuarioResultante.Artisticas_Apt;
+                usuarioResult.Result.Medicina_CsSalud_Apt = usuarioResult.Result.Medicina_CsSalud_Apt - usuarioResultante.Medicina_CsSalud_Apt;
+                usuarioResult.Result.Ingenieria_Computacion_Apt = usuarioResult.Result.Ingenieria_Computacion_Apt - usuarioResultante.Ingenieria_Computacion_Apt;
+                usuarioResult.Result.DefensaSeguridad_Apt = usuarioResult.Result.DefensaSeguridad_Apt -+usuarioResultante.DefensaSeguridad_Apt;
+                usuarioResult.Result.CienciasExactas_Agrarias_Apt = usuarioResult.Result.CienciasExactas_Agrarias_Apt - usuarioResultante.CienciasExactas_Agrarias_Apt;
+            
+                return usuarioResult.Result;
+            }
+            else {
+                return usuarioResultante;
+
+            }
+           
+        }
 
     }
 }

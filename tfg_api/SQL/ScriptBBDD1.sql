@@ -64,7 +64,7 @@
 	));
 	ALTER TABLE  tfg.[dbo].[AreasConocimientos] ADD  CONSTRAINT [DF_IdArea]  DEFAULT (newsequentialid()) FOR [IdArea];
 --AsignaturasArea
-CREATE TABLE  tfg.[dbo].[AsignaturasArea](
+CREATE TABLE  tfg.[dbo].[AsignaturasAreas](
 		[IdAsignatura] [uniqueidentifier] NOT NULL,
 		[IdArea] [uniqueidentifier] NOT NULL,
 	 CONSTRAINT [PK_AsignaturasAreas] PRIMARY KEY CLUSTERED 
@@ -91,7 +91,7 @@ CREATE TABLE  tfg.[dbo].[AsignaturasArea](
 	CREATE TABLE tfg.[dbo].[RespuestaFormularios](
 		[IdUsuario] [uniqueidentifier] NOT NULL,
 		[IdPregunta] [int] NOT NULL,
-		[Valor] [nvarchar](50) NOT NULL,
+		[Valor] [nvarchar](200) NOT NULL,
 	 CONSTRAINT [PK_RespuestaFormularios] PRIMARY KEY CLUSTERED 
 	(
 		[IdUsuario] ASC,

@@ -1,0 +1,12 @@
+2023-05-16 00:40:55.8635|TRACE|tfg_api.Utils.Logs|Controller.|ID: 6JDe0jG2Gkc3rMb9wWNAw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-16 00:40:55.8821|TRACE|tfg_api.Utils.Logs|Controller.|ID: 6JDe0jG2Gkc3rMb9wWNAw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-16 00:41:02.6913|ERROR|tfg_api.Utils.Logs|Controller.|ID: 6JDe0jG2Gkc3rMb9wWNAw, Error ws: Object reference not set to an instance of an object., IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-16 23:19:24.7432|TRACE|tfg_api.Utils.Logs|Controller.|ID: YXiWqPKIkzWtZl7JNp4w, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-16 23:19:24.7547|TRACE|tfg_api.Utils.Logs|Controller.|ID: YXiWqPKIkzWtZl7JNp4w, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-16 23:19:27.7635|ERROR|tfg_api.Utils.Logs|Controller.|ID: YXiWqPKIkzWtZl7JNp4w, Error ws: Object reference not set to an instance of an object., IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-16 23:28:35.9197|TRACE|tfg_api.Utils.Logs|Controller.|ID: LYDWvme0dEmZcIDgcS98w, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-16 23:28:35.9293|TRACE|tfg_api.Utils.Logs|Controller.|ID: LYDWvme0dEmZcIDgcS98w, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-16 23:30:31.5346|TRACE|tfg_api.Utils.Logs|Controller.|ID: sJj8QYdCU2bzQoVL3Tg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-05-16 23:30:31.5464|TRACE|tfg_api.Utils.Logs|Controller.|ID: sJj8QYdCU2bzQoVL3Tg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-05-16 23:30:35.8459|TRACE|tfg_api.Utils.Logs|Controller.|ID: IJL5rKoGY0CWXs52zBGnHw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: aqua.FromBody: null
+2023-05-16 23:30:35.8528|TRACE|tfg_api.Utils.Logs|Controller.|ID: IJL5rKoGY0CWXs52zBGnHw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null

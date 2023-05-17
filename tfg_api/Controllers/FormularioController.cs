@@ -174,12 +174,23 @@ namespace tfg_api.Controllers
         [Route("usuarios/{idUsuario}/formularios/{idFormulario}")]
         public async Task<ActionResult> UpdateRespuestas(Guid idUsuario, int idFormulario, [FromBody] IEnumerable<AddRespuestaFormulario> RespuestaFormulariosBody)
         {
-
+            Usuario usuarioUpdate=new();
+            InternalClass internalClass = new InternalClass();
+            var usuario = await usuarioBBDD.Usuarios.FindAsync(idUsuario);
+            List<RespuestaFormulario> listaRespuestas=new();
             try
             {
                
                 foreach (AddRespuestaFormulario respuesta in RespuestaFormulariosBody) {
                     var respuestaFormulario = await respuestaFormularioBBDD.RespuestaFormularios.FindAsync(idUsuario, respuesta.IdPregunta);
+
+                    RespuestaFormulario respuestaFormularioAux = new()
+                    {
+                        IdPregunta = respuesta.IdPregunta,
+                        Valor = respuesta.Valor,
+                        IdUsuario = idUsuario
+                    };
+                    listaRespuestas.Add(respuestaFormularioAux);
 
                     if (respuestaFormulario != null)
                     {
@@ -187,16 +198,22 @@ namespace tfg_api.Controllers
                         await respuestaFormularioBBDD.SaveChangesAsync();
                     }
                     else {
-                        RespuestaFormulario respuestaFormularioAux = new()
-                        {
-                            IdPregunta = respuesta.IdPregunta,
-                            Valor = respuesta.Valor,
-                            IdUsuario = idUsuario
-                        };
+                    
                         await respuestaFormularioBBDD.RespuestaFormularios.AddAsync(respuestaFormularioAux);
                         await respuestaFormularioBBDD.SaveChangesAsync();
                     }            
                 }
+                if (idFormulario == 1) {
+
+                    usuarioUpdate = internalClass.CalcularTolouse(usuario, listaRespuestas);
+                }
+                else
+                {
+                  usuarioUpdate=   internalClass.CalcularChaside(usuario, listaRespuestas);
+                 
+                }
+                usuarioBBDD.Update(usuarioUpdate);
+                await usuarioBBDD.SaveChangesAsync();
                 return Ok();
             }
             catch (Exception)
@@ -224,12 +241,12 @@ namespace tfg_api.Controllers
             {
                 if (idFormulario == 0)
                 {
-                    internalClass.CalcularChasideAsync(usuarioResult.Result, RespuestaFormulariosBody);
+                    internalClass.CalcularChaside(usuarioResult.Result, RespuestaFormulariosBody);
                     nombreFormulario = "CHASIDE";
                 }
                 else
                 {
-                    internalClass.CalcularTolouseAsync(usuarioResult.Result, RespuestaFormulariosBody);
+                    internalClass.CalcularTolouse(usuarioResult.Result, RespuestaFormulariosBody);
                     nombreFormulario = "TOULOUSE";
                 }
 

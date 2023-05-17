@@ -179,42 +179,7 @@ namespace tfg_api.Controllers
             }
             return NotFound();
         }
-        /// <summary>
-        /// Actualiza aptitudes segun las notas de todas las asignaturas
-        /// </summary>
-        /// <param name="idUsuario"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("{idUsuario}/aptitudes")]
-        public async Task<ActionResult> CalcularAptitudesAsignatura(Guid idUsuario)
-        {
-            string tipoArea = "";
-            ValueTask<Usuario> usuarioResult = usuarioBBDD.Usuarios.FindAsync(idUsuario);
-            InternalClass internalClass = new();
-            if (usuarioResult.Result != null)
-            {
-                List<AsignaturaUsuario> listaAsignaturas = asignaturaUsuarioBBDD.AsignaturasUsuarios.Where(p => p.IdUsuario.Equals(idUsuario)).ToList();
-                foreach (AsignaturaUsuario asignaturaUsuario in listaAsignaturas)
-                {
-                    var asignaturaAreaList = await asignaturaAreaBBDD.AsignaturasAreas.Where(p => p.IdAsignatura.Equals(asignaturaUsuario.IdAsignatura)).ToListAsync();
-
-                   
-                    foreach (AsignaturaArea asignaturaArea in asignaturaAreaList) {
-                        AreaConocimiento area = await areaConocimientoBBDD.AreasConocimientos.FindAsync(asignaturaArea.IdArea);
-                        tipoArea = tipoArea + ", " + area.Nombre;
-                    }
-                    tipoArea = tipoArea.Substring(0, 1);
-
-                    internalClass.CalcularAptitudesAsignatura(usuarioResult.Result, asignaturaUsuario, tipoArea);
-                }
-                return Ok(usuarioResult);
-            }
-            else
-            {
-                return NotFound();
-            }
-
-        }
+      
         /// <summary>
         /// Actualiza recomendaciones segun las notas de todas las asignaturas
         /// </summary>
@@ -252,5 +217,6 @@ namespace tfg_api.Controllers
             }
 
         }
+
     }
 }

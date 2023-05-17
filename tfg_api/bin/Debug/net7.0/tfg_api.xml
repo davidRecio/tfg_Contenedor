@@ -216,13 +216,6 @@
             <param name="idUsuario"></param>
             <returns></returns>
         </member>
-        <member name="M:tfg_api.Controllers.UsuarioController.CalcularAptitudesAsignatura(System.Guid)">
-            <summary>
-            Actualiza aptitudes segun las notas de todas las asignaturas
-            </summary>
-            <param name="idUsuario"></param>
-            <returns></returns>
-        </member>
         <member name="M:tfg_api.Controllers.UsuarioController.CalcularRecomendacionesAsignatura(System.Guid)">
             <summary>
             Actualiza recomendaciones segun las notas de todas las asignaturas
@@ -567,21 +560,21 @@
             Clase encargada de gestionar los procesos internos
             </summary>
         </member>
-        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularChasideAsync(tfg_api.Model.UsuarioContenedor.Usuario,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularChaside(tfg_api.Model.UsuarioContenedor.Usuario,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
             <summary>
             calcula los resultados del formulario de CHASIDE
             </summary>
             <param name="usuario"></param>
             <param name="formularioRespuestas"></param>
         </member>
-        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularTolouseAsync(tfg_api.Model.UsuarioContenedor.Usuario,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
+        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularTolouse(tfg_api.Model.UsuarioContenedor.Usuario,System.Collections.Generic.IEnumerable{tfg_api.Model.RespuestaFormulario.RespuestaFormulario})">
             <summary>
             calcula CC, IGAP, ICI a través de el formulario de Tolouse
             </summary>
             <param name="usuario"></param>
             <param name="formularioRespuestas"></param>
         </member>
-        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularAptitudesAsignatura(tfg_api.Model.UsuarioContenedor.Usuario,tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario,System.String)">
+        <member name="M:tfg_api.Model.Interna.InternalClass.CalcularAptitudesAsignatura(tfg_api.Model.UsuarioContenedor.Usuario,tfg_api.Model.AsignaturaUsuario.AsignaturaUsuario,System.String,System.String)">
             <summary>
             recalcula aptitudes segun notas
             </summary>
