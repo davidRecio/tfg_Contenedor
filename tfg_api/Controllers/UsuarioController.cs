@@ -189,6 +189,7 @@ namespace tfg_api.Controllers
         [Route("{idUsuario}/recomendaciones")]
         public async Task<ActionResult> CalcularRecomendacionesAsignatura(Guid idUsuario)
         {
+
             string tipoArea = "";
             ValueTask<Usuario> usuarioResult = usuarioBBDD.Usuarios.FindAsync(idUsuario);
             InternalClass internalClass = new();
@@ -205,9 +206,12 @@ namespace tfg_api.Controllers
                         AreaConocimiento area = await areaConocimientoBBDD.AreasConocimientos.FindAsync(asignaturaArea.IdArea);
                         tipoArea = tipoArea + ", " + area.Nombre;
                     }
-                    tipoArea = tipoArea.Substring(0, 1);
+                    tipoArea = tipoArea.Substring(1);
 
-                    internalClass.Recomendaciones(usuarioResult.Result, asignaturaUsuario, tipoArea);
+                    AsignaturaUsuario asignaturaResultado = internalClass.Recomendaciones(usuarioResult.Result, asignaturaUsuario, tipoArea);
+
+                    asignaturaUsuarioBBDD.Update(asignaturaResultado);
+                   await asignaturaUsuarioBBDD.SaveChangesAsync();
                 }
                 return Ok("Ya se han actulaizado las aptitudes según las asignaturas");
             }

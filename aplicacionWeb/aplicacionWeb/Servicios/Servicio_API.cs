@@ -180,7 +180,26 @@ namespace aplicacionWeb.Servicios;
             return respuesta;
         }
 
+    public async Task<bool> Recomendaciones()
+    {
+        bool respuesta = false;
 
+
+
+        var cliente = new HttpClient();
+        cliente.BaseAddress = new Uri(_baseUrl);
+        cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
+
+        var response = await cliente.GetAsync(routePrincipal + "/" + idUsuario+"/recomendaciones");
+
+        if (response.IsSuccessStatusCode)
+        {
+            respuesta = true;
+        }
+
+        return respuesta;
+    }
 }
 
 public class Servicio_API_Asignatura : IServicio_API_Asignatura

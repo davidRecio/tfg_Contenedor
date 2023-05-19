@@ -3,6 +3,7 @@ using aplicacionWeb.Model.UsuarioContenedor;
 using aplicacionWeb.Servicios;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net;
 
 namespace aplicacionWeb.Controllers
 {
@@ -65,12 +66,17 @@ namespace aplicacionWeb.Controllers
 
                 var cookieOptions = new CookieOptions
                 {
-                    Expires = DateTime.Now.AddDays(1)
+                   
+                    Secure= true,
+                    HttpOnly= true,
+                    Path="/Home",
+                    
                 };
-                Response.Cookies.Append("token", respuesta);
-               
-               
-            return Redirect("~/Home/Index");
+                
+                Response.Cookies.Append("token", respuesta,cookieOptions);
+                Response.Cookies.Append("usuario", usuario, cookieOptions);
+                ViewBag.UsuarioName = usuario;
+                return Redirect("~/Home/Index");
         }
                 return NoContent();
 

@@ -71,7 +71,7 @@ namespace tfg_api.Controllers
         public async Task<ActionResult> GetAsignaturasUsuario(Guid idUsuario)
         {
             List<AsignaturaUsuarioGetSort> listAsignaturaUsuarioGetSort = new();
-            List<AsignaturaUsuario> listaNotas = await asignaturaUsuarioBBDD.AsignaturasUsuarios.ToListAsync();
+            List<AsignaturaUsuario> listaNotas = await asignaturaUsuarioBBDD.AsignaturasUsuarios.Where(p => p.IdUsuario.Equals(idUsuario)).ToListAsync();
 
             foreach(AsignaturaUsuario asignaturaUsuario in listaNotas)
             {

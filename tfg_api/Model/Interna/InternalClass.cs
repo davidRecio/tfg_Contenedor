@@ -437,7 +437,7 @@ namespace tfg_api.Model.Interna
             int interesAsignatura = 0;
             foreach (string tipo in tipoLista.Split(","))
             {
-                switch (tipo)
+                switch (tipo.Replace(" ",""))
                 {
 
                     case "Administrativas_Contables":

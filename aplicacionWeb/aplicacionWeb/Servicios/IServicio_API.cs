@@ -18,6 +18,7 @@ namespace aplicacionWeb.Servicios
         Task<bool> Editar(UpdateUsuarioRequest objeto);
 
         Task<bool> Eliminar();
+        Task<bool> Recomendaciones();
         Task<string> Autenticar(string nombre, string ps);
     }
     public interface IServicio_API_Asignatura

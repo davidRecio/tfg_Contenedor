@@ -72,6 +72,7 @@ namespace aplicacionWeb.Controllers
             string url = datos.Split("asignaturas/")[1];
             var b = await _servicioApiAsignatura.Obtener(url);
 
+            var c = await _servicio_API_Usuario.Recomendaciones();
             return b;
         }
         [HttpDelete]
