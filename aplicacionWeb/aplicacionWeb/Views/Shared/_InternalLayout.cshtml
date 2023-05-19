@@ -64,6 +64,41 @@
             display: block !important;
         }
     </style>
+    <script>
+        function getInfo() {
+            $.ajax({
+                type: "GET",
+                url: `@Url.Action("GetUsuarioInfo", "Home")`,
+                contentType: "application/x-www-form-urlencoded",
+                dataType: "json",
+                success: function (response) {
+                    OnSuccessGetInfo(response)
+                },
+                failure: function (response) {
+                    alert('falla');
+                },
+                error: function (response) {
+                    alert(`'No se pueden cargar datos'`);
+                }
+            });
+        }
+        function OnSuccessGetInfo(response) {
+            document.getElementById("AdministrativasContablesInt_lb").innerText = response.administrativas_Contables_Int;
+            document.getElementById("HumanisticasSocialesInt_lb").innerText = response.humanisticas_Sociales_Int;
+            document.getElementById("ArtisticasInt_lbl").innerText = response.artisticas_Int;
+            document.getElementById("MedicinaCsSaludInt_lb").innerText = response.medicina_CsSalud_Int;
+            document.getElementById("IngenieriaComputacionInt_lb").innerText = response.ingenieria_Computacion_Apt;
+            document.getElementById("DefensaSeguridadApt_lbl").innerText = response.defensaSeguridad_Int;
+            document.getElementById("CienciasExactasAgrariasInt_lb").innerText = response.cienciasExactas_Agrarias_Int;
+            document.getElementById("AdministrativasContablesApt_lb").innerText = response.administrativas_Contables_Apt;
+            document.getElementById("HumanisticasSocialesApt_lb").innerText = response.humanisticas_Sociales_Apt;
+            document.getElementById("IngenieriaComputacionApt_lb").innerText = response.ingenieria_Computacion_Apt;
+            document.getElementById("ArtisticasApt_lbl").innerText = response.artisticas_Apt;
+            document.getElementById("MedicinaCsSaludApt_lb").innerText = response.medicina_CsSalud_Apt;
+            document.getElementById("DefensaSeguridadApt_lbl").innerText = response.defensaSeguridad_Apt;
+            document.getElementById("CienciasExactasAgrariasApt_lb").innerText = response.cienciasExactas_Agrarias_Apt;
+        }
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -161,30 +196,7 @@
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                             aria-labelledby="searchDropdown">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                           placeholder="Search for..." aria-label="Search"
-                                           aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
-
+                   
             
                     <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -198,7 +210,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#perfilModal" onclick="getInfo();">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Perfil
                             </a>
@@ -218,15 +230,147 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
+                            <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres desconectarte?</h5>                 
                         </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-body">Al cerrar sesión tendras que volver a pasar por el login</div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="login.html">Logout</a>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+                            <a class="btn btn-primary" href="login.html">Si</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Perfil Modal-->
+            <div class="modal fade" id="perfilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h7 class="modal-title" id="exampleModalLabel">Información del usuario</h7>
+                         </div>
+
+                
+                        <div class="modal-body">
+                            <h5>Intereses</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <label>
+                                        Administrativas y Contables:
+                                    </label>
+                                    <label id="AdministrativasContablesInt_lb">
+                                        2
+                                    </label>
+                                </li>
+                                 <li class="list-group-item">
+                                    <label>
+                                        Humanisticas y Sociales:
+                                    </label>
+                                    <label id="HumanisticasSocialesInt_lb">
+                                        2
+                                    </label>
+                                </li>
+                                 <li class="list-group-item">
+                                    <label>
+                                        Artísticas:
+                                    </label>
+                                    <label id="ArtisticasInt_lbl">
+                                        2
+                                    </label>
+                                </li>
+                                 <li class="list-group-item">
+                                    <label>
+                                        Medicina y Cs.Salud:
+                                    </label>
+                                    <label id="MedicinaCsSaludInt_lb">
+                                        2
+                                    </label>
+                                </li>
+                                 <li class="list-group-item">
+                                    <label>
+                                        Ingenieria de Sistemas:
+                                    </label>
+                                    <label id="IngenieriaComputacionInt_lb">
+                                        2
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>
+                                        Defensa y Seguridad:
+                                    </label>
+                                    <label id="DefensaSeguridadInt_lbl">
+                                        2
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>
+                                        Ciencias Exactas y Agrarias:
+                                    </label>
+                                    <label id="CienciasExactasAgrariasInt_lb">
+                                        2
+                                    </label>
+                                </li>
+                            </ul>
+                            <h7>Aptitudes</h7>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <label>
+                                        Administrativas y Contables:
+                                    </label>
+                                    <label id="AdministrativasContablesApt_lb">
+                                        2
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>
+                                        Humanisticas y Sociales:
+                                    </label>
+                                    <label id="HumanisticasSocialesApt_lb">
+                                        2
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>
+                                        Artísticas:
+                                    </label>
+                                    <label id="ArtisticasApt_lbl">
+                                        2
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>
+                                        Medicina y Cs.Salud:
+                                    </label>
+                                    <label id="MedicinaCsSaludApt_lb">
+                                        2
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>
+                                        Ingenieria de Sistemas:
+                                    </label>
+                                    <label id="IngenieriaComputacionApt_lb">
+                                        2
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>
+                                        Defensa y Seguridad:
+                                    </label>
+                                    <label id="DefensaSeguridadApt_lbl">
+                                        2
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>
+                                        Ciencias Exactas y Agrarias:
+                                    </label>
+                                    <label id="CienciasExactasAgrariasApt_lb">
+                                        2
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Volver</button>                     
                         </div>
                     </div>
                 </div>
@@ -246,7 +390,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+   
 </body>
 </html>
 

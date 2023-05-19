@@ -18,12 +18,14 @@ namespace aplicacionWeb.Controllers
     {
         private IServicio_API_Asignatura _servicioApiAsignatura;
         private IServicio_API_Formulario _servicio_API_Formulario;
+        private IServicio_API_Usuario _servicio_API_Usuario;
 
-        public HomeController(IServicio_API_Asignatura servicioApiAsignatura, IServicio_API_Formulario servicio_API_Formulario)
+        public HomeController(IServicio_API_Asignatura servicioApiAsignatura, IServicio_API_Formulario servicio_API_Formulario, IServicio_API_Usuario servicio_API_Usuario)
         {
 
             _servicioApiAsignatura = servicioApiAsignatura;
             _servicio_API_Formulario = servicio_API_Formulario;
+            _servicio_API_Usuario = servicio_API_Usuario;
         }
 
         public IActionResult Index()
@@ -92,10 +94,10 @@ namespace aplicacionWeb.Controllers
             string riesgo = contentDatos[4];
            AsignaturaUsuarioUpdate asignaturaUsuarioUpdate = new()
             {
-    Nota=Double.Parse(nota),
-    TiempoEstudio=Int32.Parse(tiempoEstudio),
-    TiempoRecomendado= Int32.Parse(tiempoRecomendado),
-    Riesgo= Int32.Parse(riesgo)
+                Nota=Double.Parse(nota),
+                TiempoEstudio=Int32.Parse(tiempoEstudio),
+                TiempoRecomendado= Int32.Parse(tiempoRecomendado),
+                Riesgo= Int32.Parse(riesgo)
 
             };
             bool b = await _servicioApiAsignatura.Editar(asignaturaUsuarioUpdate, idAsignatura);
@@ -161,6 +163,13 @@ namespace aplicacionWeb.Controllers
             string[] contentDatos = datos.Split("€");
 
             var b = await _servicio_API_Formulario.GuardarRespuestas(contentDatos, 1);
+
+            return b;
+        }
+        [HttpGet]
+        public async Task<UsuarioGet> GetUsuarioInfo()
+        {
+            var b = await _servicio_API_Usuario.Obtener();
 
             return b;
         }
