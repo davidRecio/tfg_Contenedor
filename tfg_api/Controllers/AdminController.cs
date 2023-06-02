@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using tfg_api.Utils;
 using Microsoft.AspNetCore.Authorization;
 using tfg_api.Model.UsuarioContenedor;
-using Microsoft.EntityFrameworkCore;
+
 using Microsoft.IdentityModel.Tokens;
 
 namespace tfg_api.Controllers
@@ -18,14 +18,16 @@ namespace tfg_api.Controllers
        
         private readonly IWebHostEnvironment _env;
         private readonly UsuarioBBDD usuarioBBDD;
+        private readonly PreguntaFormularioBBDD preguntaFormularioBBDD;
         #region - Constructores -
         /// <summary>
         /// Constructor por defecto
         /// </summary>
-        public AdminController(IWebHostEnvironment env, UsuarioBBDD usuarioBBDD)
+        public AdminController(IWebHostEnvironment env, UsuarioBBDD usuarioBBDD, PreguntaFormularioBBDD preguntaFormularioBBDD)
         {
             _env = env;
             this.usuarioBBDD = usuarioBBDD;
+            this.preguntaFormularioBBDD = preguntaFormularioBBDD;
         }
         #endregion
 
@@ -132,18 +134,21 @@ namespace tfg_api.Controllers
             try {
         
 
-                InteracionBBDD interacionBBDD = new();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD0.sql");
+                InteracionBBDD interacionBBDD = new(preguntaFormularioBBDD,usuarioBBDD);
+
+                interacionBBDD.CargarBBDD(".\\SQL\\ScriptBBDD0.sql");
                 Task.Delay(1000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD1.sql");
+                interacionBBDD.CargarBBDD(".\\SQL\\ScriptBBDD1.sql");
                 Task.Delay(1000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD2.sql");
+                interacionBBDD.CargarBBDD(".\\SQL\\ScriptBBDD2.sql");
                 Task.Delay(1000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD3.sql");
+                interacionBBDD.CargarBBDD(".\\SQL\\ScriptBBDD3.sql");
                 Task.Delay(5000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD4.sql");
+                interacionBBDD.CargarBBDD(".\\SQL\\ScriptBBDD4.sql");
                 Task.Delay(5000).Wait();
-                interacionBBDD.CargarBBDD("C:\\Users\\david\\Documents\\GitHub\\tfg_Contenedor\\tfg_api\\SQL\\ScriptBBDD5.sql");
+                interacionBBDD.InsertarDatos();
+                Task.Delay(5000).Wait();
+                interacionBBDD.CargarBBDD(".\\SQL\\ScriptBBDD5.sql");
                 return StatusCode(200);
             }
             catch (Exception ex)

@@ -9,7 +9,7 @@
             controlador de aministracion
             </summary>
         </member>
-        <member name="M:tfg_api.Controllers.AdminController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,tfg_api.DDBB.UsuarioBBDD)">
+        <member name="M:tfg_api.Controllers.AdminController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,tfg_api.DDBB.UsuarioBBDD,tfg_api.DDBB.PreguntaFormularioBBDD)">
             <summary>
             Constructor por defecto
             </summary>

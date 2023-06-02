@@ -2,6 +2,7 @@
 using aplicacionWeb.Model.UsuarioContenedor;
 using aplicacionWeb.Servicios;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics;
 using System.Net;
 
@@ -42,7 +43,10 @@ namespace aplicacionWeb.Controllers
             }
 
             if (respuesta)
-                return RedirectToAction("Index");
+            {
+                this.HttpContext.Session.SetString("UserName", usuario);
+                return RedirectToAction("Index", "Home");
+            }    
             else
                 return NoContent();
 
@@ -56,7 +60,7 @@ namespace aplicacionWeb.Controllers
                 Nombre = usuario,
                 Pass = pass,
             };
-
+            
             if (!usuario.Equals("") || !pass.Equals(""))
             {
                 respuesta = _servicioApiUsuario.Autenticar(usuario, pass).Result;
@@ -76,7 +80,8 @@ namespace aplicacionWeb.Controllers
                 Response.Cookies.Append("token", respuesta,cookieOptions);
                 Response.Cookies.Append("usuario", usuario, cookieOptions);
                 ViewBag.UsuarioName = usuario;
-                return Redirect("~/Home/Index");
+                this.HttpContext.Session.SetString("UserName", usuario);
+                return RedirectToAction("Index","Home");
         }
                 return NoContent();
 
