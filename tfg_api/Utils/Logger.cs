@@ -74,18 +74,21 @@ namespace tfg_api.Utils
             {
                 string date = DateTime.Now.ToString().Split()[0].Replace('/', '-');
                 var config = new NLog.Config.LoggingConfiguration();
-
-                //Si es la conexión por SSL se crea otro fichero
-                var logfile = new NLog.Targets.FileTarget("logfile") { FileName = "Logs/Log_File_" + date + ".txt" };
-
+            string directorioActual = Directory.GetCurrentDirectory();
+            //Si es la conexión por SSL se crea otro fichero
+            var logfile = new NLog.Targets.FileTarget("logfile")
+            {
+                //FileName = "./Logs/Log_File_" + date + ".txt",   
+                FileName = directorioActual+"/Logs/Log_File_" + date + ".txt",              
                 //if (HttpContext.Current != null && HttpContext.Current.Request.IsSecureConnection)
                 //{
                 //    logfile = new NLog.Targets.FileTarget("logfile") { FileName = "Logs/Log_File_" + date + "_SSL.txt" };
                 //}
 
-                logfile.Encoding = System.Text.Encoding.UTF8;
+                Encoding = System.Text.Encoding.UTF8
+            };
 
-                var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
                 config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
                 config.AddRule(LogLevel.Trace, LogLevel.Fatal, logfile);
                 NLog.LogManager.Configuration = config;

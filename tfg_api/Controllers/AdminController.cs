@@ -201,7 +201,7 @@ namespace tfg_api.Controllers
             catch (Exception ex)
             {
                 Logs.Error("ID: " + ID_LOG + ", Error ws: " + ex.Message + ", IP: " + IP + " URL: " + URL);
-                throw ex;
+                return Unauthorized();
             }
         }
 

@@ -1,0 +1,21 @@
+2023-06-03 15:58:10.9755|TRACE|tfg_api.Utils.Logs|Controller.|ID: 14uL2vae0CZhBwubHAVVQ, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: david.FromBody: null
+2023-06-03 15:58:11.0452|TRACE|tfg_api.Utils.Logs|Controller.|ID: 14uL2vae0CZhBwubHAVVQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 15:58:24.6627|ERROR|tfg_api.Utils.Logs|Controller.|ID: 14uL2vae0CZhBwubHAVVQ, Error ws: Object reference not set to an instance of an object., IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 15:58:55.7028|TRACE|tfg_api.Utils.Logs|Controller.|ID: MJrjHjH0Sg38Z8gQYLg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-03 15:58:55.7028|TRACE|tfg_api.Utils.Logs|Controller.|ID: MJrjHjH0Sg38Z8gQYLg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 19:10:49.3564|TRACE|tfg_api.Utils.Logs|Controller.|ID: e6NQH0dH0iWLb569CRkgw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-03 19:10:49.3564|TRACE|tfg_api.Utils.Logs|Controller.|ID: e6NQH0dH0iWLb569CRkgw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 19:13:14.2814|TRACE|tfg_api.Utils.Logs|Controller.|ID: hg1BOrwEmjYDHgmUn7vA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: david.FromBody: null
+2023-06-03 19:13:14.2814|TRACE|tfg_api.Utils.Logs|Controller.|ID: hg1BOrwEmjYDHgmUn7vA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 19:14:26.4786|TRACE|tfg_api.Utils.Logs|Controller.|ID: hKalfg57J0ye1w0TkAMWhw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: david.FromBody: null
+2023-06-03 19:14:26.4834|TRACE|tfg_api.Utils.Logs|Controller.|ID: hKalfg57J0ye1w0TkAMWhw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 19:14:41.6298|TRACE|tfg_api.Utils.Logs|Controller.|ID: wTOnDFiIe0anjyLeWiehIw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-03 19:14:41.6298|TRACE|tfg_api.Utils.Logs|Controller.|ID: wTOnDFiIe0anjyLeWiehIw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 19:26:01.9450|TRACE|tfg_api.Utils.Logs|Controller.|ID: VpPVAX42NUaHPrjOEUYnLQ, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: david.FromBody: null
+2023-06-03 19:26:01.9504|TRACE|tfg_api.Utils.Logs|Controller.|ID: VpPVAX42NUaHPrjOEUYnLQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 21:39:31.9973|TRACE|tfg_api.Utils.Logs|Controller.|ID: KPS4UNIRZEav974Sqexe3A, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-03 21:39:32.0387|TRACE|tfg_api.Utils.Logs|Controller.|ID: KPS4UNIRZEav974Sqexe3A, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 21:52:50.4237|TRACE|tfg_api.Utils.Logs|Controller.|ID: jY64mYHbEEe6ILgg8C4iw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-03 21:52:50.4237|TRACE|tfg_api.Utils.Logs|Controller.|ID: jY64mYHbEEe6ILgg8C4iw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-03 21:53:17.4744|TRACE|tfg_api.Utils.Logs|Controller.|ID: lQQVHd4nPEKNJp0vGbJveA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-03 21:53:17.4817|TRACE|tfg_api.Utils.Logs|Controller.|ID: lQQVHd4nPEKNJp0vGbJveA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
