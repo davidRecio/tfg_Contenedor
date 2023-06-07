@@ -110,7 +110,7 @@ namespace tfg_api.Controllers
                 }
 
                 //Obtenemos los resultados
-                resultados = utils.GetRegistrosLog(_env.ContentRootPath + "Logs", anio, mes, dia, p2, p1, p5);
+                resultados = utils.GetRegistrosLog(_env.ContentRootPath + "/Logs", anio, mes, dia, p2, p1, p5);
 
                 ////Si no tiene que incluir los de admin los quitamos 
                 //if (!p4 && string.IsNullOrEmpty(p2))

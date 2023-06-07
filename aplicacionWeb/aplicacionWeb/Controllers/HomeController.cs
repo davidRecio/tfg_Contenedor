@@ -51,7 +51,11 @@ namespace aplicacionWeb.Controllers
 
             return View();
         }
+        public IActionResult Manual()
+        {
 
+            return View();
+        }
         [HttpGet]
         public async Task<List<AsignaturaUsuarioGetSort>> GetDatosListaAsignaturaUsuario()
         {

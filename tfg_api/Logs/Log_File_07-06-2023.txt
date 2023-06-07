@@ -1,0 +1,18 @@
+2023-06-07 12:36:18.0073|TRACE|tfg_api.Utils.Logs|Controller.|ID: hJCyLwf3wEitB9CBFnNBuA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-07 12:36:18.0577|TRACE|tfg_api.Utils.Logs|Controller.|ID: hJCyLwf3wEitB9CBFnNBuA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-07 12:37:24.3644|TRACE|tfg_api.Utils.Logs|Controller.|ID: pJSKprzok2RESdS7UpdSg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/logs USER: admin.FromBody: null
+2023-06-07 12:37:24.4705|ERROR|tfg_api.Utils.Logs|Controller.|ID: pJSKprzok2RESdS7UpdSg, Error ws: Could not find a part of the path 'C:\Users\david\Documents\GitHub\tfg_Contenedor\tfg_apiLogs'., IP: localhost:7076 URL: /api/admin/logs.FromBody: null
+2023-06-07 12:39:05.8925|TRACE|tfg_api.Utils.Logs|Controller.|ID: oLF8Jf9z060ZgXwvMr24g, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-07 12:39:05.8964|TRACE|tfg_api.Utils.Logs|Controller.|ID: oLF8Jf9z060ZgXwvMr24g, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-07 12:39:31.7840|TRACE|tfg_api.Utils.Logs|Controller.|ID: 5AMxCNfJ0udlxPcl6ZrWQ, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/logs USER: admin.FromBody: null
+2023-06-07 12:39:31.8509|ERROR|tfg_api.Utils.Logs|Controller.|ID: 5AMxCNfJ0udlxPcl6ZrWQ, Error ws: The process cannot access the file 'C:\Users\david\Documents\GitHub\tfg_Contenedor\tfg_api\Logs\Log_File_07-06-2023.txt' because it is being used by another process., IP: localhost:7076 URL: /api/admin/logs.FromBody: null
+2023-06-07 12:40:47.3125|TRACE|tfg_api.Utils.Logs|Controller.|ID: vZFRFMyxiEaauYTdOFHpA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/logs USER: admin.FromBody: null
+2023-06-07 12:40:50.5122|TRACE|tfg_api.Utils.Logs|Controller.|ID: vZFRFMyxiEaauYTdOFHpA, Fin llamada WS, resultados: 2, IP: localhost:7076 URL: /api/admin/logs.FromBody: null
+2023-06-07 21:38:30.8674|TRACE|tfg_api.Utils.Logs|Controller.|ID: RvOBQiF6o0alu25hykxQg, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: david.FromBody: null
+2023-06-07 21:38:30.8674|TRACE|tfg_api.Utils.Logs|Controller.|ID: RvOBQiF6o0alu25hykxQg, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-07 23:23:06.6480|TRACE|tfg_api.Utils.Logs|Controller.|ID: elQ8QFOg0une10NMZkhQ, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: david.FromBody: null
+2023-06-07 23:23:06.6480|TRACE|tfg_api.Utils.Logs|Controller.|ID: elQ8QFOg0une10NMZkhQ, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-07 23:48:15.9272|TRACE|tfg_api.Utils.Logs|Controller.|ID: sQ2uWHHGk2N2KV66V9VA, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-07 23:48:15.9272|TRACE|tfg_api.Utils.Logs|Controller.|ID: sQ2uWHHGk2N2KV66V9VA, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
+2023-06-07 23:54:27.2682|TRACE|tfg_api.Utils.Logs|Controller.|ID: 2cAlpocGkkyHQ84HwILzw, Inicio llamada WS, IP: localhost:7076 URL: /api/admin/login USER: admin.FromBody: null
+2023-06-07 23:54:27.2776|TRACE|tfg_api.Utils.Logs|Controller.|ID: 2cAlpocGkkyHQ84HwILzw, Fin llamada WS, resultados: 1, IP: localhost:7076 URL: /api/admin/login.FromBody: null
