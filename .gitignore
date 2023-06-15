@@ -3,3 +3,16 @@ plantillas/*
 Doc/plantillas/david-recio-memoria.docx
 Doc/plantillas/gist-tfg-jarradi-memoria-3.pdf
 Doc/plantillas/Gmail - RV Comentarios sobre tu TFG.pdf
+tfg_api/bin/Release/net7.0/Swashbuckle.AspNetCore.Swagger.dll
+tfg_api/bin/Release/net7.0/Swashbuckle.AspNetCore.Annotations.dll
+*.v2
+*.v2
+*.v2
+*.pdb
+*.dll
+aplicacionWeb/aplicacionWeb/bin/Debug/net7.0/aplicacionWeb.dll
+aplicacionWeb/.vs/aplicacionWeb/FileContentIndex/06d568be-9c2e-4650-acaa-1f1bf149a009.vsidx
+*.v2
+aplicacionWeb/aplicacionWeb/bin/*
+aplicacionWeb/aplicacionWeb/obj/*
+tfg_api/bin/*
